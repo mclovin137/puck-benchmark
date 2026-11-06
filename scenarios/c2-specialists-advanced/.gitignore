@@ -1,0 +1,11 @@
+# Puck: segredos e artefatos locais
+.env
+.env.*
+!.env.example
+relatorio/
+.contexto/
+node_modules/
+dist/
+target/
+*.log
+__pycache__/
