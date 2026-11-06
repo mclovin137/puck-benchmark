@@ -21,3 +21,55 @@ class TelemetryTests(unittest.TestCase):
         self.assertEqual(t.activity_category('codigo','revisao'),'codigo')
 
 if __name__=='__main__':unittest.main()
+
+class RegressionTests(unittest.TestCase):
+    def test_null_then_number(self):
+        for field in t.TOKENS:
+            rows=[{field:None},{field:10},{field:None}]
+            result=t.aggregate(rows)[0]
+            self.assertEqual(result[field],10)
+            self.assertEqual(result[field+'_observations'],1)
+
+    def test_fork_own_metadata_keeps_parent_child_grandchild(self):
+        import tempfile,json
+        parent='11111111-1111-1111-1111-111111111111'
+        child='22222222-2222-2222-2222-222222222222'
+        grand='33333333-3333-3333-3333-333333333333'
+        def meta(sid,up=None,agent='/root'):
+            return {'type':'session_meta','payload':{'id':sid,'source':{'subagent':{'thread_spawn':{'parent_thread_id':up,'agent_path':agent}}}}}
+        with tempfile.TemporaryDirectory() as d:
+            p=Path(d)
+            (p/f'rollout-{parent}.jsonl').write_text(json.dumps(meta(parent))+'\n')
+            (p/f'rollout-{child}.jsonl').write_text('\n'.join(map(json.dumps,[meta(parent),{'type':'response_item','payload':{'content':'untrusted data'}},meta(child,parent,'/root/c1')]))+'\n')
+            (p/f'rollout-{grand}.jsonl').write_text('\n'.join(map(json.dumps,[meta(parent),meta(child,parent,'/root/c1'),meta(grand,child,'/root/c1/yoda')]))+'\n')
+            found=t.discover(p,parent)
+            self.assertEqual(set(found),{parent,child,grand})
+            self.assertEqual(found[parent]['path'].name,f'rollout-{parent}.jsonl')
+            self.assertEqual(found[grand]['agent'],'/root/c1/yoda')
+
+    def test_source_without_pin_fails_closed(self):
+        import tempfile
+        with tempfile.TemporaryDirectory() as d:
+            with self.assertRaises((ValueError,RuntimeError)):
+                t.load_native(d)
+
+class NativeIntegrationTests(unittest.TestCase):
+    def test_native_roundtrip_is_idempotent(self):
+        import json,sqlite3,tempfile,os
+        source=Path(os.environ.get('PUCK_SOURCE','/tmp/puck-benchmark-source'))
+        if not source.is_dir():
+            self.skipTest('Fonte Puck indisponível; executar com PUCK_SOURCE no checkout fixado')
+        native=t.load_native(source)
+        sid='44444444-4444-4444-4444-444444444444';stamp='2026-11-06T00:00:00Z'
+        records=[{'type':'session_meta','payload':{'id':sid}},
+            {'type':'turn_context','payload':{'turn_id':'synthetic-turn','model':'gpt-6-luna','effort':'medium'}},
+            {'type':'token_usage_record','timestamp':stamp,'payload':{'thread_id':sid,'turn_id':'synthetic-turn','response_id':'synthetic-response','usage':{'input_tokens':100,'cached_input_tokens':80,'output_tokens':10,'reasoning_output_tokens':3}}}]
+        with tempfile.TemporaryDirectory() as d:
+            path=Path(d)/f'rollout-{sid}.jsonl';path.write_text(''.join(json.dumps(r)+'\n' for r in records))
+            db=sqlite3.connect(':memory:');native.init_db(db)
+            count,errors=native.ingest(db,'codex',Path(d),None,False)
+            self.assertEqual(errors,0);self.assertEqual(count,1)
+            native.ingest(db,'codex',Path(d),None,False)
+            self.assertEqual(db.execute('select count(*) from usage').fetchone()[0],1)
+            row=db.execute('select input_tokens,cache_read_tokens,output_tokens,reasoning_tokens,model,effort from usage').fetchone()
+            self.assertEqual(row,(100,80,10,3,'gpt-6-luna','medium'));db.close()

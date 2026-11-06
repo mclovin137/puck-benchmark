@@ -7,9 +7,11 @@ import hashlib
 import importlib.util
 import json
 import os
+import re
 from pathlib import Path
 import sqlite3
 import sys
+import subprocess
 import time
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -23,6 +25,13 @@ def now():
 
 
 def load_native(source):
+    try:
+        commit = subprocess.run(['git','-C',str(source),'rev-parse','HEAD'],check=True,capture_output=True,text=True).stdout.strip()
+        clean = subprocess.run(['git','-C',str(source),'diff','--quiet','HEAD','--'],capture_output=True)
+    except (OSError,subprocess.CalledProcessError) as exc:
+        raise ValueError('Fonte Puck não verificável') from exc
+    if commit != PIN or clean.returncode != 0:
+        raise ValueError('Fonte Puck diverge do commit congelado')
     file = Path(source) / 'agents/scripts/monitor-tokens.py'
     spec = importlib.util.spec_from_file_location('puck_token_collector', file)
     mod = importlib.util.module_from_spec(spec)
@@ -34,6 +43,10 @@ def load_native(source):
 def append_phase(agent, phase, scenario, task):
     if phase not in PHASES:
         raise ValueError('fase inválida')
+    if not re.fullmatch(r'/root(?:/[a-z0-9_]{1,40}){0,5}',agent):
+        raise ValueError('agente inválido')
+    if scenario not in ('C1','C2','C3','C4','overhead') or not re.fullmatch(r'[a-z0-9][a-z0-9_-]{0,63}',task):
+        raise ValueError('cenário/tarefa inválidos')
     path = ROOT / 'experiment/results/phases.jsonl'
     event = {'timestamp': now(), 'agent': agent, 'phase': phase, 'scenario': scenario,
              'run': 1, 'task': task, 'correlation': hashlib.sha256((agent + now()).encode()).hexdigest()[:16]}
@@ -59,7 +72,7 @@ def aggregate(rows):
             value = r.get(field)
             g[field + '_observations'] = g.get(field + '_observations', 0) + (value is not None)
             if value is not None:
-                g[field] = g.get(field, 0) + value
+                g[field] = (g.get(field) or 0) + value
             else:
                 g.setdefault(field, None)
     return list(groups.values())
@@ -69,16 +82,30 @@ def discover(logs, parent):
     metadata = {}
     for path in Path(logs).rglob('*.jsonl'):
         try:
-            with path.open() as f:
-                # Session_meta is the first record for non-fork sessions; no content retained.
-                record = json.loads(f.readline())
-            if record.get('type') != 'session_meta':
+            match = re.search(r'[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}',path.name)
+            if not match:
                 continue
-            m = record.get('payload', {})
+            own_id = match.group(0)
+            with path.open() as f:
+                m = None
+                for line in f:
+                    # Ignore all non-metadata lines, including inherited conversation.
+                    if '"session_meta"' not in line:
+                        continue
+                    record = json.loads(line)
+                    payload = record.get('payload',{})
+                    if record.get('type') == 'session_meta' and payload.get('id') == own_id:
+                        m = payload
+                        break
+            if m is None:
+                continue
             source = m.get('source', {})
             spawn = source.get('subagent', {}).get('thread_spawn', {}) if isinstance(source, dict) else {}
+            agent = spawn.get('agent_path', '/root' if m['id'] == parent else None)
+            if agent is not None and not re.fullmatch(r'/root(?:/[a-z0-9_]{1,40}){0,5}',agent):
+                agent = None
             metadata[m['id']] = {'path': path, 'parent': spawn.get('parent_thread_id'),
-                                  'agent': spawn.get('agent_path', '/root' if m['id'] == parent else None),
+                                  'agent': agent,
                                   'role': m.get('agent_role')}
         except (ValueError, OSError, KeyError):
             continue
@@ -120,7 +147,9 @@ def collect(args):
         choices = [e for e in phases if e['agent'] == agent and e['timestamp'] <= (r['timestamp'] or '')]
         phase = max(choices, key=lambda e:e['timestamp']) if choices else {}
         row = {k:r.get(k) for k in ('timestamp','model','effort',*TOKENS)}
-        row.update(scenario=phase.get('scenario','overhead'), run=phase.get('run',1), task=phase.get('task'),
+        scenario_match = re.match(r'^/root/c([1-4])(?:/|$)',agent)
+        scenario = 'C' + scenario_match.group(1) if scenario_match else 'overhead'
+        row.update(scenario=phase.get('scenario',scenario), run=phase.get('run',1), task=phase.get('task'),
                    agent=agent, phase=phase.get('phase','nao_disponivel'),
                    category=activity_category(r.get('activity'),phase.get('phase')),
                    correlation=hashlib.sha256(r['event_id'].encode()).hexdigest()[:24],

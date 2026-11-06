@@ -1,0 +1,22 @@
+{
+  "at": "2026-11-06T01:51:02.846168+00:00",
+  "capture_disabled_proven": false,
+  "note": "A ausência de ferramentas memory nesta sessão não desativa captura por hooks. Dados financeiros são sintéticos; conteúdo de conversas não é publicado. O ambiente de agentes compartilha filesystem e credenciais do host, limitação de isolamento explicitamente não resolvida.",
+  "hooks.json": {
+    "sha256": "e861320cf1d4b20bacdb461bbc47050f7151ac7049fcb1fb4c2bee22ed512cf3",
+    "present": true,
+    "events": [
+      "PostToolUse",
+      "PreCompact",
+      "PreToolUse",
+      "SessionEnd",
+      "SessionStart",
+      "Stop",
+      "UserPromptSubmit"
+    ]
+  },
+  "config.toml": {
+    "sha256": "9aea4a913f28a537fa772615ff4a5f5aaebc4cd234b27d349a5fc8eb9517c5e1",
+    "present": true
+  }
+}
