@@ -2,6 +2,7 @@
 """Sobe somente projeto Compose efêmero próprio e executa aceite compartilhado."""
 import argparse
 import datetime as dt
+import ipaddress
 import json
 import os
 from pathlib import Path
@@ -9,7 +10,7 @@ import secrets
 import subprocess
 import sys
 import time
-from urllib.request import urlopen
+from urllib.request import build_opener,ProxyHandler
 from urllib.error import HTTPError,URLError
 
 ROOT=Path(__file__).resolve().parents[2]
@@ -19,15 +20,24 @@ SCENARIOS={'C1':'c1-specialists-economy','C2':'c2-specialists-advanced','C3':'c3
 def stamp():return dt.datetime.now(dt.timezone.utc).isoformat()
 
 
+def local_url(port):
+    address=ipaddress.ip_address(port.get('host_ip','0.0.0.0'))
+    if not address.is_loopback:raise ValueError('Publicação fora da interface loopback')
+    published=int(port['published'])
+    if not 1<=published<=65535:raise ValueError('Porta publicada inválida')
+    host='['+str(address)+']' if address.version==6 else str(address)
+    return 'http://'+host+':'+str(published)
+
+
 def published_urls(config):
     api=None;web=None
     services=config.get('services',{})
     for name,service in services.items():
         for port in service.get('ports',[]):
             if not isinstance(port,dict) or not port.get('published'):continue
-            target=int(port['target']);published=int(port['published'])
+            target=int(port['target'])
+            url=local_url(port)
             if target==5432:continue
-            url='http://127.0.0.1:'+str(published)
             if name in ('backend','api','server') or target==8080:api=url+'/api'
             elif name in ('frontend','web','client') or target in (80,5173,3000):web=url
     if not api or not web:raise ValueError('Compose precisa expor backend e frontend em portas identificáveis')
@@ -40,11 +50,55 @@ def assert_owned_volumes(config,project):
             raise ValueError('Avaliação recusa volume externo, compartilhado ou fora do projeto efêmero')
 
 
+def assert_owned_resources(config,project,directory):
+    assert_owned_volumes(config,project)
+    scope=directory.resolve()
+    def within_scope(value):
+        if '://' in str(value):return False
+        path=Path(value)
+        return (path if path.is_absolute() else scope/path).resolve().is_relative_to(scope)
+    for network in config.get('networks',{}).values():
+        if network.get('external') or network.get('driver') not in (None,'bridge') or network.get('driver_opts') or not str(network.get('name','')).startswith(project+'_'):
+            raise ValueError('Rede fora do projeto efêmero')
+    for section in ('configs','secrets'):
+        for resource in config.get(section,{}).values():
+            if resource.get('external') or resource.get('environment') or (resource.get('file') and not within_scope(resource['file'])):
+                raise ValueError('Configuração ou segredo fora do escopo do cenário')
+    for service in config.get('services',{}).values():
+        if any(service.get(k) for k in ('privileged','devices','device_cgroup_rules','cap_add','volumes_from','external_links','provider','post_start','pre_stop')):
+            raise ValueError('Serviço amplia acesso ao host')
+        if any(service.get(k) not in (None,'private') for k in ('pid','ipc')) or service.get('network_mode'):
+            raise ValueError('Namespace compartilhado fora do modo permitido')
+        if any(str(opt).lower() not in ('no-new-privileges','no-new-privileges:true') for opt in service.get('security_opt',[])):
+            raise ValueError('Controles do container reduzidos')
+        for mount in service.get('volumes',[]):
+            kind=mount.get('type')
+            if kind=='bind' and (not mount.get('source') or not within_scope(mount['source'])):
+                raise ValueError('Bind mount fora do diretório do cenário')
+            if kind=='volume' and mount.get('source') and mount['source'] not in config.get('volumes',{}):
+                raise ValueError('Volume de serviço não declarado no projeto')
+            if kind not in ('bind','volume','tmpfs'):
+                raise ValueError('Tipo de montagem não permitido')
+        build=service.get('build')
+        if build:
+            if isinstance(build,str):build={'context':build}
+            context=build.get('context',str(scope))
+            if not within_scope(context):raise ValueError('Contexto de build fora do cenário')
+            dockerfile=build.get('dockerfile')
+            if dockerfile:
+                context_path=Path(context) if Path(context).is_absolute() else scope/context
+                if not within_scope(context_path/dockerfile):raise ValueError('Dockerfile fora do cenário')
+            if build.get('additional_contexts') or build.get('ssh'):raise ValueError('Contextos adicionais ou SSH exigem escopo explícito')
+        for port in service.get('ports',[]):
+            if isinstance(port,dict) and port.get('published'):local_url(port)
+
+
 def wait_http(url,expected,timeout=120):
     end=time.monotonic()+timeout
+    opener=build_opener(ProxyHandler({}))
     while time.monotonic()<end:
         try:
-            with urlopen(url,timeout=5) as response:status=response.status
+            with opener.open(url,timeout=5) as response:status=response.status
         except HTTPError as error:status=error.code
         except (URLError,TimeoutError,OSError):status=None
         if status in expected:return
@@ -59,8 +113,9 @@ def main():
     if len(files)!=1:raise SystemExit('Exigir exatamente um Compose por cenário')
     project='benchmark-eval-'+a.scenario.lower()+'-'+secrets.token_hex(4)
     command=['docker','compose','-p',project,'-f',str(files[0])]
-    private=ROOT/'.private';private.mkdir(mode=0o700,exist_ok=True)
-    env=os.environ.copy();password=secrets.token_urlsafe(36)
+    private=ROOT/'.private';private.mkdir(mode=0o700,exist_ok=True);private.chmod(0o700)
+    allowed=('PATH','HOME','DOCKER_HOST','DOCKER_CONTEXT','DOCKER_CONFIG','XDG_RUNTIME_DIR','TMPDIR','LANG','LC_ALL','GITHUB_ACTIONS')
+    env={key:os.environ[key] for key in allowed if key in os.environ};password=secrets.token_urlsafe(36)
     for key in ('POSTGRES_PASSWORD','DB_PASSWORD','DATABASE_PASSWORD','SPRING_DATASOURCE_PASSWORD'):env[key]=password
     for key in ('JWT_SECRET','APP_SECRET','TOKEN_SECRET'):env[key]=secrets.token_urlsafe(48)
     if env.get('GITHUB_ACTIONS')=='true':
@@ -73,7 +128,7 @@ def main():
         try:
             raw=subprocess.run(command+['config','--format','json'],cwd=directory,env=env,check=True,capture_output=True,text=True)
             config=json.loads(raw.stdout)
-            assert_owned_volumes(config,project)
+            assert_owned_resources(config,project,directory)
             api,web=published_urls(config);result.update(api=api,web=web)
             resources_owned=True
             result['stage']='startup'
@@ -81,10 +136,14 @@ def main():
             result['stage']='readiness';wait_http(api+'/transactions',{401});wait_http(web,{200})
             result['stage']='acceptance'
             proc=subprocess.run([sys.executable,str(ROOT/'benchmark/scripts/acceptance.py'),'--base',api,'--scenario',a.scenario,'--output',str(ROOT/'experiment/results'/(a.scenario.lower()+'-acceptance.json'))],cwd=ROOT,env=env,stdout=log,stderr=log)
-            code=proc.returncode;result['success']=code==0
+            code=proc.returncode
             result['commit']=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,check=True,capture_output=True,text=True).stdout.strip()
-            if code==0:result['stage']='complete'
+            dirty=subprocess.run(['git','status','--porcelain','--untracked-files=all','--',str(directory.relative_to(ROOT))],cwd=ROOT,check=True,capture_output=True,text=True).stdout.strip()
+            result['source_clean']=not bool(dirty)
+            if dirty:raise ValueError('Fonte do cenário não corresponde a um commit limpo')
+            if code==0:result['success']=True;result['stage']='complete'
         except (subprocess.CalledProcessError,ValueError,TimeoutError,OSError) as error:
+            code=1;result['success']=False
             result['error_type']=type(error).__name__
         finally:
             cleanup=subprocess.run(command+['down','--volumes','--remove-orphans'],cwd=directory,env=env,stdout=log,stderr=log) if resources_owned else None
