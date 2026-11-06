@@ -1,9 +1,9 @@
 # Roadmap
 
 ## v0.1 — Preparação
-1. Auditar e fixar Puck e especificação.
-2. Congelar configurações, contratos e protocolo.
-3. Instrumentar e validar coleta e avaliador externo.
+1. Auditar e fixar Puck e especificação — integrado pelo PR #1.
+2. Congelar configurações, contratos e protocolo — integrado pelo PR #1.
+3. Instrumentar e validar coleta — integrado pelo PR #1; avaliador externo em implementação.
 4. Aplicar governança equivalente aos quatro cenários.
 
 ## v0.2 — Implementações independentes

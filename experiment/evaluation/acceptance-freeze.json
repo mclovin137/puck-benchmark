@@ -1,0 +1,22 @@
+{
+  "frozen_at": "2026-11-06T01:51:54.378226+00:00",
+  "file": "benchmark/scripts/acceptance.py",
+  "sha256": "2b291d277ecfbda0a02d2a499abc5be14eaf661ab6eab31ad0892351166db484",
+  "tests": 16,
+  "shared_for": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "author": "external-evaluator",
+  "status": "defined-before-observing-application-results",
+  "scope": "HTTP acceptance; browser, dependency scans, architecture and process scored separately",
+  "revisions": [
+    {
+      "at": "2026-11-06T02:00:58.345799+00:00",
+      "previous_sha256": "a716622842f22a5f240e80b60c3261d920209407f8677ca594af69cb78805e3b",
+      "reason": "Sanitizar motivos publicados de asserção: conteúdo HTTP bruto fica somente nos logs privados. Nenhum teste, dado ou critério alterado; nenhum aceite de aplicação observado."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "C1": {
+    "state": "implementacao_e_testes_locais",
+    "run": 1
+  },
+  "C2": {
+    "state": "preparado_aguardando_agendamento",
+    "run": 1
+  },
+  "C3": {
+    "state": "nao_iniciado",
+    "run": 1
+  },
+  "C4": {
+    "state": "nao_iniciado",
+    "run": 1
+  }
+}

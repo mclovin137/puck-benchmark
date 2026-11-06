@@ -130,7 +130,7 @@ def collect(args):
     native = load_native(args.puck)
     db = sqlite3.connect(private / 'usage.sqlite3', timeout=30)
     native.init_db(db)
-    processed, errors = native.ingest(db, 'codex', selected, None, False)
+    processed, errors = native.ingest(db, 'codex', selected, None, args.reprocess)
     db.commit()
     db.row_factory = sqlite3.Row
     phases = []
@@ -161,7 +161,8 @@ def collect(args):
               'notes':['Cache is a subset of input; reasoning is a subset of output.',
                        'Categories are response-level associations, not causal allocation of context.',
                        'Unknown tokens are null. Subscription billing and active time unavailable.',
-                       'No financial sum across overlapping skill associations.'],
+                       'No financial sum across overlapping skill associations.',
+                       'Activity uses unmodified native Puck detection only; nested exec wrappers can be unclassified.'],
               'groups':aggregate(rows)}
     (ROOT/'reports/token-breakdown.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     with (ROOT/'reports/token-events.jsonl').open('w') as f:
@@ -170,17 +171,19 @@ def collect(args):
     groups=report['groups']
     with (ROOT/'reports/token-breakdown.csv').open('w',newline='') as f:
         fields=['scenario','run','agent','model','effort','phase','category','responses']+[x for t in TOKENS for x in (t,t+'_observations')]
-        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(groups)
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n');w.writeheader();w.writerows(groups)
     print(json.dumps({'responses':len(rows),'sessions':len(metadata),'new_records':processed,'errors':errors}))
 
 
 def main():
     p=argparse.ArgumentParser();sub=p.add_subparsers(dest='cmd',required=True)
     phase=sub.add_parser('phase');phase.add_argument('--agent',required=True);phase.add_argument('--phase',choices=PHASES,required=True);phase.add_argument('--scenario',required=True);phase.add_argument('--task',required=True)
-    c=sub.add_parser('collect');c.add_argument('--puck',required=True);c.add_argument('--logs',default=str(Path.home()/'.codex/sessions'));c.add_argument('--parent',required=True);c.add_argument('--watch',type=int,default=0)
+    c=sub.add_parser('collect');c.add_argument('--puck',required=True);c.add_argument('--logs',default=str(Path.home()/'.codex/sessions'));c.add_argument('--parent',required=True);c.add_argument('--watch',type=int,default=0);c.add_argument('--reprocess',action='store_true')
     a=p.parse_args()
     if a.cmd=='phase':
         append_phase(a.agent,a.phase,a.scenario,a.task);return
+    if a.watch and a.reprocess:
+        p.error('--reprocess não combina com --watch')
     os.umask(0o077)
     while True:
         collect(a)
