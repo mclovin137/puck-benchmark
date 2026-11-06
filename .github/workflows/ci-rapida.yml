@@ -31,13 +31,6 @@ jobs:
           detect --source=/repo --config=/repo/.gitleaks.toml --redact --verbose
       - name: Sintaxe
         run: scripts/ci/sintaxe.sh
-      - name: Fonte Puck fixada para teste de integração do coletor
-        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
-        with:
-          repository: mclovin137/Puck
-          ref: c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a
-          path: .private/puck-source
-          persist-credentials: false
       - name: Tamanho do PR (máx. 30 arquivos)
         env:
           BASE: ${{ github.event.pull_request.base.sha }}
@@ -47,6 +40,4 @@ jobs:
           echo "arquivos alterados: $n"
           test "$n" -le 30 || { echo "PR com $n arquivos (limite 30): divida em PRs coesos" >&2; exit 1; }
       - name: Testes automatizados obrigatórios
-        env:
-          PUCK_SOURCE: ${{ github.workspace }}/.private/puck-source
         run: scripts/ci/test-review.sh

@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-06T02:08:32.730594+00:00",
+  "source_commit": "c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a",
+  "native_file_sha256": "88489bb8d40bb3e3b074699b4722f2e568d589e006b1672239733ebb5e1449af",
+  "public_unit_tests": {
+    "passed": 16,
+    "failed": 0,
+    "skipped": 0
+  },
+  "native_local_integration": {
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "scope": "synthetic roundtrip, cache subset and idempotent ingest"
+  },
+  "ci_native_integration": "not executed: upstream private; public repo token has no access",
+  "raw_logs": "private; contents not published",
+  "limitation": "public consumers need owner-authorized Puck access to reproduce native token collection, not application startup"
+}
