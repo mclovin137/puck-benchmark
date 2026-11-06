@@ -104,3 +104,9 @@ class WrapperRegressionTests(unittest.TestCase):
     def test_override_or_nested_cmd_is_not_assumed_literal(self):
         for source in ['tools.exec_command({cmd:"cat > code.py",...extra})','tools.exec_command({cmd:"cat > code.py",cmd:dynamic})','tools.exec_command({options:{cmd:"cat > code.py"}})']:
             self.assertEqual(t.wrapper_writes(self.record(source),WrapperTests.Native),[])
+
+class RegexLiteralRegressionTests(unittest.TestCase):
+    def test_regex_data_is_not_a_command(self):
+        source='const example = /tools.exec_command({cmd:"cat > code.py"})/;'
+        record={'type':'response_item','payload':{'type':'custom_tool_call','name':'functions.exec','input':source}}
+        self.assertEqual(t.wrapper_writes(record,WrapperTests.Native),[])

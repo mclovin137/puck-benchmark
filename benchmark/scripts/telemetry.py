@@ -18,6 +18,7 @@ ROOT = Path(__file__).resolve().parents[2]
 PIN = 'c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a'
 PHASES = ('codigo', 'doc', 'testes', 'planejamento', 'revisao', 'busca', 'configuracao', 'mista', 'nao_disponivel')
 TOKENS = ('input_tokens', 'cache_read_tokens', 'cache_write_tokens', 'output_tokens', 'reasoning_tokens')
+JS_IDENT = re.compile(r'[A-Za-z_$][A-Za-z0-9_$]*')
 
 
 def now():
@@ -95,6 +96,25 @@ def js_tokens(source):
             end = source.find('*/',i+2)
             i = len(source) if end < 0 else end+2
             continue
+        if char == '/':
+            # Regex é dado. Divisões ambíguas podem reduzir cobertura, nunca
+            # justificam interpretar seu conteúdo como chamada executada.
+            i += 1
+            in_class = False
+            while i < len(source) and source[i] != '\n':
+                if source[i] == '\\':
+                    i += 2
+                    continue
+                if source[i] == '[':
+                    in_class = True
+                elif source[i] == ']':
+                    in_class = False
+                elif source[i] == '/' and not in_class:
+                    i += 1
+                    break
+                i += 1
+            tokens.append(('opaque',None))
+            continue
         if char in ('"',"'",'`'):
             start = i
             i += 1
@@ -114,7 +134,7 @@ def js_tokens(source):
                     pass
             tokens.append(('string',value))
             continue
-        match = re.match(r'[A-Za-z_$][A-Za-z0-9_$]*',source[i:])
+        match = JS_IDENT.match(source,i)
         if match:
             tokens.append(('id',match.group(0)))
             i += len(match.group(0))
