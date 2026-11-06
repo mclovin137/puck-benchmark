@@ -1,0 +1,7 @@
+# Arquitetura e decisões C3
+
+O navegador React envia REST pelo proxy Vite para Spring Boot. A API autentica tokens opacos, aplica isolamento pelo identificador da sessão e usa JPA no PostgreSQL. Flyway cria as tabelas. A consulta autorizada alimenta lista, resumo e exportações; a ordenação e os filtros são compartilhados. O frontend não persiste a sessão no navegador. Docker Compose conecta os serviços em rede própria e publica portas somente no loopback.
+
+Foi escolhida sessão opaca persistida, com hash no banco e expiração, para revogar logout imediatamente sem manter lista adicional de tokens assinados. Senha recebe SHA-256 e BCrypt, evitando o limite de 72 bytes do BCrypt sem reduzir o limite contratual de 128 caracteres. Datas são `LocalDate`; quantias, `BigDecimal` serializado como texto. O PDF incorpora DejaVu Sans para português. Nenhum provedor externo ou chave paga é necessário.
+
+A seleção de cada usuário é materializada em memória antes de ordenar e paginar, simplificando a consistência entre saídas, ao custo de memória e tempo proporcionais ao histórico; exportações também são inteiramente materializadas. Não é adequada para bases grandes sem paginação e agregação no banco e limites de exportação. O serviço não implementa proteção de taxa no login: seu risco e localização de controle precisam de validação antes de exposição pública. Não há compromisso de produção nesta execução local. A configuração usa HTTP local e não fornece TLS; implantação fora do loopback exigiria terminação TLS e avaliação operacional.

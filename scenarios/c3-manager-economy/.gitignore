@@ -1,0 +1,11 @@
+# Puck: segredos e artefatos locais
+.env
+.env.*
+!.env.example
+relatorio/
+.contexto/
+.env
+frontend/node_modules/
+frontend/dist/
+backend/target/
+frontend/*.tsbuildinfo
