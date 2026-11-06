@@ -1,45 +1,45 @@
 {
-  "generated_at": "2026-11-06T02:01:59.415154+00:00",
+  "generated_at": "2026-11-06T02:05:35.489564+00:00",
   "status": "interim",
   "records": [
     {
       "scenario": "overhead",
       "run": 1,
       "state": "em_andamento",
-      "responses": 95,
-      "input_tokens": 9356952,
-      "output_tokens": 68885,
-      "cache_read_tokens": 9124992,
+      "responses": 111,
+      "input_tokens": 11654674,
+      "output_tokens": 82049,
+      "cache_read_tokens": 11397248,
       "cache_write_tokens": 0,
-      "reasoning_tokens": 19888,
+      "reasoning_tokens": 26959,
       "billed_usd": null,
       "active_seconds": null,
       "functional_pass_rate": null,
       "skills_attribution": null,
       "activity": {
         "codigo": {
-          "responses": 8,
-          "input_tokens": 995884,
-          "output_tokens": 14394,
-          "output_share_pct": 20.9
+          "responses": 9,
+          "input_tokens": 1163853,
+          "output_tokens": 15730,
+          "output_share_pct": 19.17
         },
         "doc": {
-          "responses": 3,
-          "input_tokens": 265705,
-          "output_tokens": 7005,
-          "output_share_pct": 10.17
+          "responses": 4,
+          "input_tokens": 396220,
+          "output_tokens": 9089,
+          "output_share_pct": 11.08
         },
         "testes": {
-          "responses": 21,
-          "input_tokens": 2801153,
-          "output_tokens": 12840,
-          "output_share_pct": 18.64
+          "responses": 27,
+          "input_tokens": 3777450,
+          "output_tokens": 17930,
+          "output_share_pct": 21.85
         },
         "planejamento": {
           "responses": 16,
           "input_tokens": 1671539,
           "output_tokens": 4066,
-          "output_share_pct": 5.9
+          "output_share_pct": 4.96
         },
         "revisao": {
           "responses": 0,
@@ -57,19 +57,19 @@
           "responses": 1,
           "input_tokens": 154883,
           "output_tokens": 1331,
-          "output_share_pct": 1.93
+          "output_share_pct": 1.62
         },
         "mista": {
-          "responses": 5,
-          "input_tokens": 599106,
-          "output_tokens": 7767,
-          "output_share_pct": 11.28
+          "responses": 6,
+          "input_tokens": 765519,
+          "output_tokens": 9189,
+          "output_share_pct": 11.2
         },
         "nao_disponivel": {
-          "responses": 41,
-          "input_tokens": 2868682,
-          "output_tokens": 21482,
-          "output_share_pct": 31.19
+          "responses": 48,
+          "input_tokens": 3725210,
+          "output_tokens": 24714,
+          "output_share_pct": 30.12
         }
       },
       "phase": {
@@ -84,9 +84,9 @@
           "output_tokens": null
         },
         "testes": {
-          "responses": 28,
-          "input_tokens": 3812733,
-          "output_tokens": 23382
+          "responses": 36,
+          "input_tokens": 5123412,
+          "output_tokens": 31230
         },
         "planejamento": {
           "responses": 22,
@@ -114,24 +114,24 @@
           "output_tokens": null
         },
         "nao_disponivel": {
-          "responses": 45,
-          "input_tokens": 3223735,
-          "output_tokens": 31121
+          "responses": 53,
+          "input_tokens": 4210778,
+          "output_tokens": 36437
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-06T02:01:59.345874+00:00"
+      "generated_at": "2026-11-06T02:05:35.415118+00:00"
     },
     {
       "scenario": "C1",
       "run": 1,
       "state": "implementacao_e_testes_locais",
-      "responses": 175,
-      "input_tokens": 11349461,
-      "output_tokens": 54857,
-      "cache_read_tokens": 11152000,
+      "responses": 208,
+      "input_tokens": 14860193,
+      "output_tokens": 60857,
+      "cache_read_tokens": 14638208,
       "cache_write_tokens": 0,
-      "reasoning_tokens": 13366,
+      "reasoning_tokens": 15286,
       "billed_usd": null,
       "active_seconds": null,
       "functional_pass_rate": null,
@@ -141,25 +141,25 @@
           "responses": 7,
           "input_tokens": 393489,
           "output_tokens": 14017,
-          "output_share_pct": 25.55
+          "output_share_pct": 23.03
         },
         "doc": {
           "responses": 5,
           "input_tokens": 316521,
           "output_tokens": 6403,
-          "output_share_pct": 11.67
+          "output_share_pct": 10.52
         },
         "testes": {
-          "responses": 35,
-          "input_tokens": 3263707,
-          "output_tokens": 12095,
-          "output_share_pct": 22.05
+          "responses": 60,
+          "input_tokens": 6176836,
+          "output_tokens": 17575,
+          "output_share_pct": 28.88
         },
         "planejamento": {
           "responses": 11,
           "input_tokens": 360254,
           "output_tokens": 2135,
-          "output_share_pct": 3.89
+          "output_share_pct": 3.51
         },
         "revisao": {
           "responses": 0,
@@ -168,28 +168,28 @@
           "output_share_pct": null
         },
         "busca": {
-          "responses": 48,
-          "input_tokens": 3309075,
-          "output_tokens": 5030,
-          "output_share_pct": 9.17
+          "responses": 56,
+          "input_tokens": 3906678,
+          "output_tokens": 5550,
+          "output_share_pct": 9.12
         },
         "configuracao": {
           "responses": 3,
           "input_tokens": 183008,
           "output_tokens": 2211,
-          "output_share_pct": 4.03
+          "output_share_pct": 3.63
         },
         "mista": {
           "responses": 2,
           "input_tokens": 149036,
           "output_tokens": 1290,
-          "output_share_pct": 2.35
+          "output_share_pct": 2.12
         },
         "nao_disponivel": {
           "responses": 64,
           "input_tokens": 3374371,
           "output_tokens": 11676,
-          "output_share_pct": 21.28
+          "output_share_pct": 19.19
         }
       },
       "phase": {
@@ -204,9 +204,9 @@
           "output_tokens": 8145
         },
         "testes": {
-          "responses": 36,
-          "input_tokens": 3347374,
-          "output_tokens": 13067
+          "responses": 61,
+          "input_tokens": 6260503,
+          "output_tokens": 18547
         },
         "planejamento": {
           "responses": 12,
@@ -219,9 +219,9 @@
           "output_tokens": null
         },
         "busca": {
-          "responses": 49,
-          "input_tokens": 3376540,
-          "output_tokens": 5480
+          "responses": 57,
+          "input_tokens": 3974143,
+          "output_tokens": 6000
         },
         "configuracao": {
           "responses": 0,
@@ -240,7 +240,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-06T02:01:59.345874+00:00"
+      "generated_at": "2026-11-06T02:05:35.415118+00:00"
     },
     {
       "scenario": "C2",
@@ -360,7 +360,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-06T02:01:59.345874+00:00"
+      "generated_at": "2026-11-06T02:05:35.415118+00:00"
     },
     {
       "scenario": "C3",
@@ -480,7 +480,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-06T02:01:59.345874+00:00"
+      "generated_at": "2026-11-06T02:05:35.415118+00:00"
     },
     {
       "scenario": "C4",
@@ -600,7 +600,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-06T02:01:59.345874+00:00"
+      "generated_at": "2026-11-06T02:05:35.415118+00:00"
     }
   ]
 }

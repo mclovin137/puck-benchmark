@@ -78,6 +78,52 @@ def aggregate(rows):
     return list(groups.values())
 
 
+def js_tokens(source):
+    """Lexer conservador: comentários e conteúdo de strings não viram código."""
+    tokens = []
+    i = 0
+    while i < len(source):
+        char = source[i]
+        if char.isspace():
+            i += 1
+            continue
+        if source.startswith('//',i):
+            end = source.find('\n',i+2)
+            i = len(source) if end < 0 else end+1
+            continue
+        if source.startswith('/*',i):
+            end = source.find('*/',i+2)
+            i = len(source) if end < 0 else end+2
+            continue
+        if char in ('"',"'",'`'):
+            start = i
+            i += 1
+            while i < len(source):
+                if source[i] == '\\':
+                    i += 2
+                elif source[i] == char:
+                    i += 1
+                    break
+                else:
+                    i += 1
+            value = None
+            if char == '"':
+                try:
+                    value = json.loads(source[start:i])
+                except ValueError:
+                    pass
+            tokens.append(('string',value))
+            continue
+        match = re.match(r'[A-Za-z_$][A-Za-z0-9_$]*',source[i:])
+        if match:
+            tokens.append(('id',match.group(0)))
+            i += len(match.group(0))
+        else:
+            tokens.append(('punct',char))
+            i += 1
+    return tokens
+
+
 def wrapper_writes(record, native):
     """Extrai somente literais JSON de cmd no wrapper JS; nunca avalia código."""
     payload = record.get('payload', {})
@@ -90,14 +136,32 @@ def wrapper_writes(record, native):
     if not isinstance(raw,str) or len(raw) > 1_000_000 or '*** Begin Patch' in raw:
         return []
     found = []
-    for i,match in enumerate(re.finditer(r'(?:\bcmd|"cmd")\s*:\s*',raw)):
-        try:
-            command,_ = json.JSONDecoder().raw_decode(raw,match.end())
-        except ValueError:
+    tokens = js_tokens(raw)
+    prefix = [('id','tools'),('punct','.'),('id','exec_command'),('punct','('),('punct','{')]
+    for i in range(len(tokens)-len(prefix)+1):
+        if tokens[i:i+len(prefix)] != prefix or (i and tokens[i-1] == ('punct','.')):
             continue
-        if isinstance(command,str):
+        depth = 1
+        j = i + len(prefix)
+        commands = []
+        ambiguous = False
+        while j < len(tokens) and depth:
+            kind,value = tokens[j]
+            if depth == 1:
+                if tokens[j:j+3] == [('punct','.')]*3 or (kind == 'punct' and value == '['):
+                    ambiguous = True
+                if value == 'cmd' and kind in ('id','string') and tokens[j-1] in (('punct','{'),('punct',',')):
+                    tail = tokens[j+1:j+4]
+                    literal = len(tail) == 3 and tail[0] == ('punct',':') and tail[1][0] == 'string' and isinstance(tail[1][1],str) and tail[2] in (('punct',','),('punct','}'))
+                    commands.append(tail[1][1] if literal else None)
+            if kind == 'punct' and value == '{':
+                depth += 1
+            elif kind == 'punct' and value == '}':
+                depth -= 1
+            j += 1
+        if not depth and not ambiguous and len(commands) == 1 and commands[0] is not None:
             call = str(payload.get('call_id','wrapper')) + ':wrapper:' + str(i)
-            found.extend(native.shell_writes(call,command))
+            found.extend(native.shell_writes(call,commands[0]))
     return found
 
 

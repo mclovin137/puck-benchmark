@@ -1,10 +1,10 @@
 # Uso de tokens por atividade
 
-Snapshot: 2026-11-06T02:01:59.345874+00:00.
+Snapshot: 2026-11-06T02:05:35.415118+00:00.
 
 Entrada inclui cache; saída inclui raciocínio. Não somar esses subconjuntos novamente. Categorias indicam associação por resposta, não a causa de cada token de contexto. Fases declaradas são uma dimensão separada da atividade detectada.
 
-O coletor Puck reconhece escritas diretas e patches. O complemento reconhece comandos literais no wrapper functions.exec sem executar o conteúdo; scripts Python dinâmicos e comandos construídos em runtime podem permanecer sem classificação. Revisão, planejamento e busca sem escrita dependem da fase explícita.
+O coletor Puck reconhece escritas diretas e patches. O complemento reconhece chamadas literais tools.exec_command no wrapper functions.exec, ignorando comentários, strings e comandos dinâmicos sem executar o conteúdo; scripts Python dinâmicos e comandos construídos em runtime podem permanecer sem classificação. Revisão, planejamento e busca sem escrita dependem da fase explícita.
 
 O overhead inclui coordenação, instrumentação e avaliação externas; não é rateado arbitrariamente entre cenários. Custos faturados, tempo ativo e atribuição causal por skill não estão disponíveis neste estágio.
 
@@ -12,29 +12,29 @@ O overhead inclui coordenação, instrumentação e avaliação externas; não �
 
 | Atividade | Respostas | Entrada | Saída | % da saída |
 | --- | ---: | ---: | ---: | ---: |
-| Código | 8 | 995884 | 14394 | 20.9 |
-| Documentação | 3 | 265705 | 7005 | 10.17 |
-| Testes | 21 | 2801153 | 12840 | 18.64 |
-| Planejamento | 16 | 1671539 | 4066 | 5.9 |
+| Código | 9 | 1163853 | 15730 | 19.17 |
+| Documentação | 4 | 396220 | 9089 | 11.08 |
+| Testes | 27 | 3777450 | 17930 | 21.85 |
+| Planejamento | 16 | 1671539 | 4066 | 4.96 |
 | Revisão | 0 | n/d | n/d | n/d |
 | Busca | 0 | n/d | n/d | n/d |
-| Configuração | 1 | 154883 | 1331 | 1.93 |
-| Mista | 5 | 599106 | 7767 | 11.28 |
-| Não disponível | 41 | 2868682 | 21482 | 31.19 |
+| Configuração | 1 | 154883 | 1331 | 1.62 |
+| Mista | 6 | 765519 | 9189 | 11.2 |
+| Não disponível | 48 | 3725210 | 24714 | 30.12 |
 
 ## C1
 
 | Atividade | Respostas | Entrada | Saída | % da saída |
 | --- | ---: | ---: | ---: | ---: |
-| Código | 7 | 393489 | 14017 | 25.55 |
-| Documentação | 5 | 316521 | 6403 | 11.67 |
-| Testes | 35 | 3263707 | 12095 | 22.05 |
-| Planejamento | 11 | 360254 | 2135 | 3.89 |
+| Código | 7 | 393489 | 14017 | 23.03 |
+| Documentação | 5 | 316521 | 6403 | 10.52 |
+| Testes | 60 | 6176836 | 17575 | 28.88 |
+| Planejamento | 11 | 360254 | 2135 | 3.51 |
 | Revisão | 0 | n/d | n/d | n/d |
-| Busca | 48 | 3309075 | 5030 | 9.17 |
-| Configuração | 3 | 183008 | 2211 | 4.03 |
-| Mista | 2 | 149036 | 1290 | 2.35 |
-| Não disponível | 64 | 3374371 | 11676 | 21.28 |
+| Busca | 56 | 3906678 | 5550 | 9.12 |
+| Configuração | 3 | 183008 | 2211 | 3.63 |
+| Mista | 2 | 149036 | 1290 | 2.12 |
+| Não disponível | 64 | 3374371 | 11676 | 19.19 |
 
 ## C2
 

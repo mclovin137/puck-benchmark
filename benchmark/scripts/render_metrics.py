@@ -21,7 +21,7 @@ def main():
     records=[]
     lines=['# Uso de tokens por atividade','',f"Snapshot: {report['generated_at']}.",'',
            'Entrada inclui cache; saída inclui raciocínio. Não somar esses subconjuntos novamente. Categorias indicam associação por resposta, não a causa de cada token de contexto. Fases declaradas são uma dimensão separada da atividade detectada.','',
-           'O coletor Puck reconhece escritas diretas e patches. O complemento reconhece comandos literais no wrapper functions.exec sem executar o conteúdo; scripts Python dinâmicos e comandos construídos em runtime podem permanecer sem classificação. Revisão, planejamento e busca sem escrita dependem da fase explícita.','',
+           'O coletor Puck reconhece escritas diretas e patches. O complemento reconhece chamadas literais tools.exec_command no wrapper functions.exec, ignorando comentários, strings e comandos dinâmicos sem executar o conteúdo; scripts Python dinâmicos e comandos construídos em runtime podem permanecer sem classificação. Revisão, planejamento e busca sem escrita dependem da fase explícita.','',
            'O overhead inclui coordenação, instrumentação e avaliação externas; não é rateado arbitrariamente entre cenários. Custos faturados, tempo ativo e atribuição causal por skill não estão disponíveis neste estágio.','']
     for scenario in ('overhead','C1','C2','C3','C4'):
         groups=[g for g in report['groups'] if g['scenario']==scenario]

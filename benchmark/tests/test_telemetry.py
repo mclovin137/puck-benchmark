@@ -92,3 +92,15 @@ class WrapperTests(unittest.TestCase):
     def test_native_patch_is_not_double_counted(self):
         record={'type':'response_item','payload':{'type':'custom_tool_call','name':'functions.exec','input':'*** Begin Patch\ncmd: "cat > output"'}}
         self.assertEqual(t.wrapper_writes(record,self.Native),[])
+
+class WrapperRegressionTests(unittest.TestCase):
+    def record(self,source):
+        return {'type':'response_item','payload':{'type':'custom_tool_call','name':'functions.exec','input':source}}
+    def test_comment_is_not_a_call(self):
+        for source in ['// cmd: "cat > code.py"','/* tools.exec_command({cmd:"cat > code.py"}) */','const note = "tools.exec_command({cmd: \\"cat > code.py\\"})";']:
+            self.assertEqual(t.wrapper_writes(self.record(source),WrapperTests.Native),[])
+    def test_dynamic_suffix_is_not_a_literal_command(self):
+        self.assertEqual(t.wrapper_writes(self.record('await tools.exec_command({cmd: "cat > code.py" + suffix})'),WrapperTests.Native),[])
+    def test_override_or_nested_cmd_is_not_assumed_literal(self):
+        for source in ['tools.exec_command({cmd:"cat > code.py",...extra})','tools.exec_command({cmd:"cat > code.py",cmd:dynamic})','tools.exec_command({options:{cmd:"cat > code.py"}})']:
+            self.assertEqual(t.wrapper_writes(self.record(source),WrapperTests.Native),[])
