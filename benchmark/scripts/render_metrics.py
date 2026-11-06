@@ -46,8 +46,8 @@ def main():
     (ROOT/'reports/metrics.json').write_text(json.dumps({'generated_at':dt.datetime.now(dt.timezone.utc).isoformat(),'status':'interim','records':records},indent=2,ensure_ascii=False)+'\n')
     with (ROOT/'reports/metrics.csv').open('w',newline='') as stream:
         fields=['scenario','run','state','responses','input_tokens','output_tokens','cache_read_tokens','cache_write_tokens','reasoning_tokens','billed_usd','active_seconds','functional_pass_rate','source','generated_at']
-        writer=csv.DictWriter(stream,fieldnames=fields,extrasaction='ignore');writer.writeheader();writer.writerows(records)
-    (ROOT/'reports/token-usage.md').write_text('\n'.join(lines)+'\n')
+        writer=csv.DictWriter(stream,fieldnames=fields,extrasaction='ignore',lineterminator='\n');writer.writeheader();writer.writerows(records)
+    (ROOT/'reports/token-usage.md').write_text('\n'.join(lines).rstrip()+'\n')
     print('Métricas intermediárias renderizadas; nenhum resultado de aplicação inferido.')
 
 if __name__=='__main__':main()

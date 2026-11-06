@@ -227,7 +227,7 @@ def collect(args):
     groups=report['groups']
     with (ROOT/'reports/token-breakdown.csv').open('w',newline='') as f:
         fields=['scenario','run','agent','model','effort','phase','category','responses']+[x for t in TOKENS for x in (t,t+'_observations')]
-        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(groups)
+        w=csv.DictWriter(f,fieldnames=fields,lineterminator='\n');w.writeheader();w.writerows(groups)
     print(json.dumps({'responses':len(rows),'sessions':len(metadata),'new_records':processed,'errors':errors}))
 
 

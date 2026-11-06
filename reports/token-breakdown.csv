@@ -17,7 +17,7 @@ C1,1,/root/c1/severino,gpt-6-luna,medium,codigo,nao_disponivel,10,596337,10,5843
 C1,1,/root/c1/severino,gpt-6-luna,medium,codigo,codigo,6,324676,6,312704,6,0,6,12865,6,428,6
 overhead,1,/root,gpt-6.1-sol,medium,planejamento,mista,1,109743,1,106752,1,0,1,646,1,21,1
 C1,1,/root/c1,gpt-6-luna,medium,doc,nao_disponivel,6,378784,6,376192,6,0,6,807,6,441,6
-C1,1,/root/c1,gpt-6-luna,medium,busca,busca,43,2940222,43,2923264,43,0,43,4611,43,1619,43
+C1,1,/root/c1,gpt-6-luna,medium,busca,busca,48,3309075,48,3290496,48,0,48,5030,48,1744,48
 overhead,1,/root,gpt-6.1-sol,medium,testes,testes,21,2801153,21,2783488,21,0,21,12840,21,8161,21
 C2,1,/root/c2,gpt-6.1-sol,medium,nao_disponivel,nao_disponivel,4,116804,4,83840,4,0,4,500,4,7,4
 C2,1,/root/c2,gpt-6.1-sol,medium,planejamento,planejamento,5,207882,5,198528,5,0,5,601,5,54,5
@@ -29,7 +29,7 @@ C1,1,/root/c1/severino,gpt-6-luna,medium,doc,codigo,1,68813,1,66048,1,0,1,1152,1
 C1,1,/root/c1/severino,gpt-6-luna,medium,doc,doc,4,286991,4,281728,4,0,4,4229,4,505,4
 C1,1,/root/c1/severino,gpt-6-luna,medium,doc,nao_disponivel,9,699056,9,689152,9,0,9,1957,9,376,9
 C1,1,/root/c1,gpt-6-luna,medium,busca,configuracao,1,67465,1,67072,1,0,1,450,1,91,1
-C1,1,/root/c1/severino,gpt-6-luna,medium,testes,testes,31,2848890,31,2827136,31,0,31,9441,31,4159,31
+C1,1,/root/c1/severino,gpt-6-luna,medium,testes,testes,35,3263707,35,3235328,35,0,35,12095,35,4312,35
 C1,1,/root/c1/severino,gpt-6-luna,medium,testes,mista,1,83667,1,82560,1,0,1,972,1,289,1
-overhead,1,/root,gpt-6.1-sol,medium,testes,codigo,2,297307,2,296832,2,0,2,3465,2,677,2
+overhead,1,/root,gpt-6.1-sol,medium,testes,codigo,3,456682,3,452864,3,0,3,4724,3,1191,3
 overhead,1,/root,gpt-6.1-sol,medium,testes,configuracao,1,154883,1,154624,1,0,1,1331,1,537,1
