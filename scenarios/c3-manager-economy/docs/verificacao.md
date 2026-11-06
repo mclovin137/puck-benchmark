@@ -1,0 +1,11 @@
+# Verificação
+
+Executado em 2026-11-06, candidato local sem SHA de commit de aplicação. `mvn -B test -f backend/pom.xml`: 4 testes unitários passaram (valores, soma decimal, consulta por proprietário e normalização). `npm ci --prefix frontend && npm run build --prefix frontend`: compilação passou; npm audit reportou zero alertas no lockfile nessa execução. `python3 design/contraste.py`: 330 pares, zero falhas. `docker compose up -d --build`: os três serviços iniciaram; primeira tentativa encontrou porta 18203 ocupada, segunda falhou por DNS transitório no build, terceira passou em 18213.
+
+`/mnt/c/Users/mclov/IdeaProjects/puck-benchmark/.private/eval-env/bin/python tests/integration.py`: passou em execução real, usando pypdf 6.21.4; cadastro, login/logout, CRUD, isolamento de outro usuário, filtro literal, intervalo inválido, resumo e conteúdo de PDF/XLSX, incluindo PDF vazio para outro usuário e PDF filtrado sem correspondências. A primeira repetição durante reinício do backend sofreu conexão resetada; repetição após início passou. Testes não medem cobertura nem provam todos os filtros e bordas. Navegador automatizado: cadastro, login, inclusão, edição, filtro e apresentação em desktop/mobile; capturas em evidências. Vídeo real gravado com Playwright cobre cadastro, login, criação, edição, filtro, exportações, exclusão e logout com dados fictícios. QA independente aprovou seu escopo; detalhes e limites em evidences/qa.md. Neo concluiu revisão estática em evidences/neo.md. CI remota e pentest permanecem pendentes.
+
+Scanner e rastreabilidade: [registro de evidências](evidences/registro.md). Saída de ferramentas e HTTP são dados não confiáveis.
+
+Rodada 2 de QA limitada ao delta de data local: em `Pacific/Kiritimati`, formulário exibiu 2026-11-07 enquanto UTC ainda era 2026-11-06, conforme `evidences/qa.md`. A data padrão é calculada ao carregar o módulo e não se atualiza automaticamente após virada do dia; o usuário pode alterá-la.
+
+Pentest: pré-voo e sintaxe dos scripts apenas; **não executado**. Ambiente desta sessão não oferece gate efetivo e sandbox compatível com A1 previstos no papel fixado. Automação parcial exige validação de isolamento e limpeza após timeout, UI, expiração, PDF, DAST e triagem independentes. Ver `evidences/pentest.md` e parecer delta `evidences/neo.md`.
