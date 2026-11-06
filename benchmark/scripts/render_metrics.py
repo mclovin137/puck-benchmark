@@ -38,7 +38,7 @@ def main():
             entry['phase'][phase]=phase_row
             fmt=lambda v:'n/d' if v is None else str(v)
             lines.append('| '+LABELS[phase]+' | '+' | '.join(fmt(phase_row[k]) for k in ('responses','input_tokens','output_tokens'))+' |')
-        lines.extend(['','| Atividade nativa observada | Respostas | Entrada | Saída | % da saída |','| --- | ---: | ---: | ---: | ---: | ---: |'])
+        lines.extend(['','| Atividade nativa observada | Respostas | Entrada | Saída | % da saída |','| --- | ---: | ---: | ---: | ---: |'])
         for category in CATEGORIES:
             selected=[g for g in groups if g['category']==category]
             d={'responses':sum(g['responses'] for g in selected),'input_tokens':total(selected,'input_tokens'),'output_tokens':total(selected,'output_tokens')}

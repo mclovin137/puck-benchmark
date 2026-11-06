@@ -23,7 +23,7 @@ O overhead inclui coordenação, instrumentação e avaliação externas; não �
 | Não disponível | 62 | 5474049 | 40449 |
 
 | Atividade nativa observada | Respostas | Entrada | Saída | % da saída |
-| --- | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: |
 | Código | 8 | 1137873 | 12022 | 12.21 |
 | Documentação | 6 | 679781 | 10698 | 10.87 |
 | Testes | 44 | 6651828 | 34501 | 35.05 |
@@ -49,7 +49,7 @@ O overhead inclui coordenação, instrumentação e avaliação externas; não �
 | Não disponível | 12 | 333968 | 2315 |
 
 | Atividade nativa observada | Respostas | Entrada | Saída | % da saída |
-| --- | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: |
 | Código | 0 | n/d | n/d | n/d |
 | Documentação | 0 | n/d | n/d | n/d |
 | Testes | 100 | 11602654 | 30503 | 41.16 |
@@ -75,7 +75,7 @@ O overhead inclui coordenação, instrumentação e avaliação externas; não �
 | Não disponível | 4 | 116804 | 500 |
 
 | Atividade nativa observada | Respostas | Entrada | Saída | % da saída |
-| --- | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: |
 | Código | 0 | n/d | n/d | n/d |
 | Documentação | 0 | n/d | n/d | n/d |
 | Testes | 0 | n/d | n/d | n/d |
@@ -101,7 +101,7 @@ O overhead inclui coordenação, instrumentação e avaliação externas; não �
 | Não disponível | 0 | n/d | n/d |
 
 | Atividade nativa observada | Respostas | Entrada | Saída | % da saída |
-| --- | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: |
 | Código | 0 | n/d | n/d | n/d |
 | Documentação | 0 | n/d | n/d | n/d |
 | Testes | 0 | n/d | n/d | n/d |
@@ -127,7 +127,7 @@ O overhead inclui coordenação, instrumentação e avaliação externas; não �
 | Não disponível | 0 | n/d | n/d |
 
 | Atividade nativa observada | Respostas | Entrada | Saída | % da saída |
-| --- | ---: | ---: | ---: | ---: | ---: |
+| --- | ---: | ---: | ---: | ---: |
 | Código | 0 | n/d | n/d | n/d |
 | Documentação | 0 | n/d | n/d | n/d |
 | Testes | 0 | n/d | n/d | n/d |
