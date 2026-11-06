@@ -2,7 +2,7 @@
 
 [Especificação comum](../../experiment/specification.md) · [Protocolo](../../experiment/protocol.md) · [Arquitetura](docs/architecture.md) · [ADR-001](docs/adr/ADR-001-implementacao.md).
 
-Candidato de implementação para controle financeiro pessoal, feito com React/TypeScript, Spring Boot/Java 21, Spring Data JPA, PostgreSQL e Flyway. O cenário usa tokens opacos revogáveis, senha BCrypt e exportações PDF/XLSX. Cada usuário opera somente seus próprios registros.
+Candidato de implementação para controle financeiro pessoal, feito com React/TypeScript, Spring Boot/Java 21, Spring Data JPA, PostgreSQL e Flyway. O cenário usa tokens opacos revogáveis, senha BCrypt com pré-hash SHA-256 em novos cadastros e exportações PDF/XLSX. Cada usuário opera somente seus próprios registros.
 
 ## Executar localmente
 

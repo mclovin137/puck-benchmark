@@ -57,7 +57,7 @@ Métodos, payloads, status e filtros detalhados são os do contrato REST em `exp
 Sem metas de carga, disponibilidade, latência ou implantação na especificação: **LACUNA**. A proposta mantém API e banco como componentes simples no ambiente local previsto; não assume réplicas, cache ou filas.
 
 ## Segurança
-A implementação usa bearer opaco com expiração de 12 h e revogação persistida, senha BCrypt custo 12 e token somente em memória no frontend. Consultas e mutações financeiras derivam proprietário do bearer; smoke local verificou isolamento entre dois usuários e logout revogável. A segunda revisão Neo independente ainda não foi concluída. A varredura OSV C1 pós-A-002 reportou dois advisories para Spring WebMVC 6.2.19, preservados abertos até triagem de reachability; o gate Java não está verde.
+A implementação usa bearer opaco com expiração de 12 h e revogação persistida, senha BCrypt custo 12 com pré-hash SHA-256 para novos cadastros e compatibilidade de leitura com hashes BCrypt anteriores e token somente em memória no frontend. Consultas e mutações financeiras derivam proprietário do bearer; smoke local verificou isolamento entre dois usuários e logout revogável. A segunda revisão Neo independente ainda não foi concluída. A varredura OSV C1 pós-A-002 reportou dois advisories para Spring WebMVC 6.2.19, preservados abertos até triagem de reachability; o gate Java não está verde.
 
 ## Observabilidade
 Eventos de experimento e fases seguem o protocolo central; isso não define logging operacional da aplicação. Formato, retenção, métricas operacionais e correlação HTTP são **LACUNA**, pois a especificação não estabelece metas ou ferramentas. Não registrar senhas, tokens ou conteúdo financeiro sensível em logs.
@@ -76,9 +76,9 @@ Eventos de experimento e fases seguem o protocolo central; isso não define logg
 
 ## Decisões da implementação C1
 
-A sessão usa tokens opacos aleatórios de 256 bits, expiração de 12 horas e armazenamento somente do SHA-256 no banco. Cada requisição valida token não revogado e não expirado; logout grava `revoked_at`. O cliente mantém token apenas em memória, sem `localStorage`. Senhas usam BCrypt com custo 12.
+A sessão usa tokens opacos aleatórios de 256 bits, expiração de 12 horas e armazenamento somente do SHA-256 no banco. Cada requisição valida token não revogado e não expirado; logout grava `revoked_at`. O cliente mantém token apenas em memória, sem `localStorage`. Novas senhas usam SHA-256 codificado em Base64 seguido de BCrypt custo 12, com prefixo de versão; hashes BCrypt anteriores continuam verificáveis.
 
-PDF é gerado por PDFBox 3.0.6 e XLSX por Apache POI 5.4.1. Ambos consultam a seleção completa filtrada e autorizada do serviço de movimentações, com valores e totais. Spring Data JPA persiste usuários, tokens e movimentações; Flyway cria o schema inicial. A exportação PDF usa a fonte base PDF e substitui caracteres não ASCII para manter renderização previsível; isso limita acentos no arquivo exportado.
+PDF é gerado por PDFBox 3.0.6 e XLSX por Apache POI 5.4.1. Ambos consultam a seleção completa filtrada e autorizada do serviço de movimentações, com valores e totais. Spring Data JPA persiste usuários, tokens e movimentações; Flyway cria o schema inicial. A exportação PDF usa Helvetica com codificação WinAnsi e normalização NFC para preservar acentuação portuguesa; caracteres fora da fonte são substituídos por interrogação.
 
 O Compose publica a aplicação local em `localhost:5173` e API em `localhost:8080`; o Nginx encaminha `/api` para a API. A senha local do PostgreSQL é obrigatória via `.env`, não há valor padrão versionado. O banco persiste em volume nomeado.
 
