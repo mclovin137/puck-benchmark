@@ -1,0 +1,37 @@
+{
+  "scanner": "OSV-Scanner 2.7.0",
+  "scanner_sha256": "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b",
+  "scanned_at": "2026-11-06T00:00:34-03:00",
+  "command": "osv-scanner 2.7.0 scan source --lockfile backend/pom.xml --format json; binary SHA-256 registrado",
+  "scope": "Somente scenarios/c1-specialists-economy/backend/pom.xml; varredura pós A-002",
+  "pom_sha256": "f45801907a8ef501fbe4f79a567a9727550d4b044aac48b3c90c8f431db5ea81",
+  "exit_code": 1,
+  "packages_extracted": 10,
+  "packages_filtered_unscannable": 7,
+  "findings": [
+    {
+      "id": "GHSA-j9f9-w8pj-32f8",
+      "cve": "CVE-2026-47890",
+      "package": "org.springframework:spring-webmvc",
+      "version": "6.2.19",
+      "osv_severity": "CRITICAL",
+      "vendor_severity": "LOW",
+      "status": "aberto; aguardando triagem Neo independente"
+    },
+    {
+      "id": "GHSA-pc63-qcmh-9cmg",
+      "cve": "CVE-2026-47884",
+      "package": "org.springframework:spring-webmvc",
+      "version": "6.2.19",
+      "osv_severity": "CRITICAL",
+      "vendor_severity": "MEDIUM",
+      "status": "aberto; aguardando triagem Neo independente"
+    }
+  ],
+  "limitations": [
+    "OSV Scanner indicou 7 pacotes locais/não escaneáveis filtrados.",
+    "Resultado cobre somente extração do POM declarado; não é inventário de runtime confirmado nem refutação de reachability.",
+    "Exit 1 devido aos dois advisories acima; nenhum achado foi dispensado."
+  ],
+  "raw_output": "omitido da evidência versionável; cópia temporária fora do cenário em /tmp (temporário)"
+}
