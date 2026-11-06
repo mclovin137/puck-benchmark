@@ -4,3 +4,5 @@
 !.env.example
 relatorio/
 .contexto/
+
+frontend/*.tsbuildinfo
