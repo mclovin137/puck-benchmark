@@ -1,0 +1,30 @@
+/* animacoes.css — keyframes e utilitários de movimento. Duração 120–300 ms; só transform/opacity.
+   Reduced-motion é tratado em base.css. */
+@keyframes entrar-subindo { from { opacity: 0; transform: translateY(0.75rem); } to { opacity: 1; transform: none; } }
+@keyframes entrar-escala { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: none; } }
+@keyframes sair-escala { to { opacity: 0; transform: scale(0.97); } }
+@keyframes entrar-direita { from { opacity: 0; transform: translateX(1.5rem); } to { opacity: 1; transform: none; } }
+@keyframes sair-direita { to { opacity: 0; transform: translateX(1.5rem); } }
+@keyframes girar { to { transform: rotate(360deg); } }
+@keyframes brilho { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@keyframes pulso { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+@keyframes tremer { 20%, 60% { transform: translateX(-4px); } 40%, 80% { transform: translateX(4px); } }
+@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }
+
+.anim-entrar { animation: entrar-subindo var(--dur-lenta) var(--ease-saida) both; }
+.anim-escala { animation: entrar-escala var(--dur-media) var(--ease-saida) both; }
+.anim-pulso { animation: pulso var(--dur-lenta) var(--ease-mola); }
+.anim-tremer { animation: tremer var(--dur-lenta) var(--ease-padrao); }
+
+/* Revelar ao rolar (IntersectionObserver em componentes.js adiciona .visivel).
+   Sem JS o conteúdo fica visível: o estado inicial só vale com .js-ativo no <html>. */
+.js-ativo .revelar { opacity: 0; transform: translateY(1rem); transition: opacity var(--dur-lenta) var(--ease-saida), transform var(--dur-lenta) var(--ease-saida); transition-delay: calc(var(--i, 0) * 60ms); }
+.js-ativo .revelar.visivel { opacity: 1; transform: none; }
+
+/* Transição de tema/página (View Transitions API, opcional) */
+::view-transition-old(root), ::view-transition-new(root) { animation-duration: var(--dur-lenta); animation-timing-function: var(--ease-padrao); }
+
+/* Interação padrão: levanta no hover, afunda no press */
+.interativo { transition: transform var(--dur-media) var(--ease-saida), box-shadow var(--dur-media) var(--ease-saida), border-color var(--dur-media) var(--ease-padrao); }
+@media (hover: hover) { .interativo:hover { transform: translateY(-2px); box-shadow: var(--sombra-2); } }
+.interativo:active { transform: translateY(0) scale(0.99); }

@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="pt-BR" data-tema="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Padrão visual — demonstração</title>
+  <meta name="description" content="Demonstração dos componentes do padrão visual Puck.">
+  <script>/* anti-flash: aplica tema/modo salvos antes da primeira pintura */
+    (function(){try{var q=new URLSearchParams(location.search),r=document.documentElement,t=q.get("tema")||localStorage.getItem("ui-tema"),m=q.get("modo")||localStorage.getItem("ui-modo");
+    if(/^[1-5]$/.test(t))r.setAttribute("data-tema",t);if(m==="claro"||m==="escuro")r.setAttribute("data-modo",m);r.classList.add("js-ativo");}catch(e){}})();
+  </script>
+  <link rel="stylesheet" href="../tokens.css">
+  <link rel="stylesheet" href="../base.css">
+  <link rel="stylesheet" href="../animacoes.css">
+  <link rel="stylesheet" href="../componentes.css">
+  <style>
+    /* Apenas layout desta demonstração */
+    .heroi { display: grid; gap: var(--espaco-4); padding: var(--espaco-7) 0 var(--espaco-6); }
+    .heroi h1 { max-width: 20ch; }
+    .heroi p { max-width: 56ch; font-size: var(--texto-lg); color: var(--cor-texto-suave); }
+    .secao { padding-block: var(--espaco-6); scroll-margin-top: 4.5rem; }
+    .secao > h2 { margin-bottom: var(--espaco-2); }
+    .secao > .texto-suave { margin-bottom: var(--espaco-5); max-width: 60ch; }
+    .duas { display: grid; gap: var(--espaco-5); grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr)); align-items: start; }
+    .destaque-texto { background: linear-gradient(90deg, var(--cor-primaria-texto), var(--cor-acento-texto)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .teste-hover { height: 100%; }
+  </style>
+</head>
+<body>
+  <a class="pular-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <header class="topo">
+    <button type="button" class="btn btn--fantasma btn--pequeno nav__alternar" aria-expanded="false" aria-controls="nav-lateral">Menu</button>
+    <a class="topo__marca" href="#inicio">Padrão visual</a>
+    <span class="topo__espaco"></span>
+    <button type="button" class="btn btn--secundario btn--pequeno" data-abrir-paleta aria-label="Abrir busca de ações (Ctrl ou Command + K)">Buscar ação <kbd>Ctrl K</kbd></button>
+  </header>
+
+  <div class="app">
+    <nav class="nav-lateral" id="nav-lateral" aria-label="Seções da demonstração">
+      <ul class="nav__lista">
+        <li><a class="nav__link" href="#temas" data-comando="Ir para Temas" data-grupo="Navegar">Temas</a></li>
+        <li><a class="nav__link" href="#botoes" data-comando="Ir para Botões" data-grupo="Navegar">Botões</a></li>
+        <li><a class="nav__link" href="#formulario" data-comando="Ir para Formulário" data-grupo="Navegar">Formulário</a></li>
+        <li><a class="nav__link" href="#cartoes" data-comando="Ir para Cartões e tabela" data-grupo="Navegar">Cartões e tabela</a></li>
+        <li><a class="nav__link" href="#feedback" data-comando="Ir para Feedback" data-grupo="Navegar">Feedback</a></li>
+        <li><a class="nav__link" href="#estrutura" data-comando="Ir para Abas e acordeão" data-grupo="Navegar">Abas e acordeão</a></li>
+        <li><a class="nav__link" href="#fluxo" data-comando="Ir para Fluxo em passos" data-grupo="Navegar">Fluxo em passos</a></li>
+      </ul>
+    </nav>
+
+    <main class="conteudo" id="conteudo">
+      <div class="container" style="margin-inline:0;width:min(100%,60rem)">
+        <section class="heroi" id="inicio">
+          <h1 class="anim-entrar">Interfaces <span class="destaque-texto">rápidas</span> de usar, claras no que fazem.</h1>
+          <p class="anim-entrar" style="animation-delay:60ms">Poucos cliques, descrições diretas e feedback imediato. Troque o tema abaixo, ou pressione <kbd>Ctrl</kbd> + <kbd>K</kbd> para chegar a qualquer ação.</p>
+          <div class="btn-grupo anim-entrar" style="animation-delay:120ms">
+            <button type="button" class="btn" data-carregar="Projeto criado." data-comando="Criar projeto" data-grupo="Ações">Criar projeto</button>
+            <button type="button" class="btn btn--secundario" data-abrir-paleta>Ver atalhos</button>
+          </div>
+        </section>
+
+        <section class="secao revelar" id="temas">
+          <h2>Temas e modo</h2>
+          <p class="texto-suave">Cinco paletas, cada uma com modo claro e escuro, todas validadas em WCAG AA. A escolha fica salva neste navegador.</p>
+          <div class="linha" style="gap:var(--espaco-6)">
+            <fieldset class="seletor-tema">
+              <legend class="so-leitor">Tema de cores</legend>
+              <label class="seletor-tema__opcao" title="Tema 1: Musgo"><input type="radio" name="tema" value="1" aria-label="Tema 1, Musgo"><span class="seletor-tema__bolinha" style="--c1:#090907;--c2:#6c5636;--c3:#899d73"></span></label>
+              <label class="seletor-tema__opcao" title="Tema 2: Oceano"><input type="radio" name="tema" value="2" aria-label="Tema 2, Oceano"><span class="seletor-tema__bolinha" style="--c1:#021861;--c2:#255DCE;--c3:#DE1110"></span></label>
+              <label class="seletor-tema__opcao" title="Tema 3: Areia"><input type="radio" name="tema" value="3" aria-label="Tema 3, Areia"><span class="seletor-tema__bolinha" style="--c1:#5B4632;--c2:#F4D9A0;--c3:#C8792C"></span></label>
+              <label class="seletor-tema__opcao" title="Tema 4: Grafite"><input type="radio" name="tema" value="4" aria-label="Tema 4, Grafite"><span class="seletor-tema__bolinha" style="--c1:#171717;--c2:#06110C;--c3:#A31C1B"></span></label>
+              <label class="seletor-tema__opcao" title="Tema 5: Argila"><input type="radio" name="tema" value="5" aria-label="Tema 5, Argila"><span class="seletor-tema__bolinha" style="--c1:#A5A79B;--c2:#E8D2B5;--c3:#590907"></span></label>
+            </fieldset>
+            <div class="seletor-modo" role="group" aria-label="Modo de cor">
+              <button type="button" data-modo="auto">Auto</button>
+              <button type="button" data-modo="claro">Claro</button>
+              <button type="button" data-modo="escuro">Escuro</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="secao revelar" id="botoes">
+          <h2>Botões</h2>
+          <p class="texto-suave">Uma ação principal por tela. O estado de carregamento mantém o rótulo e bloqueia cliques repetidos.</p>
+          <div class="btn-grupo">
+            <button type="button" class="btn" data-carregar="Salvo com sucesso.">Salvar</button>
+            <button type="button" class="btn btn--secundario">Secundário</button>
+            <button type="button" class="btn btn--fantasma">Fantasma</button>
+            <button type="button" class="btn btn--acento">Acento</button>
+            <button type="button" class="btn btn--perigo" data-comando="Excluir item (com desfazer)" data-grupo="Ações" id="excluir">Excluir</button>
+            <button type="button" class="btn" aria-busy="true"><span class="btn__girar" aria-hidden="true"></span>Enviando…</button>
+            <span class="dica">
+              <button type="button" class="btn btn--secundario" aria-describedby="dica-1">Com dica</button>
+              <span class="dica__texto" role="tooltip" id="dica-1">Dicas aparecem no hover e no foco do teclado.</span>
+            </span>
+          </div>
+        </section>
+
+        <section class="secao revelar" id="formulario">
+          <h2>Campo com validação inline</h2>
+          <p class="texto-suave">Peça só o necessário. O erro aparece ao sair do campo e diz o que fazer, não só o que está errado.</p>
+          <div class="duas">
+            <form data-validar data-sucesso="Cadastro salvo." class="pilha" novalidate>
+              <div class="campo">
+                <label class="campo__rotulo" for="nome">Nome</label>
+                <input class="campo__entrada" id="nome" name="nome" required minlength="3" autocomplete="name" data-nome="seu nome" placeholder="Ex.: Ana Souza">
+                <p class="campo__erro" aria-live="polite"></p>
+              </div>
+              <div class="campo">
+                <label class="campo__rotulo" for="email">E-mail</label>
+                <input class="campo__entrada" id="email" name="email" type="email" required autocomplete="email" data-nome="o e-mail" aria-describedby="email-ajuda" placeholder="nome@empresa.com">
+                <p class="campo__ajuda" id="email-ajuda">Usado só para avisos do projeto.</p>
+                <p class="campo__erro" aria-live="polite"></p>
+                <p class="campo__ok">E-mail válido.</p>
+              </div>
+              <button class="btn" type="submit">Salvar cadastro</button>
+            </form>
+            <div class="pilha">
+              <div class="progresso" id="prog" style="--valor:64">
+                <div class="progresso__topo"><span id="prog-rotulo">Importando dados</span><span data-valor-texto>64%</span></div>
+                <div class="progresso__trilho" role="progressbar" aria-labelledby="prog-rotulo" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64"><div class="progresso__barra"></div></div>
+              </div>
+              <button type="button" class="btn btn--secundario btn--pequeno" id="avancar">Avançar 10%</button>
+              <div class="pilha" aria-busy="true" aria-label="Carregando conteúdo">
+                <span class="skeleton skeleton--titulo"></span>
+                <span class="skeleton"></span>
+                <span class="skeleton skeleton--curto"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="secao" id="cartoes">
+          <h2 class="revelar">Cartões e tabela</h2>
+          <p class="texto-suave revelar">Cartões clicáveis levam direto à ação; a tabela mostra o status com texto e cor.</p>
+          <div class="grade">
+            <a class="cartao cartao--link interativo revelar" href="#feedback"><span class="cartao__selo">Novo</span><h3 class="cartao__titulo">Importar planilha</h3><p class="cartao__texto">Arraste o arquivo. Detectamos as colunas sozinhos.</p></a>
+            <article class="cartao interativo revelar"><h3 class="cartao__titulo">Pedidos hoje</h3><p class="cartao__metrica">128</p><p class="cartao__texto">+12% sobre ontem</p></article>
+            <article class="cartao interativo revelar"><h3 class="cartao__titulo">Tempo médio</h3><p class="cartao__metrica">3,4 min</p><p class="cartao__texto">Meta: 5 min</p></article>
+          </div>
+          <div class="tabela-wrap revelar" style="margin-top:var(--espaco-5)">
+            <table class="tabela">
+              <caption>Últimas tarefas</caption>
+              <thead><tr><th scope="col">Tarefa</th><th scope="col">Responsável</th><th scope="col">Status</th></tr></thead>
+              <tbody>
+                <tr><td>Revisar proposta</td><td>Ana</td><td><span class="status status--sucesso">Concluída</span></td></tr>
+                <tr><td>Enviar contrato</td><td>Bruno</td><td><span class="status status--aviso">Pendente</span></td></tr>
+                <tr><td>Conciliar pagamentos</td><td>Carla</td><td><span class="status status--erro">Com erro</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="secao revelar" id="feedback">
+          <h2>Feedback: modal, toast e estado vazio</h2>
+          <p class="texto-suave">Prefira desfazer a confirmar. Use o modal só quando a ação não puder ser desfeita.</p>
+          <div class="btn-grupo" style="margin-bottom:var(--espaco-5)">
+            <button type="button" class="btn btn--secundario" data-abrir-modal="modal-1" data-comando="Abrir diálogo de exemplo" data-grupo="Ações">Abrir diálogo</button>
+            <button type="button" class="btn btn--secundario" id="t-ok" data-comando="Mostrar notificação de sucesso" data-grupo="Ações">Toast de sucesso</button>
+            <button type="button" class="btn btn--secundario" id="t-erro">Toast de erro</button>
+            <button type="button" class="btn btn--secundario" id="t-aviso">Toast de aviso</button>
+          </div>
+          <div class="vazio">
+            <div class="vazio__icone" aria-hidden="true">+</div>
+            <h3 class="vazio__titulo">Nenhum projeto ainda</h3>
+            <p class="vazio__texto">Crie o primeiro em menos de um minuto. Você pode mudar tudo depois.</p>
+            <button type="button" class="btn" data-carregar="Projeto criado.">Criar primeiro projeto</button>
+          </div>
+        </section>
+
+        <section class="secao revelar" id="estrutura">
+          <h2>Abas e acordeão</h2>
+          <div class="duas">
+            <div class="abas" data-abas>
+              <div class="abas__lista" role="tablist" aria-label="Detalhes">
+                <button class="abas__aba" role="tab" id="aba-1" aria-controls="painel-1" aria-selected="true">Resumo</button>
+                <button class="abas__aba" role="tab" id="aba-2" aria-controls="painel-2" aria-selected="false" tabindex="-1">Atividade</button>
+                <button class="abas__aba" role="tab" id="aba-3" aria-controls="painel-3" aria-selected="false" tabindex="-1">Ajustes</button>
+              </div>
+              <div class="abas__painel" role="tabpanel" id="painel-1" aria-labelledby="aba-1" tabindex="0"><p>Visão geral do projeto, com a próxima ação sempre à vista.</p></div>
+              <div class="abas__painel" role="tabpanel" id="painel-2" aria-labelledby="aba-2" tabindex="0" hidden><p>Histórico recente: use as setas do teclado para trocar de aba.</p></div>
+              <div class="abas__painel" role="tabpanel" id="painel-3" aria-labelledby="aba-3" tabindex="0" hidden><p>Padrões sensatos já aplicados; ajuste só se precisar.</p></div>
+            </div>
+            <div class="acordeao">
+              <details class="acordeao__item" open><summary class="acordeao__titulo">Como troco o tema?</summary><div class="acordeao__conteudo">Use o seletor da seção Temas ou a busca de ações (Ctrl+K).</div></details>
+              <details class="acordeao__item"><summary class="acordeao__titulo">Funciona sem JavaScript?</summary><div class="acordeao__conteudo">Sim: acordeão, navegação e leitura funcionam; só as melhorias ficam de fora.</div></details>
+              <details class="acordeao__item"><summary class="acordeao__titulo">E com movimento reduzido?</summary><div class="acordeao__conteudo">As animações são desligadas e o conteúdo aparece direto.</div></details>
+            </div>
+          </div>
+        </section>
+
+        <section class="secao revelar" id="fluxo">
+          <h2>Fluxo em passos</h2>
+          <p class="texto-suave">Três passos no máximo. Cada um valida antes de seguir e dá para voltar.</p>
+          <div class="cartao">
+            <div class="stepper" data-stepper data-sucesso="Convite enviado.">
+              <ol class="stepper__passos" aria-label="Progresso">
+                <li class="stepper__passo" data-rotulo="Quem"></li>
+                <li class="stepper__passo" data-rotulo="Permissão"></li>
+                <li class="stepper__passo" data-rotulo="Enviar"></li>
+              </ol>
+              <div class="stepper__painel">
+                <h3>Quem você quer convidar?</h3>
+                <div class="campo"><label class="campo__rotulo" for="conv">E-mail da pessoa</label><input class="campo__entrada" id="conv" type="email" required data-nome="o e-mail" autocomplete="off"><p class="campo__erro" aria-live="polite"></p></div>
+                <div class="btn-grupo"><button type="button" class="btn" data-passo="avancar">Continuar</button></div>
+              </div>
+              <div class="stepper__painel" hidden>
+                <h3>Qual permissão?</h3>
+                <div class="campo"><label class="campo__rotulo" for="perm">Permissão</label><select class="campo__entrada" id="perm"><option>Leitura (recomendado)</option><option>Edição</option></select></div>
+                <div class="btn-grupo"><button type="button" class="btn btn--fantasma" data-passo="voltar">Voltar</button><button type="button" class="btn" data-passo="avancar">Continuar</button></div>
+              </div>
+              <div class="stepper__painel" hidden>
+                <h3>Tudo certo para enviar</h3>
+                <p class="texto-suave" style="margin:0">A pessoa recebe o convite por e-mail e você pode cancelar depois.</p>
+                <div class="btn-grupo"><button type="button" class="btn btn--fantasma" data-passo="voltar">Voltar</button><button type="button" class="btn" data-passo="concluir">Enviar convite</button></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <dialog class="modal" id="modal-1" aria-labelledby="modal-1-titulo">
+    <div class="modal__corpo">
+      <h2 class="modal__titulo" id="modal-1-titulo">Arquivar projeto?</h2>
+      <p style="margin:0">O projeto sai da lista, mas você pode restaurá-lo a qualquer momento em Arquivados.</p>
+      <div class="modal__acoes">
+        <button type="button" class="btn btn--fantasma" data-fechar="cancelar">Cancelar</button>
+        <button type="button" class="btn" data-fechar="ok" id="arquivar">Arquivar</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog class="paleta" id="paleta" aria-label="Buscar ação">
+    <input class="paleta__busca" type="text" role="combobox" aria-expanded="true" aria-controls="paleta-lista" aria-autocomplete="list" placeholder="Digite uma ação ou seção…" aria-label="Buscar ação" autocomplete="off">
+    <ul class="paleta__lista" id="paleta-lista" role="listbox" aria-label="Ações"></ul>
+    <p class="paleta__vazio" hidden>Nenhuma ação encontrada. Tente outra palavra.</p>
+  </dialog>
+
+  <script src="../componentes.js"></script>
+  <script>
+    (function () {
+      var $ = function (s) { return document.querySelector(s); };
+      $("#t-ok").addEventListener("click", function () { Ui.toast("Alterações salvas.", { tipo: "sucesso", acao: "Desfazer", aoAcionar: function () { Ui.toast("Desfeito."); } }); });
+      $("#t-erro").addEventListener("click", function () { Ui.toast("Não foi possível salvar. Verifique a conexão e tente de novo.", { tipo: "erro" }); });
+      $("#t-aviso").addEventListener("click", function () { Ui.toast("Este arquivo é grande e pode demorar.", { tipo: "aviso" }); });
+      $("#excluir").addEventListener("click", function () { Ui.toast("Item excluído.", { acao: "Desfazer", aoAcionar: function () { Ui.toast("Item restaurado.", { tipo: "sucesso" }); } }); });
+      $("#arquivar").addEventListener("click", function () { Ui.toast("Projeto arquivado.", { acao: "Desfazer", aoAcionar: function () { Ui.toast("Projeto restaurado.", { tipo: "sucesso" }); } }); });
+      var v = 64;
+      $("#avancar").addEventListener("click", function () { v = v >= 100 ? 0 : Math.min(100, v + 10); Ui.progresso($("#prog"), v); });
+    })();
+  </script>
+</body>
+</html>
