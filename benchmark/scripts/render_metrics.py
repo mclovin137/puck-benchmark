@@ -21,7 +21,7 @@ def main():
     records=[]
     lines=['# Uso de tokens por atividade','',f"Snapshot: {report['generated_at']}.",'',
            'Entrada inclui cache; saída inclui raciocínio. Não somar esses subconjuntos novamente. Categorias indicam associação por resposta, não a causa de cada token de contexto. Fases declaradas são uma dimensão separada da atividade detectada.','',
-           'O coletor Puck reconhece escritas diretas e patches. O complemento reconhece chamadas literais tools.exec_command no wrapper functions.exec, ignorando comentários, strings e comandos dinâmicos sem executar o conteúdo; scripts Python dinâmicos e comandos construídos em runtime podem permanecer sem classificação. Revisão, planejamento e busca sem escrita dependem da fase explícita.','',
+           'As seis categorias solicitadas aparecem primeiro como fases explicitamente marcadas. A tabela de atividade usa exclusivamente o coletor Puck sem alterações. Ele reconhece patches e algumas escritas diretas; wrappers functions.exec e scripts dinâmicos podem permanecer sem atividade observável. O complemento estático JS foi retirado após falsos positivos na revisão; registros de fase não interpretam JavaScript.','',
            'O overhead inclui coordenação, instrumentação e avaliação externas; não é rateado arbitrariamente entre cenários. Custos faturados, tempo ativo e atribuição causal por skill não estão disponíveis neste estágio.','']
     for scenario in ('overhead','C1','C2','C3','C4'):
         groups=[g for g in report['groups'] if g['scenario']==scenario]
@@ -31,7 +31,14 @@ def main():
                'billed_usd':None,'active_seconds':None,'functional_pass_rate':None,'skills_attribution':None,'activity':{},'phase':{},
                'source':'reports/token-breakdown.json','generated_at':report['generated_at']}
         denom=entry['output_tokens']
-        lines.extend([f'## {scenario}','', '| Atividade | Respostas | Entrada | Saída | % da saída |','| --- | ---: | ---: | ---: | ---: |'])
+        lines.extend([f'## {scenario}','', '| Fase declarada | Respostas | Entrada | Saída |','| --- | ---: | ---: | ---: |'])
+        for phase in CATEGORIES:
+            selected=[g for g in groups if g['phase']==phase]
+            phase_row={'responses':sum(g['responses'] for g in selected),'input_tokens':total(selected,'input_tokens'),'output_tokens':total(selected,'output_tokens')}
+            entry['phase'][phase]=phase_row
+            fmt=lambda v:'n/d' if v is None else str(v)
+            lines.append('| '+LABELS[phase]+' | '+' | '.join(fmt(phase_row[k]) for k in ('responses','input_tokens','output_tokens'))+' |')
+        lines.extend(['','| Atividade nativa observada | Respostas | Entrada | Saída | % da saída |','| --- | ---: | ---: | ---: | ---: | ---: |'])
         for category in CATEGORIES:
             selected=[g for g in groups if g['category']==category]
             d={'responses':sum(g['responses'] for g in selected),'input_tokens':total(selected,'input_tokens'),'output_tokens':total(selected,'output_tokens')}

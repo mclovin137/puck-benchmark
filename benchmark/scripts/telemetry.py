@@ -18,7 +18,6 @@ ROOT = Path(__file__).resolve().parents[2]
 PIN = 'c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a'
 PHASES = ('codigo', 'doc', 'testes', 'planejamento', 'revisao', 'busca', 'configuracao', 'mista', 'nao_disponivel')
 TOKENS = ('input_tokens', 'cache_read_tokens', 'cache_write_tokens', 'output_tokens', 'reasoning_tokens')
-JS_IDENT = re.compile(r'[A-Za-z_$][A-Za-z0-9_$]*')
 
 
 def now():
@@ -79,144 +78,6 @@ def aggregate(rows):
     return list(groups.values())
 
 
-def js_tokens(source):
-    """Lexer conservador: comentários e conteúdo de strings não viram código."""
-    tokens = []
-    i = 0
-    while i < len(source):
-        char = source[i]
-        if char.isspace():
-            i += 1
-            continue
-        if source.startswith('//',i):
-            end = source.find('\n',i+2)
-            i = len(source) if end < 0 else end+1
-            continue
-        if source.startswith('/*',i):
-            end = source.find('*/',i+2)
-            i = len(source) if end < 0 else end+2
-            continue
-        if char == '/':
-            # Regex é dado. Divisões ambíguas podem reduzir cobertura, nunca
-            # justificam interpretar seu conteúdo como chamada executada.
-            i += 1
-            in_class = False
-            while i < len(source) and source[i] != '\n':
-                if source[i] == '\\':
-                    i += 2
-                    continue
-                if source[i] == '[':
-                    in_class = True
-                elif source[i] == ']':
-                    in_class = False
-                elif source[i] == '/' and not in_class:
-                    i += 1
-                    break
-                i += 1
-            tokens.append(('opaque',None))
-            continue
-        if char in ('"',"'",'`'):
-            start = i
-            i += 1
-            while i < len(source):
-                if source[i] == '\\':
-                    i += 2
-                elif source[i] == char:
-                    i += 1
-                    break
-                else:
-                    i += 1
-            value = None
-            if char == '"':
-                try:
-                    value = json.loads(source[start:i])
-                except ValueError:
-                    pass
-            tokens.append(('string',value))
-            continue
-        match = JS_IDENT.match(source,i)
-        if match:
-            tokens.append(('id',match.group(0)))
-            i += len(match.group(0))
-        else:
-            tokens.append(('punct',char))
-            i += 1
-    return tokens
-
-
-def wrapper_writes(record, native):
-    """Extrai somente literais JSON de cmd no wrapper JS; nunca avalia código."""
-    payload = record.get('payload', {})
-    if record.get('type') != 'response_item' or payload.get('type') not in ('custom_tool_call','function_call'):
-        return []
-    name = payload.get('name','')
-    if name not in ('exec','functions.exec'):
-        return []
-    raw = payload.get('input',payload.get('arguments'))
-    if not isinstance(raw,str) or len(raw) > 1_000_000 or '*** Begin Patch' in raw:
-        return []
-    found = []
-    tokens = js_tokens(raw)
-    prefix = [('id','tools'),('punct','.'),('id','exec_command'),('punct','('),('punct','{')]
-    for i in range(len(tokens)-len(prefix)+1):
-        if tokens[i:i+len(prefix)] != prefix or (i and tokens[i-1] == ('punct','.')):
-            continue
-        depth = 1
-        j = i + len(prefix)
-        commands = []
-        ambiguous = False
-        while j < len(tokens) and depth:
-            kind,value = tokens[j]
-            if depth == 1:
-                if tokens[j:j+3] == [('punct','.')]*3 or (kind == 'punct' and value == '['):
-                    ambiguous = True
-                if value == 'cmd' and kind in ('id','string') and tokens[j-1] in (('punct','{'),('punct',',')):
-                    tail = tokens[j+1:j+4]
-                    literal = len(tail) == 3 and tail[0] == ('punct',':') and tail[1][0] == 'string' and isinstance(tail[1][1],str) and tail[2] in (('punct',','),('punct','}'))
-                    commands.append(tail[1][1] if literal else None)
-            if kind == 'punct' and value == '{':
-                depth += 1
-            elif kind == 'punct' and value == '}':
-                depth -= 1
-            j += 1
-        if not depth and not ambiguous and len(commands) == 1 and commands[0] is not None:
-            call = str(payload.get('call_id','wrapper')) + ':wrapper:' + str(i)
-            found.extend(native.shell_writes(call,commands[0]))
-    return found
-
-
-def enrich_activities(db, metadata, native):
-    """Recalcula apenas dimensões de escrita; tokens e identidades são do Puck."""
-    count = 0
-    for sid,m in metadata.items():
-        own = False
-        pending = {}
-        with m['path'].open() as stream:
-            for line in stream:
-                try:
-                    record = json.loads(line)
-                except ValueError:
-                    continue
-                payload = record.get('payload',{})
-                if not isinstance(payload,dict):
-                    continue
-                if record.get('type') == 'session_meta':
-                    own = payload.get('id') == sid
-                if not own:
-                    continue
-                pending.update(native.codex_write_paths(record))
-                writes = wrapper_writes(record,native)
-                pending.update(writes)
-                count += bool(writes)
-                if record.get('type') == 'token_usage_record' and payload.get('thread_id') == sid:
-                    ident = payload.get('response_id') or payload.get('id') or payload.get('request_id') or str(record.get('id') or '')
-                    if ident:
-                        native.apply_activity(db,'codex',sid+':'+ident,native.counts_of(pending.values()),False)
-                        pending.clear()
-    db.commit()
-    return count
-
-
 def discover(logs, parent):
     metadata = {}
     for path in Path(logs).rglob('*.jsonl'):
@@ -269,9 +130,8 @@ def collect(args):
     native = load_native(args.puck)
     db = sqlite3.connect(private / 'usage.sqlite3', timeout=30)
     native.init_db(db)
-    processed, errors = native.ingest(db, 'codex', selected, None, False)
+    processed, errors = native.ingest(db, 'codex', selected, None, args.reprocess)
     db.commit()
-    wrapper_records = enrich_activities(db,metadata,native)
     db.row_factory = sqlite3.Row
     phases = []
     ledger = ROOT / 'experiment/results/phases.jsonl'
@@ -298,11 +158,11 @@ def collect(args):
     db.close()
     report = {'generated_at':now(), 'puck_commit':PIN, 'measurement':'observed_metadata',
               'new_records':processed,'parse_errors':errors,'observed_sessions':len(metadata),
-              'wrapper_records_with_detected_writes':wrapper_records,
               'notes':['Cache is a subset of input; reasoning is a subset of output.',
                        'Categories are response-level associations, not causal allocation of context.',
                        'Unknown tokens are null. Subscription billing and active time unavailable.',
-                       'No financial sum across overlapping skill associations.'],
+                       'No financial sum across overlapping skill associations.',
+                       'Activity uses unmodified native Puck detection only; nested exec wrappers can be unclassified.'],
               'groups':aggregate(rows)}
     (ROOT/'reports/token-breakdown.json').write_text(json.dumps(report,indent=2,ensure_ascii=False)+'\n')
     with (ROOT/'reports/token-events.jsonl').open('w') as f:
@@ -318,10 +178,12 @@ def collect(args):
 def main():
     p=argparse.ArgumentParser();sub=p.add_subparsers(dest='cmd',required=True)
     phase=sub.add_parser('phase');phase.add_argument('--agent',required=True);phase.add_argument('--phase',choices=PHASES,required=True);phase.add_argument('--scenario',required=True);phase.add_argument('--task',required=True)
-    c=sub.add_parser('collect');c.add_argument('--puck',required=True);c.add_argument('--logs',default=str(Path.home()/'.codex/sessions'));c.add_argument('--parent',required=True);c.add_argument('--watch',type=int,default=0)
+    c=sub.add_parser('collect');c.add_argument('--puck',required=True);c.add_argument('--logs',default=str(Path.home()/'.codex/sessions'));c.add_argument('--parent',required=True);c.add_argument('--watch',type=int,default=0);c.add_argument('--reprocess',action='store_true')
     a=p.parse_args()
     if a.cmd=='phase':
         append_phase(a.agent,a.phase,a.scenario,a.task);return
+    if a.watch and a.reprocess:
+        p.error('--reprocess não combina com --watch')
     os.umask(0o077)
     while True:
         collect(a)

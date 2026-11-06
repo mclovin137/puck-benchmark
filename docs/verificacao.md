@@ -9,3 +9,5 @@
 Builds, testes de módulo e operação de cada aplicação ficam no próprio README. UI, segurança estática, pentest, revisão e CI são gates separados; um resultado HTTP não os aprova.
 
 `PUCK_SOURCE=<checkout-fixado> python3 -m unittest discover -s benchmark/integration -v`: integração obrigatória local com o coletor nativo, separada da suíte pública. Falha se a fonte não existir ou divergir do pin. O Puck é privado e o token restrito do GitHub Actions deste repositório não tem acesso; nenhuma credencial foi ampliada e código privado não foi publicado. A execução local e a CI pública têm alcances distintos, registrados como tais.
+
+A coleta usa somente a detecção nativa do Puck; o complemento estático de wrappers foi retirado por falso positivo. `--reprocess` refaz a ingestão sem duplicar custos para restaurar as dimensões nativas em todos os registros. As seis fases são explicitamente marcadas pelos agentes, não inferidas de código.
