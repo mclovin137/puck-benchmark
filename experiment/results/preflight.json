@@ -1,0 +1,14 @@
+{
+  "at": "2026-11-06T01:41:29.322567+00:00",
+  "puck_commit": "c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a",
+  "github_authenticated": true,
+  "docker_server": "29.1.3",
+  "host_java": "25.0.3",
+  "node": "24.16.0",
+  "maven_available": true,
+  "gitleaks_available": true,
+  "codex_auth": "ChatGPT",
+  "memory_tools_available": false,
+  "global_puck_installation_matches_pin": false,
+  "scenario_runs_started": false
+}

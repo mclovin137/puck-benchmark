@@ -1,0 +1,43 @@
+# CI rápida para PRs de implementação na branch dev: testes automatizados do projeto, segredos,
+# sintaxe e limite de 30 arquivos por PR. A CI completa (code/security/test/architecture review e
+# revisão por agentes) roda no PR de promoção dev → main.
+name: ci-rapida
+
+on:
+  pull_request:
+    branches: [dev]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-rapida-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testes-e-segredos:
+    name: testes-e-segredos
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Segredos no histórico do PR
+        run: >-
+          docker run --rm --network none -v "$PWD:/repo:ro"
+          ghcr.io/gitleaks/gitleaks:v8.30.1
+          detect --source=/repo --config=/repo/.gitleaks.toml --redact --verbose
+      - name: Sintaxe
+        run: scripts/ci/sintaxe.sh
+      - name: Tamanho do PR (máx. 30 arquivos)
+        env:
+          BASE: ${{ github.event.pull_request.base.sha }}
+          HEAD: ${{ github.event.pull_request.head.sha }}
+        run: |
+          n=$(git diff --name-only "$BASE...$HEAD" | wc -l)
+          echo "arquivos alterados: $n"
+          test "$n" -le 30 || { echo "PR com $n arquivos (limite 30): divida em PRs coesos" >&2; exit 1; }
+      - name: Testes automatizados obrigatórios
+        run: scripts/ci/test-review.sh
