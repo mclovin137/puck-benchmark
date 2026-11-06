@@ -1,8 +1,10 @@
 # Parecer de segurança do delta da preparação — PR #1
 
+**Veredito vigente após a segunda rodada: APROVADO no escopo de segurança e integridade do delta `b7ab08f..cfcee49`.** D-01 e D-02 foram resolvidos; nenhum bloqueante remanescente foi identificado nesse delta. A aprovação depende dos demais gates exigidos e não cobre aplicações ou futuras alterações. O registro da primeira rodada abaixo preserva a evidência histórica; a seção final contém a revalidação.
+
 Inspeção: 2026-11-06T01:48:23Z. Candidato: `b7ab08f4be710fac8ee960b6682ac73fc4ac8d4c`, branch `feat/experiment-protocol`, 26 arquivos em relação a `main`. Revisor: Neo. Escopo: infraestrutura, telemetria, configuração de agentes e CI; nível crítico pela superfície de execução e pelos controles do experimento.
 
-**CONCLUSÃO — REPROVADO para encerrar a preparação com a telemetria atual.** Dois defeitos confirmados afetam a integridade da medição. Não foi confirmada vulnerabilidade crítica/alta nem exposição de credencial. O modelo fixo usado na infraestrutura é overhead e não representa execução de cenário. A autorização de merge/tag informada pelo Oráculo permanece condicionada aos gates; este parecer não declara CI remota aprovada.
+**CONCLUSÃO DA PRIMEIRA RODADA — REPROVADO no candidato `b7ab08f` (superada pela segunda rodada).** Dois defeitos confirmados afetam a integridade da medição. Não foi confirmada vulnerabilidade crítica/alta nem exposição de credencial. O modelo fixo usado na infraestrutura é overhead e não representa execução de cenário. A autorização de merge/tag informada pelo Oráculo permanece condicionada aos gates; este parecer não declara CI remota aprovada.
 
 ## Evidência e método
 
@@ -47,3 +49,19 @@ Impacto: sessões filhas ficam ausentes da seleção ou do mapa usado em `collec
 D-01 e D-02 foram rederivados contra os controles contrários: o teste atual não cobre a ordem que falha; o parser nativo suporta forks, mas só recebe arquivos e atribuições depois da seleção defeituosa. Portanto, os dois candidatos permanecem confirmados. Suas severidades refletem a integridade da evidência e a ausência de exploração externa demonstrada.
 
 Nenhuma leitura adicional de aplicações, scan de segredos, pentest ou execução de CI remota foi feita nesta rodada. As alterações após o SHA indicado precisam de revisão do delta; aprovação anterior não se estende automaticamente a elas.
+
+## Segunda e última rodada — correções no delta
+
+Data: 2026-11-06T01:51:30Z. Candidato: `cfcee4917d2fd419363a649e213d97cee9662245`. Comparação limitada a `b7ab08f..cfcee49`: coletor, testes, este parecer e inventário de captura. O PR acumula 28 arquivos, conforme informado pelo Oráculo. Não foram inspecionados o CLI de aceitação não rastreado, cenários, resultados de cenários ou logs reais.
+
+**FATO — D-01 resolvido.** `benchmark/scripts/telemetry.py:71-77` mantém `null` quando não há observação e usa `(g.get(field) or 0) + value` ao encontrar um valor. O contador de observações permanece separado. `benchmark/tests/test_telemetry.py:25-31` cobre `null → 10 → null` para cada campo de tokens; o teste anterior preserva a ordem inversa. O caminho que produzia `None + int` deixou de existir.
+
+**FATO — D-02 resolvido.** `telemetry.py:85-109` extrai a UUID do arquivo e busca o `session_meta` correspondente, ignorando metadados herdados como identidade própria. O fechamento da descendência permanece em `:112-118`. O teste de `test_telemetry.py:33-48` cobre pai, filho e neto, metadado herdado antes do próprio e preservação do caminho do pai. A chave do filho passa a ser sua UUID, eliminando a sobrescrita observada na primeira rodada.
+
+**FATO — Proveniência e publicação melhoradas.** `telemetry.py:27-39` exige HEAD igual ao pin e ausência de diferenças rastreadas antes de importar o coletor; falha de Git ou divergência rejeita a fonte. `:43-49` restringe agente, cenário e tarefa nas marcações; `:104-106` descarta caminhos de agente fora do formato permitido. Isso reduz a passagem de texto arbitrário aos relatórios. Em `:150-152`, a atribuição sem marcação aceita somente o prefixo explícito `/root/c1` a `/root/c4`; demais agentes ficam em overhead. Fase e tarefa ausentes continuam ausentes, sem inventar atividade.
+
+**FATO — Alcance dos testes.** O teste de integração nativa em `test_telemetry.py:56-75` usa fixture sintética e verifica as contagens, modelo, esforço e persistência de uma única linha após ingestão repetida. Pode ser dispensado explicitamente se o checkout Puck não existir (`:59-61`); portanto, uma CI sem essa fonte não prova essa integração. O Oráculo informou sete testes aprovados, incluindo esse teste, após RED de três casos. Não repeti os checks mecânicos nem li os logs privados. As duas coletas reais com 114 respostas e segunda coleta com zero novos/erros também são evidência informada pelo Oráculo, não observação independente deste revisor.
+
+**FATO — Limites preservados.** `experiment/results/runtime-capture.json` registra hashes e eventos de hooks e declara `capture_disabled_proven: false`; não confunde ferramenta de memória indisponível com captura desativada. O mesmo inventário mantém explícito o compartilhamento de filesystem e credenciais do host. A revisão aprova o registro honesto dessa limitação, sem afirmar isolamento técnico. A atribuição dos modelos efetivos dos cenários continua a exigir metadado da execução; o modelo da infraestrutura pertence ao overhead.
+
+**CONCLUSÃO — APROVADO no delta inspecionado, sem bloqueante de segurança ou integridade remanescente identificado.** Permanecem os limites já documentados sobre host compartilhado, snapshots de relatório e CI remota ainda não verificada por este revisor. Esta conclusão permite ao Oráculo prosseguir conforme a autorização existente quando os demais gates passarem; não declara merge, tag, CI, aplicação ou pentest concluídos.
