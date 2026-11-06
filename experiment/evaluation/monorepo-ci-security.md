@@ -1,8 +1,10 @@
 # Segurança da CI de componentes e do runtime — PR #3
 
+**Veredito vigente ao encerrar a segunda rodada: APROVADO no candidato `e92f991`, no escopo de segurança e integridade deste delta.** M-01 e M-02 foram resolvidos; nenhum bloqueante remanescente foi identificado no escopo revisado. A aprovação depende dos demais gates e não declara CI remota, aplicações, merge ou release aprovados. Os registros dos candidatos anteriores abaixo preservam o histórico da revisão.
+
 Primeira rodada, encerrada em 2026-11-06T02:54:14Z. Candidato `b1a03f874db364a1ca2fc289f5485a5e82052a52`, base `7b8a691`, 24 arquivos. Revisor: Neo, independente da implementação. Nível crítico pela execução de componentes e configuração de CI. Modelo e consumo desta revisão são overhead.
 
-**CONCLUSÃO — REPROVADO no candidato inspecionado.** Dois achados médios confirmados precisam de correção: a validação de runtime aceita acesso a recursos fora do projeto e uma falha de coleta do commit pode terminar como sucesso. Nenhum comprometimento, acesso a segredo real ou execução ofensiva foi demonstrado. Os gates das aplicações continuam não observados; este parecer não os aprova.
+**CONCLUSÃO DA PRIMEIRA RODADA — REPROVADO no candidato `b1a03f8`, superada pelo encerramento da segunda rodada.** Dois achados médios confirmados precisam de correção: a validação de runtime aceita acesso a recursos fora do projeto e uma falha de coleta do commit pode terminar como sucesso. Nenhum comprometimento, acesso a segredo real ou execução ofensiva foi demonstrado. Os gates das aplicações continuam não observados; este parecer não os aprova.
 
 ## Escopo e método
 
@@ -51,3 +53,32 @@ Isso fundamenta o escopo da futura triagem, sem provar ausência das pré-condi�
 ## Limites da conclusão
 
 M-01 e M-02 sobreviveram à verificação contrária: o primeiro controle só alcança volumes no topo e não é complementado antes de `up`; no segundo, cleanup verde não altera o zero já atribuído ao resultado. Não há outro bloqueante substanciado no delta inspecionado. Correções cabem em um bloco, com segunda rodada somente sobre o delta; os checks remotos e os gates futuros das aplicações continuam independentes deste parecer.
+
+## Segunda rodada — candidato intermediário `1541c9a`
+
+Inspeção em 2026-11-06T03:03:11Z. Candidato `1541c9ad0d284ed80830251aa99595abe60b39b0`, delta desde `b1a03f8`. Foram lidos somente launcher, testes simulados e documentação de alcance. As 28 aprovações públicas e uma integração local foram informadas pelo Oráculo, sem repetição dos checks. Não foram acessados aplicações, `.private/`, logs reais ou recursos Docker.
+
+**FATO — M-02 resolvido.** `run_system_evaluation.py:139-147` só define sucesso após coletar commit e confirmar estado limpo do escopo; toda exceção capturada restaura saída 1 e `success: false`. O teste integral `test_commit_error_after_green_acceptance_fails_and_cleans` simula exatamente a falha da primeira rodada e exige erro e tentativa de cleanup. Há controles de fonte suja e fluxo legítimo completo. A ausência de execução real das aplicações permanece explícita.
+
+**FATO — M-01 parcialmente resolvido neste candidato.** O novo `assert_owned_resources:53-93` ocorre antes da autorização dos recursos e de `up`; bloqueia os binds e a publicação pública da reprodução original, resolve symlinks de caminhos e valida outros recursos. `local_url` exige loopback e constrói corretamente URL IPv6. O ambiente do subprocesso passa a ter allowlist e o diretório privado recebe modo 0700. Essas mudanças não são apresentadas como sandbox de Maven/npm no host.
+
+**FATO — Rotas remanescentes da mesma fronteira.** Duas fixtures sintéticas, usando apenas as funções de validação extraídas por AST, ainda foram aceitas:
+
+- Serviço com `use_api_socket: true`, sem montagem de socket em `volumes`. O campo não é negado pelo guard. A documentação oficial informa que esse recurso delega o socket do engine e monta credenciais do usuário no container. Nenhum socket real foi acessado na revisão. [Docker Compose — use_api_socket](https://docs.docker.com/reference/compose-file/services/#use_api_socket).
+- Serviço com `env_file: [{"path":"/synthetic-outside/host.env"}]`. O guard não verifica arquivos de ambiente de serviço; a allowlist do ambiente do processo não limita esse mecanismo. O `config --format json` atual pode resolver o arquivo antes da validação e transformar seu conteúdo em ambiente do serviço. Nenhum arquivo real foi aberto na fixture. [Docker Compose — env_file](https://docs.docker.com/reference/compose-file/services/#env_file), [config e no-env-resolution](https://docs.docker.com/reference/cli/docker/compose/config/).
+
+O caminho até `up` permanece após a aceitação do guard; a prova é de aceitação da configuração, não de exploração em aplicação real. As rotas são parte de M-01, por permitirem ao launcher fornecer acesso ao host ou dados fora do cenário. Correção focada: rejeitar delegação de socket e validar ou proibir arquivos de ambiente antes da resolução/execução. Uma política conservadora dos campos aceitos reduz o risco de tratar recursos implícitos como ausência de acesso. M-01 permanece aberto no candidato intermediário; esta seção ainda não encerra a segunda rodada.
+
+### Encerramento da mesma segunda rodada — candidato `e92f991`
+
+Data: 2026-11-06T03:09:18Z. SHA final: `e92f9913ab2264162e5f6f073b10b558e46c1a91`. A checagem final limitou-se às rotas de M-01 e à preservação da correção de M-02; não houve revisão de nova solução de aplicação nem terceira rodada.
+
+**FATO — M-01 resolvido no delta final.** `run_system_evaluation.py:18-24,74-87` define uma allowlist de campos de serviço, rejeita campos desconhecidos e recusa explicitamente `use_api_socket` ativo. O novo trecho valida os caminhos de `env_file` pela mesma resolução de escopo usada nos binds. O comando `config` passa a usar `--no-env-resolution`, preservando os arquivos de ambiente para validação antes de `resources_owned` e `up`. Configurações de deploy ficam restritas a limites/reservas de CPU, memória e PIDs. As verificações anteriores de volumes, redes, caminhos, privilégios e interfaces loopback permanecem.
+
+Os testes adicionados em `benchmark/tests/test_runtime_fail_closed.py` exigem rejeição de socket do engine, campo desconhecido e arquivo de ambiente externo, e conferem a presença de `--no-env-resolution` no subprocesso de configuração. As fixtures não executam Docker nem abrem os arquivos externos indicados. O controle legítimo de execução completa permanece na suíte. Assim, as rotas originais e as duas rotas intermediárias de M-01 passam a ser recusadas antes da inicialização do projeto.
+
+**FATO — M-02 permanece resolvido.** O delta final não altera o caminho já revalidado de coleta do commit, estado limpo e restauração de erro antes de cleanup. A regressão que simula falha de Git após aceite verde permanece e exige saída não zero, `success: false` e tentativa de limpeza.
+
+**FATO — Alcance das evidências.** O Oráculo informou 31 testes públicos aprovados no candidato final e uma integração nativa local na verificação do bloco. Não repeti esses checks nem li logs privados; a conclusão desta revisão se baseia no delta e na correspondência dos testes com as reproduções. A CI remota do HEAD corrigido ainda será acompanhada pelo Oráculo. Não foram inspecionadas nem executadas aplicações.
+
+**CONCLUSÃO FINAL — APROVADO no escopo revisado, sem bloqueante remanescente identificado.** A conclusão de reprovação de `b1a03f8` e as pendências intermediárias de `1541c9a` foram superadas pelas correções de `e92f991`. Permanecem o host compartilhado, a ausência de sandbox para Maven/npm no host, a distinção entre integração nativa local e CI pública, e as triagens por aplicação exigidas por A-002. Nenhuma dessas limitações foi convertida em aprovação dos gates ainda não executados.
