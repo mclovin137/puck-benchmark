@@ -1,0 +1,606 @@
+{
+  "generated_at": "2026-11-06T02:00:58.907411+00:00",
+  "status": "interim",
+  "records": [
+    {
+      "scenario": "overhead",
+      "run": 1,
+      "state": "em_andamento",
+      "responses": 93,
+      "input_tokens": 9042694,
+      "output_tokens": 66295,
+      "cache_read_tokens": 8814336,
+      "cache_write_tokens": 0,
+      "reasoning_tokens": 18837,
+      "billed_usd": null,
+      "active_seconds": null,
+      "functional_pass_rate": null,
+      "skills_attribution": null,
+      "activity": {
+        "codigo": {
+          "responses": 7,
+          "input_tokens": 836509,
+          "output_tokens": 13135,
+          "output_share_pct": 19.81
+        },
+        "doc": {
+          "responses": 3,
+          "input_tokens": 265705,
+          "output_tokens": 7005,
+          "output_share_pct": 10.57
+        },
+        "testes": {
+          "responses": 21,
+          "input_tokens": 2801153,
+          "output_tokens": 12840,
+          "output_share_pct": 19.37
+        },
+        "planejamento": {
+          "responses": 16,
+          "input_tokens": 1671539,
+          "output_tokens": 4066,
+          "output_share_pct": 6.13
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "mista": {
+          "responses": 5,
+          "input_tokens": 599106,
+          "output_tokens": 7767,
+          "output_share_pct": 11.72
+        },
+        "nao_disponivel": {
+          "responses": 41,
+          "input_tokens": 2868682,
+          "output_tokens": 21482,
+          "output_share_pct": 32.4
+        }
+      },
+      "phase": {
+        "codigo": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "doc": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "testes": {
+          "responses": 26,
+          "input_tokens": 3498475,
+          "output_tokens": 20792
+        },
+        "planejamento": {
+          "responses": 22,
+          "input_tokens": 2320484,
+          "output_tokens": 14382
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "nao_disponivel": {
+          "responses": 45,
+          "input_tokens": 3223735,
+          "output_tokens": 31121
+        }
+      },
+      "source": "reports/token-breakdown.json",
+      "generated_at": "2026-11-06T02:00:58.839543+00:00"
+    },
+    {
+      "scenario": "C1",
+      "run": 1,
+      "state": "implementacao_e_testes_locais",
+      "responses": 166,
+      "input_tokens": 10565791,
+      "output_tokens": 51784,
+      "cache_read_tokens": 10376576,
+      "cache_write_tokens": 0,
+      "reasoning_tokens": 13088,
+      "billed_usd": null,
+      "active_seconds": null,
+      "functional_pass_rate": null,
+      "skills_attribution": null,
+      "activity": {
+        "codigo": {
+          "responses": 7,
+          "input_tokens": 393489,
+          "output_tokens": 14017,
+          "output_share_pct": 27.07
+        },
+        "doc": {
+          "responses": 5,
+          "input_tokens": 316521,
+          "output_tokens": 6403,
+          "output_share_pct": 12.36
+        },
+        "testes": {
+          "responses": 31,
+          "input_tokens": 2848890,
+          "output_tokens": 9441,
+          "output_share_pct": 18.23
+        },
+        "planejamento": {
+          "responses": 11,
+          "input_tokens": 360254,
+          "output_tokens": 2135,
+          "output_share_pct": 4.12
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "busca": {
+          "responses": 43,
+          "input_tokens": 2940222,
+          "output_tokens": 4611,
+          "output_share_pct": 8.9
+        },
+        "configuracao": {
+          "responses": 3,
+          "input_tokens": 183008,
+          "output_tokens": 2211,
+          "output_share_pct": 4.27
+        },
+        "mista": {
+          "responses": 2,
+          "input_tokens": 149036,
+          "output_tokens": 1290,
+          "output_share_pct": 2.49
+        },
+        "nao_disponivel": {
+          "responses": 64,
+          "input_tokens": 3374371,
+          "output_tokens": 11676,
+          "output_share_pct": 22.55
+        }
+      },
+      "phase": {
+        "codigo": {
+          "responses": 46,
+          "input_tokens": 2468151,
+          "output_tokens": 21541
+        },
+        "doc": {
+          "responses": 20,
+          "input_tokens": 1433644,
+          "output_tokens": 8145
+        },
+        "testes": {
+          "responses": 32,
+          "input_tokens": 2932557,
+          "output_tokens": 10413
+        },
+        "planejamento": {
+          "responses": 12,
+          "input_tokens": 389784,
+          "output_tokens": 4309
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "busca": {
+          "responses": 44,
+          "input_tokens": 3007687,
+          "output_tokens": 5061
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "nao_disponivel": {
+          "responses": 12,
+          "input_tokens": 333968,
+          "output_tokens": 2315
+        }
+      },
+      "source": "reports/token-breakdown.json",
+      "generated_at": "2026-11-06T02:00:58.839543+00:00"
+    },
+    {
+      "scenario": "C2",
+      "run": 1,
+      "state": "preparado_aguardando_agendamento",
+      "responses": 10,
+      "input_tokens": 367651,
+      "output_tokens": 2048,
+      "cache_read_tokens": 323968,
+      "cache_write_tokens": 0,
+      "reasoning_tokens": 61,
+      "billed_usd": null,
+      "active_seconds": null,
+      "functional_pass_rate": null,
+      "skills_attribution": null,
+      "activity": {
+        "codigo": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "doc": {
+          "responses": 1,
+          "input_tokens": 42965,
+          "output_tokens": 947,
+          "output_share_pct": 46.24
+        },
+        "testes": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "planejamento": {
+          "responses": 5,
+          "input_tokens": 207882,
+          "output_tokens": 601,
+          "output_share_pct": 29.35
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "nao_disponivel": {
+          "responses": 4,
+          "input_tokens": 116804,
+          "output_tokens": 500,
+          "output_share_pct": 24.41
+        }
+      },
+      "phase": {
+        "codigo": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "doc": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "testes": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "planejamento": {
+          "responses": 6,
+          "input_tokens": 250847,
+          "output_tokens": 1548
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "nao_disponivel": {
+          "responses": 4,
+          "input_tokens": 116804,
+          "output_tokens": 500
+        }
+      },
+      "source": "reports/token-breakdown.json",
+      "generated_at": "2026-11-06T02:00:58.839543+00:00"
+    },
+    {
+      "scenario": "C3",
+      "run": 1,
+      "state": "nao_iniciado",
+      "responses": 0,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cache_read_tokens": null,
+      "cache_write_tokens": null,
+      "reasoning_tokens": null,
+      "billed_usd": null,
+      "active_seconds": null,
+      "functional_pass_rate": null,
+      "skills_attribution": null,
+      "activity": {
+        "codigo": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "doc": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "testes": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "planejamento": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "nao_disponivel": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        }
+      },
+      "phase": {
+        "codigo": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "doc": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "testes": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "planejamento": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "nao_disponivel": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        }
+      },
+      "source": "reports/token-breakdown.json",
+      "generated_at": "2026-11-06T02:00:58.839543+00:00"
+    },
+    {
+      "scenario": "C4",
+      "run": 1,
+      "state": "nao_iniciado",
+      "responses": 0,
+      "input_tokens": null,
+      "output_tokens": null,
+      "cache_read_tokens": null,
+      "cache_write_tokens": null,
+      "reasoning_tokens": null,
+      "billed_usd": null,
+      "active_seconds": null,
+      "functional_pass_rate": null,
+      "skills_attribution": null,
+      "activity": {
+        "codigo": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "doc": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "testes": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "planejamento": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        },
+        "nao_disponivel": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null,
+          "output_share_pct": null
+        }
+      },
+      "phase": {
+        "codigo": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "doc": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "testes": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "planejamento": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "revisao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "busca": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "configuracao": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "mista": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        },
+        "nao_disponivel": {
+          "responses": 0,
+          "input_tokens": null,
+          "output_tokens": null
+        }
+      },
+      "source": "reports/token-breakdown.json",
+      "generated_at": "2026-11-06T02:00:58.839543+00:00"
+    }
+  ]
+}

@@ -61,7 +61,16 @@ jobs:
         with:
           fetch-depth: 0
           persist-credentials: false
+      - name: Fonte Puck fixada para teste de integração do coletor
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          repository: mclovin137/Puck
+          ref: c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a
+          path: .private/puck-source
+          persist-credentials: false
       - name: Exigir testes do projeto
+        env:
+          PUCK_SOURCE: ${{ github.workspace }}/.private/puck-source
         run: |
           test -x scripts/ci/test-review.sh
           scripts/ci/test-review.sh

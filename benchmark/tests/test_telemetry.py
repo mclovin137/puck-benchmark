@@ -73,3 +73,22 @@ class NativeIntegrationTests(unittest.TestCase):
             self.assertEqual(db.execute('select count(*) from usage').fetchone()[0],1)
             row=db.execute('select input_tokens,cache_read_tokens,output_tokens,reasoning_tokens,model,effort from usage').fetchone()
             self.assertEqual(row,(100,80,10,3,'gpt-6-luna','medium'));db.close()
+
+class WrapperTests(unittest.TestCase):
+    class Native:
+        @staticmethod
+        def shell_writes(call,command):return [(call,command)]
+    def test_json_command_literal_is_decoded_without_eval(self):
+        import json
+        command='cat > backend/src/Example.java <<\'EOF\'\nclass Example {}\nEOF'
+        record={'type':'response_item','payload':{'type':'custom_tool_call','name':'functions.exec','call_id':'synthetic','input':'text(await tools.exec_command({cmd:'+json.dumps(command)+'}));'}}
+        writes=t.wrapper_writes(record,self.Native)
+        self.assertEqual(len(writes),1);self.assertEqual(writes[0][1],command)
+    def test_dynamic_expressions_and_other_tools_are_not_evaluated(self):
+        record={'type':'response_item','payload':{'type':'custom_tool_call','name':'functions.exec','input':'tools.exec_command({cmd: dangerousFunction()})'}}
+        self.assertEqual(t.wrapper_writes(record,self.Native),[])
+        record['payload']['name']='other_tool';record['payload']['input']='cmd: "cat > output"'
+        self.assertEqual(t.wrapper_writes(record,self.Native),[])
+    def test_native_patch_is_not_double_counted(self):
+        record={'type':'response_item','payload':{'type':'custom_tool_call','name':'functions.exec','input':'*** Begin Patch\ncmd: "cat > output"'}}
+        self.assertEqual(t.wrapper_writes(record,self.Native),[])

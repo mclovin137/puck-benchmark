@@ -78,6 +78,61 @@ def aggregate(rows):
     return list(groups.values())
 
 
+def wrapper_writes(record, native):
+    """Extrai somente literais JSON de cmd no wrapper JS; nunca avalia código."""
+    payload = record.get('payload', {})
+    if record.get('type') != 'response_item' or payload.get('type') not in ('custom_tool_call','function_call'):
+        return []
+    name = payload.get('name','')
+    if name not in ('exec','functions.exec'):
+        return []
+    raw = payload.get('input',payload.get('arguments'))
+    if not isinstance(raw,str) or len(raw) > 1_000_000 or '*** Begin Patch' in raw:
+        return []
+    found = []
+    for i,match in enumerate(re.finditer(r'(?:\bcmd|"cmd")\s*:\s*',raw)):
+        try:
+            command,_ = json.JSONDecoder().raw_decode(raw,match.end())
+        except ValueError:
+            continue
+        if isinstance(command,str):
+            call = str(payload.get('call_id','wrapper')) + ':wrapper:' + str(i)
+            found.extend(native.shell_writes(call,command))
+    return found
+
+
+def enrich_activities(db, metadata, native):
+    """Recalcula apenas dimensões de escrita; tokens e identidades são do Puck."""
+    count = 0
+    for sid,m in metadata.items():
+        own = False
+        pending = {}
+        with m['path'].open() as stream:
+            for line in stream:
+                try:
+                    record = json.loads(line)
+                except ValueError:
+                    continue
+                payload = record.get('payload',{})
+                if not isinstance(payload,dict):
+                    continue
+                if record.get('type') == 'session_meta':
+                    own = payload.get('id') == sid
+                if not own:
+                    continue
+                pending.update(native.codex_write_paths(record))
+                writes = wrapper_writes(record,native)
+                pending.update(writes)
+                count += bool(writes)
+                if record.get('type') == 'token_usage_record' and payload.get('thread_id') == sid:
+                    ident = payload.get('response_id') or payload.get('id') or payload.get('request_id') or str(record.get('id') or '')
+                    if ident:
+                        native.apply_activity(db,'codex',sid+':'+ident,native.counts_of(pending.values()),False)
+                        pending.clear()
+    db.commit()
+    return count
+
+
 def discover(logs, parent):
     metadata = {}
     for path in Path(logs).rglob('*.jsonl'):
@@ -132,6 +187,7 @@ def collect(args):
     native.init_db(db)
     processed, errors = native.ingest(db, 'codex', selected, None, False)
     db.commit()
+    wrapper_records = enrich_activities(db,metadata,native)
     db.row_factory = sqlite3.Row
     phases = []
     ledger = ROOT / 'experiment/results/phases.jsonl'
@@ -158,6 +214,7 @@ def collect(args):
     db.close()
     report = {'generated_at':now(), 'puck_commit':PIN, 'measurement':'observed_metadata',
               'new_records':processed,'parse_errors':errors,'observed_sessions':len(metadata),
+              'wrapper_records_with_detected_writes':wrapper_records,
               'notes':['Cache is a subset of input; reasoning is a subset of output.',
                        'Categories are response-level associations, not causal allocation of context.',
                        'Unknown tokens are null. Subscription billing and active time unavailable.',
