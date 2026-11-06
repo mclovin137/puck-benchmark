@@ -1,0 +1,70 @@
+schema_version: 1
+puck:
+  repository: https://github.com/mclovin137/Puck
+  commit: c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a
+replicates: 1
+provider: OpenAI
+authentication: existing_codex_chatgpt_subscription
+paid_resources_authorized: false
+stack:
+  java: 21
+  spring_boot: 3.5.7
+  react: 19.2.0
+  typescript: 5.9.3
+  vite: 7.1.12
+  postgresql: 17.6
+  persistence: spring-data-jpa
+  migrations: flyway
+  pdf: org.apache.pdfbox:pdfbox:3.0.6
+  xlsx: org.apache.poi:poi-ooxml:5.4.1
+limits:
+  implementation_attempts: 3
+  review_rounds: 2
+  max_files_per_task_pr: 30
+  max_tasks_per_version: 10
+  max_parallel_scenarios: 3
+  new_paid_services: forbidden
+models:
+  economy:
+    id: gpt-6-luna
+    immutable_snapshot: null
+    reasoning: medium
+    price_per_million_usd: {input: 0.10, output: 0.50, cached_input: 0.01, cache_write: 0.125}
+    price_source: https://developers.openai.com/api/docs/models/gpt-6-luna
+  advanced:
+    id: gpt-6.1-sol
+    immutable_snapshot: null
+    reasoning: medium
+    price_per_million_usd: {input: 2.00, output: 10.00, cached_input: 0.10, cache_write: 2.50}
+    price_source: https://developers.openai.com/api/docs/models/gpt-6.1-sol
+price_checked_at: '2026-11-05'
+price_note: API tariff is a counterfactual estimate only; actual subscription marginal billing unavailable. Standard API prices checked in official model docs; long-context and service-tier multipliers must be applied per response before any estimate.
+scenarios:
+  C1:
+    directory: c1-specialists-economy
+    orchestration: specialists
+    principal_model: gpt-6-luna
+    delegates_model: gpt-6-luna
+    roles: [yoda, severino, zima_blue, patrick_jane, neo, mr_robot]
+    reasoning: {default: medium, neo: high}
+  C2:
+    directory: c2-specialists-advanced
+    orchestration: specialists
+    principal_model: gpt-6.1-sol
+    delegates_model: gpt-6.1-sol
+    roles: [yoda, severino, zima_blue, patrick_jane, neo, mr_robot]
+    reasoning: {default: medium, neo: high}
+  C3:
+    directory: c3-manager-economy
+    orchestration: manager
+    principal_model: gpt-6-luna
+    delegates_model: gpt-6-luna
+    delegates: mandatory_independent_gates_only
+    reasoning: {default: medium, neo: high}
+  C4:
+    directory: c4-manager-advanced
+    orchestration: manager
+    principal_model: gpt-6.1-sol
+    delegates_model: gpt-6.1-sol
+    delegates: mandatory_independent_gates_only
+    reasoning: {default: medium, neo: high}
