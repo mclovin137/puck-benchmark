@@ -50,6 +50,15 @@ class RuntimeFailClosedTests(unittest.TestCase):
         cfg=copy.deepcopy(VALID);cfg['secrets']={'db':{'file':'/synthetic-host-secret'}};self.assert_rejected_before_up(cfg)
     def test_remote_build_context_is_rejected(self):
         cfg=copy.deepcopy(VALID);cfg['services']['backend']['build']={'context':'https://example.invalid/repo.git'};self.assert_rejected_before_up(cfg)
+    def test_engine_api_socket_is_rejected_before_start(self):
+        cfg=copy.deepcopy(VALID);cfg['services']['backend']['use_api_socket']=True;self.assert_rejected_before_up(cfg)
+    def test_unknown_service_resource_is_fail_closed(self):
+        cfg=copy.deepcopy(VALID);cfg['services']['backend']['future_engine_access']=True;self.assert_rejected_before_up(cfg)
+    def test_external_env_file_is_not_resolved_before_guard(self):
+        cfg=copy.deepcopy(VALID);cfg['services']['backend']['env_file']=[{'path':'/synthetic-outside/host.env','required':True}]
+        code,result,calls=self.exercise(cfg)
+        self.assertNotEqual(code,0);self.assertFalse(result['success']);self.assertFalse(any('up' in x for x in calls))
+        self.assertTrue(any('config' in x and '--no-env-resolution' in x for x in calls))
     def test_commit_error_after_green_acceptance_fails_and_cleans(self):
         code,result,calls=self.exercise(git_fail=True)
         self.assertNotEqual(code,0);self.assertFalse(result['success']);self.assertEqual(result['error_type'],'CalledProcessError');self.assertTrue(any('down' in x for x in calls))

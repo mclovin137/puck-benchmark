@@ -15,6 +15,13 @@ from urllib.error import HTTPError,URLError
 
 ROOT=Path(__file__).resolve().parents[2]
 SCENARIOS={'C1':'c1-specialists-economy','C2':'c2-specialists-advanced','C3':'c3-manager-economy','C4':'c4-manager-advanced'}
+SERVICE_FIELDS=frozenset(('image','build','command','entrypoint','working_dir','environment','env_file',
+    'ports','expose','healthcheck','depends_on','volumes','networks','restart','init','user','read_only',
+    'tmpfs','stop_signal','stop_grace_period','shm_size','mem_limit','mem_reservation','cpus','pids_limit',
+    'logging','labels','platform','container_name','hostname','domainname','cap_drop','security_opt',
+    'secrets','configs','profiles','pull_policy','attach','stdin_open','tty','deploy',
+    'privileged','devices','device_cgroup_rules','cap_add','volumes_from','external_links','provider',
+    'post_start','pre_stop','pid','ipc','network_mode','use_api_socket'))
 
 
 def stamp():return dt.datetime.now(dt.timezone.utc).isoformat()
@@ -65,8 +72,19 @@ def assert_owned_resources(config,project,directory):
             if resource.get('external') or resource.get('environment') or (resource.get('file') and not within_scope(resource['file'])):
                 raise ValueError('Configuração ou segredo fora do escopo do cenário')
     for service in config.get('services',{}).values():
-        if any(service.get(k) for k in ('privileged','devices','device_cgroup_rules','cap_add','volumes_from','external_links','provider','post_start','pre_stop')):
+        if set(service)-SERVICE_FIELDS:raise ValueError('Campo de serviço fora da política explícita do launcher')
+        if any(service.get(k) for k in ('privileged','devices','device_cgroup_rules','cap_add','volumes_from','external_links','provider','post_start','pre_stop','use_api_socket')):
             raise ValueError('Serviço amplia acesso ao host')
+        env_files=service.get('env_file',[])
+        if isinstance(env_files,str):env_files=[env_files]
+        for env_file in env_files:
+            path=env_file.get('path') if isinstance(env_file,dict) else env_file
+            if not path or not within_scope(path):raise ValueError('env_file fora do cenário')
+        deployment=service.get('deploy',{})
+        if set(deployment)-{'resources'}:raise ValueError('Deploy fora da política de recursos local')
+        resources=deployment.get('resources',{})
+        if set(resources)-{'limits','reservations'}:raise ValueError('Recurso de deploy não permitido')
+        if any(set(budget)-{'cpus','memory','pids'} for budget in resources.values()):raise ValueError('Reserva de dispositivo não permitida')
         if any(service.get(k) not in (None,'private') for k in ('pid','ipc')) or service.get('network_mode'):
             raise ValueError('Namespace compartilhado fora do modo permitido')
         if any(str(opt).lower() not in ('no-new-privileges','no-new-privileges:true') for opt in service.get('security_opt',[])):
@@ -126,7 +144,7 @@ def main():
     resources_owned=False
     with (private/('runtime-'+a.scenario.lower()+'.log')).open('w') as log:
         try:
-            raw=subprocess.run(command+['config','--format','json'],cwd=directory,env=env,check=True,capture_output=True,text=True)
+            raw=subprocess.run(command+['config','--no-env-resolution','--format','json'],cwd=directory,env=env,check=True,capture_output=True,text=True)
             config=json.loads(raw.stdout)
             assert_owned_resources(config,project,directory)
             api,web=published_urls(config);result.update(api=api,web=web)
