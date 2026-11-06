@@ -1,0 +1,3 @@
+# Regras padrão do gitleaks; acrescente allowlists só com justificativa verificável.
+[extend]
+useDefault = true
