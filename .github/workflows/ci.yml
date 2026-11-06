@@ -79,10 +79,53 @@ jobs:
           test -x scripts/ci/architecture-review.sh
           scripts/ci/architecture-review.sh
 
+  application-acceptance:
+    name: application-${{ matrix.scenario }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario: [C1, C2, C3, C4]
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-java@cf277c60eb25467037889841efdb72551f06f6c3
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12'
+      - name: Build e testes dos componentes completos
+        env:
+          SCENARIO: ${{ matrix.scenario }}
+        run: python3 benchmark/scripts/check_applications.py --scenario "$SCENARIO"
+      - name: Instalar dependência do avaliador externo
+        run: python3 -m pip install -r benchmark/requirements.txt
+      - name: Subir ambiente efêmero e executar o mesmo aceite HTTP
+        env:
+          SCENARIO: ${{ matrix.scenario }}
+        run: python3 benchmark/scripts/run_system_evaluation.py --scenario "$SCENARIO"
+      - name: Publicar somente resultados sanitizados
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: acceptance-${{ matrix.scenario }}
+          path: |
+            experiment/results/*-acceptance.json
+            experiment/results/system-*.json
+          if-no-files-found: error
+
   gate:
     name: gate
     if: ${{ always() }}
-    needs: [code-review, security-review, test-review, architecture-review]
+    needs: [code-review, security-review, test-review, architecture-review, application-acceptance]
     runs-on: ubuntu-latest
     steps:
       - name: Exigir todos os checks
@@ -91,9 +134,11 @@ jobs:
           SECURITY: ${{ needs.security-review.result }}
           TEST: ${{ needs.test-review.result }}
           ARCHITECTURE: ${{ needs.architecture-review.result }}
+          APPLICATION: ${{ needs.application-acceptance.result }}
         run: |
           printf 'code-review=%s security-review=%s test-review=%s architecture-review=%s\n' "$CODE" "$SECURITY" "$TEST" "$ARCHITECTURE"
           test "$CODE" = success
           test "$SECURITY" = success
           test "$TEST" = success
           test "$ARCHITECTURE" = success
+          test "$APPLICATION" = success

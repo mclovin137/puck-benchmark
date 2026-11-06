@@ -1,0 +1,8 @@
+# Ajuste os donos reais. Com proteção de branch disponível, exija revisão de código dos donos.
+# Caminhos de superfície sensível: mudança aqui pede a rodada curta do Neo.
+*                      @mclovin137
+/.github/              @mclovin137
+/scripts/ci/           @mclovin137
+/.claude/              @mclovin137
+/.codex/               @mclovin137
+/docs/rules.md         @mclovin137
