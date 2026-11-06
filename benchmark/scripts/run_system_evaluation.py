@@ -154,7 +154,8 @@ def main():
             result['stage']='readiness';wait_http(api+'/transactions',{401});wait_http(web,{200})
             result['stage']='acceptance'
             proc=subprocess.run([sys.executable,str(ROOT/'benchmark/scripts/acceptance.py'),'--base',api,'--scenario',a.scenario,'--output',str(ROOT/'experiment/results'/(a.scenario.lower()+'-acceptance.json'))],cwd=ROOT,env=env,stdout=log,stderr=log)
-            code=proc.returncode
+            boundaries=subprocess.run([sys.executable,str(ROOT/'benchmark/scripts/contract_boundaries.py'),'--base',api,'--scenario',a.scenario,'--output',str(ROOT/'experiment/results'/(a.scenario.lower()+'-boundaries.json'))],cwd=ROOT,env=env,stdout=log,stderr=log)
+            code=proc.returncode or boundaries.returncode
             result['commit']=subprocess.run(['git','rev-parse','HEAD'],cwd=ROOT,check=True,capture_output=True,text=True).stdout.strip()
             dirty=subprocess.run(['git','status','--porcelain','--untracked-files=all','--',str(directory.relative_to(ROOT))],cwd=ROOT,check=True,capture_output=True,text=True).stdout.strip()
             result['source_clean']=not bool(dirty)

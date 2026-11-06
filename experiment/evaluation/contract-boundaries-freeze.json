@@ -1,0 +1,17 @@
+{
+  "registered_at": "2026-11-06T08:20:51.467301+00:00",
+  "file": "benchmark/scripts/contract_boundaries.py",
+  "sha256": "ab69924d48eb08d0446ebdc45cad05a799c122f0f30e70637eb1ae9644acbbfc",
+  "shared_for": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "tests": 4,
+  "original_16_unchanged": true,
+  "original_protocol_sha256": "e759d878b2989d480eaa9e699faf5c5f32af690a6fef084fe5b8f8b02b645325",
+  "justification": "Verificação adicional dos mesmos critérios previamente fixados (cadastro12–128, dados exportados corretos/precisão decimal, validação sem mutação, vazio). Não modifica comportamento esperado nem substitui casos que falham. Congelado antes da primeira execução externa deste complemento.",
+  "scope": "HTTP; nenhuma prova de UI/segurança geral inferida",
+  "note": "Leitor decimal aceita representação padrão e pt-BR, sem conversão binária; nenhuma execução externa ocorreu antes deste congelamento."
+}

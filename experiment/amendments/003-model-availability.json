@@ -1,0 +1,59 @@
+{
+  "id": "A-003",
+  "registered_at": "2026-11-06T08:15:03.423826+00:00",
+  "reason": "Provider returned usage limit in C1 principal and independent QA-r2. No new credits/upgrade purchased. Original frozen configuration retained.",
+  "availability_evidence": {
+    "original_model": "gpt-6-luna",
+    "original_failures": [
+      "C1 principal",
+      "C1 QA-r2"
+    ],
+    "provider_message": "usage limit; try again at 3:39 AM; timezone not supplied",
+    "alternative_model": "gpt-6.1-terra",
+    "alternative_probe": "/root/terra_availability",
+    "alternative_observed_model": "gpt-6.1-terra",
+    "alternative_observed_reasoning": "medium",
+    "probe_outcome": "one successful native response, no file access or implementation"
+  },
+  "changes_before_further_execution": {
+    "C1": {
+      "already_executed_model": "gpt-6-luna",
+      "remaining_independent_gates_and_required_corrections": "gpt-6.1-terra",
+      "original_code_not_reattributed": true,
+      "interrupted_second_review_resumed_same_delta_round": true
+    },
+    "C3": {
+      "principal_model": "gpt-6.1-terra",
+      "delegated_mandatory_gates_model": "gpt-6.1-terra",
+      "orchestration": "manager",
+      "implementation_not_started_before_registration": true
+    }
+  },
+  "reasoning": {
+    "default": "medium",
+    "neo": "high"
+  },
+  "unchanged_scenarios": [
+    "C2 specialized advanced gpt-6.1-sol",
+    "C4 manager advanced gpt-6.1-sol"
+  ],
+  "provider": "OpenAI",
+  "model_snapshot_version": null,
+  "tariff_reference_usd_per_million": {
+    "input": 1.0,
+    "output": 5.0,
+    "cached_input": 0.05,
+    "cache_write_30m": 1.25,
+    "cache_write_12h": 2.5
+  },
+  "pricing_origin": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+  "pricing_checked_on": "2026-11-06",
+  "billing_note": "Standard API reference only, not observed subscription charges. Lower unit tariff than advanced Sol does not prove lower cost per task.",
+  "operational_limits": "Use only existing authenticated subscription/model availability; no paid additions. Same scope, acceptance, Puck pin, effective stack and attempt limits.",
+  "methodological_limitations": [
+    "C1 becomes mixed-model after provider interruption; all actual usage remains recorded by model/agent/phase.",
+    "C3 differs from original Luna plan; do not present an unchanged pure 2x2 factorial comparison.",
+    "Execution ordering/concurrency can change to progress independent work during a provider block; record timestamps and resource waits."
+  ],
+  "not_retroactive": "This amendment is registered before any Terra implementation or gate execution; probe is overhead only."
+}

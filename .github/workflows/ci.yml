@@ -119,6 +119,7 @@ jobs:
           name: acceptance-${{ matrix.scenario }}
           path: |
             experiment/results/*-acceptance.json
+            experiment/results/*-boundaries.json
             experiment/results/system-*.json
           if-no-files-found: error
 

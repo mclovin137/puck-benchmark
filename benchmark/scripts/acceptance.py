@@ -7,6 +7,7 @@ import json
 from pathlib import Path
 import sys
 import unittest
+import unicodedata
 from urllib.request import Request, urlopen
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlencode
@@ -15,6 +16,10 @@ import zipfile
 import xml.etree.ElementTree as ET
 
 BASE='http://127.0.0.1:8080/api'
+
+def normalized_pdf_text(text):
+    return unicodedata.normalize('NFKC', text)
+
 
 class Client:
     def __init__(self, token=None): self.token=token
@@ -35,8 +40,8 @@ class Client:
 class Acceptance(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.anon=Client();cls.run=uuid.uuid4().hex[:12];cls.password='Bench-only-passphrase-93!'
-        cls.email='owner-'+cls.run+'@example.test';cls.other_email='other-'+cls.run+'@example.test'
+        cls.anon=Client();cls.fixture_prefix=uuid.uuid4().hex[:12];cls.password='Bench-only-passphrase-93!'
+        cls.email='owner-'+cls.fixture_prefix+'@example.test';cls.other_email='other-'+cls.fixture_prefix+'@example.test'
         for email in (cls.email,cls.other_email):
             status,_,_=cls.anon.request('POST','/auth/register',{'name':'Benchmark','email':email,'password':cls.password})
             if status!=201:raise AssertionError('Cadastro inicial esperado 201; recebido '+str(status))
@@ -49,12 +54,12 @@ class Acceptance(unittest.TestCase):
         return Client(data['token'])
 
     def fixture(self,tag,**extra):
-        d={'type':'INCOME','description':self.run+'-'+tag,'category':'Trabalho','amount':'100.00','date':'2026-10-10'};d.update(extra);return d
+        d={'type':'INCOME','description':self.fixture_prefix+'-'+tag,'category':'Trabalho','amount':'100.00','date':'2026-10-10'};d.update(extra);return d
     def create(self,tag,client=None,**extra):
         status,_,data=(client or self.owner).request('POST','/transactions',self.fixture(tag,**extra))
         self.assertEqual(status,201);self.assertIsInstance(data,dict);self.assertIn('id',data);return data
     def query(self,tag,**extra):
-        d={'description':self.run+'-'+tag};d.update(extra);return d
+        d={'description':self.fixture_prefix+'-'+tag};d.update(extra);return d
 
     def test_01_private_routes_deny_anonymous(self):
         for method,path in [('GET','/auth/me'),('GET','/transactions'),('GET','/transactions/summary'),('GET','/transactions/export.pdf'),('GET','/transactions/export.xlsx')]:
@@ -125,15 +130,15 @@ class Acceptance(unittest.TestCase):
     def test_11_description_search_is_literal(self):
         self.create('literal-percent-%',amount='4.00');self.create('literal-ordinary',amount='5.00')
         status,_,d=self.owner.request('GET','/transactions',params=self.query('literal-percent-%'));self.assertEqual(status,200);self.assertEqual(d['totalElements'],1)
-        status,_,d=self.owner.request('GET','/transactions',params={'description':(self.run+'-LITERAL-ORDINARY').upper()});self.assertEqual(status,200);self.assertEqual(d['totalElements'],1)
+        status,_,d=self.owner.request('GET','/transactions',params={'description':(self.fixture_prefix+'-LITERAL-ORDINARY').upper()});self.assertEqual(status,200);self.assertEqual(d['totalElements'],1)
 
     def test_12_pdf_filters_totals_and_user_isolation(self):
         from pypdf import PdfReader
         self.create('pdfincluded',amount='123.45');self.create('pdfexcluded',amount='900.00');self.create('pdfincluded-private',client=self.other,amount='888.00')
         status,h,data=self.owner.request('GET','/transactions/export.pdf',params=self.query('pdfincluded'))
         self.assertEqual(status,200);self.assertIn('application/pdf',h.get('Content-Type',''));self.assertTrue(data.startswith(b'%PDF-'));self.assertIn('attachment',h.get('Content-Disposition','').lower())
-        text='\n'.join(p.extract_text() for p in PdfReader(io.BytesIO(data)).pages)
-        self.assertIn(self.run+'-pdfincluded',text);self.assertNotIn('pdfexcluded',text);self.assertNotIn('private',text)
+        text=normalized_pdf_text('\n'.join(p.extract_text() for p in PdfReader(io.BytesIO(data)).pages))
+        self.assertIn(self.fixture_prefix+'-pdfincluded',text);self.assertNotIn('pdfexcluded',text);self.assertNotIn('private',text)
         self.assertRegex(text,r'123[,.]45')
 
     def test_13_xlsx_filters_totals_and_formula_injection(self):
@@ -145,14 +150,14 @@ class Acceptance(unittest.TestCase):
             for path in z.namelist():
                 if path.startswith('xl/worksheets/') or path=='xl/sharedStrings.xml':
                     tree=ET.fromstring(z.read(path));texts.extend(tree.itertext());self.assertFalse(tree.findall('.//s:f',ns),'Dados do usuário viraram fórmula XLSX')
-        text=' '.join(texts);self.assertIn(self.run+'-xlsxincluded',text);self.assertNotIn('xlsxexcluded',text);self.assertNotIn('private',text);self.assertIn('45.67',text);self.assertIn('=1+1',text)
+        text=' '.join(texts);self.assertIn(self.fixture_prefix+'-xlsxincluded',text);self.assertNotIn('xlsxexcluded',text);self.assertNotIn('private',text);self.assertIn('45.67',text);self.assertIn('=1+1',text)
 
     def test_14_exports_ignore_pagination(self):
         from pypdf import PdfReader
         for i in range(3):self.create('exportpages-'+str(i),amount='1.00')
         params=self.query('exportpages',page=0,size=1)
         status,_,data=self.owner.request('GET','/transactions/export.pdf',params=params);self.assertEqual(status,200)
-        text='\n'.join(p.extract_text() for p in PdfReader(io.BytesIO(data)).pages)
+        text=normalized_pdf_text('\n'.join(p.extract_text() for p in PdfReader(io.BytesIO(data)).pages))
         for i in range(3):self.assertIn('exportpages-'+str(i),text)
 
     def test_15_exports_apply_combined_filters(self):
@@ -167,7 +172,7 @@ class Acceptance(unittest.TestCase):
             with self.subTest(format=extension):
                 status,_,data=self.owner.request('GET','/transactions/export.'+extension,params=params)
                 self.assertEqual(status,200)
-                if extension=='pdf':text=' '.join(p.extract_text() for p in PdfReader(io.BytesIO(data)).pages)
+                if extension=='pdf':text=normalized_pdf_text(' '.join(p.extract_text() for p in PdfReader(io.BytesIO(data)).pages))
                 else:
                     with zipfile.ZipFile(io.BytesIO(data)) as z:
                         text=' '.join(' '.join(ET.fromstring(z.read(path)).itertext()) for path in z.namelist() if path.startswith('xl/worksheets/') or path=='xl/sharedStrings.xml')

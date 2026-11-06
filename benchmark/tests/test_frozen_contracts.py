@@ -12,3 +12,8 @@ class FrozenContractsTests(unittest.TestCase):
         freeze=json.loads((ROOT/'experiment/evaluation/acceptance-freeze.json').read_text())
         self.assertEqual(hashlib.sha256((ROOT/freeze['file']).read_bytes()).hexdigest(),freeze['sha256'])
         self.assertEqual(freeze['shared_for'],['C1','C2','C3','C4'])
+
+    def test_complementary_cases_are_shared_and_frozen(self):
+        freeze=json.loads((ROOT/'experiment/evaluation/contract-boundaries-freeze.json').read_text())
+        self.assertEqual(hashlib.sha256((ROOT/freeze['file']).read_bytes()).hexdigest(),freeze['sha256'])
+        self.assertEqual(freeze['shared_for'],['C1','C2','C3','C4'])
