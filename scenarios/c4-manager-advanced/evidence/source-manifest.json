@@ -1,0 +1,252 @@
+{
+  "at": "2026-11-06T18:11:35.452448+00:00",
+  "origin": "autor C4; árvore de trabalho sem commit",
+  "files": [
+    {
+      "path": ".dockerignore",
+      "sha256": "10fac04938378c22f86fda507104d724c58a7bad626d9edd85de54f03b925024"
+    },
+    {
+      "path": ".gitignore",
+      "sha256": "6c6916d9fbc7dd795986129bcc8fc5ce2801edc877f80674caa2ac1ffbd18170"
+    },
+    {
+      "path": "backend/.dockerignore",
+      "sha256": "c97ecfda4d205190b973232dcfdb0c29748521c2534dd866bcc782f30b086738"
+    },
+    {
+      "path": "backend/Dockerfile",
+      "sha256": "4b7af43496804de40c022b331739bf8adbe490d75d6ee4baaf0f3c2e0b6cc77e"
+    },
+    {
+      "path": "backend/pom.xml",
+      "sha256": "56ea913d8f59f8a42d35b793af9e2c84d8157d6f4fa1e6ba0ae26fe1b903fe65"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/FinanceApplication.java",
+      "sha256": "abf1f0a601706e5dd085fb03328f0d147546e0fa5ec6d6ae30c9a74f04dcbcc7"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/AuthActor.java",
+      "sha256": "34dbe804d0df0b9f34d19bece7cc36f06e77cee288b58139e95eb4dee7a8d1c3"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/AuthREST.java",
+      "sha256": "c73c47371d63f0f64b6f015a0f75565569878e16cb086d7f2cf72c5e6a068088"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/Security.java",
+      "sha256": "2f3e235f1bbc3132b2d0f08c46a055851557f0b604ff884170054367f56221ef"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/Session.java",
+      "sha256": "a07bf57259fe284cff4571f22dba859a81a42ce0bb8dc8eed1d93f3b2d044a51"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/SessionDAO.java",
+      "sha256": "a867977848abf49025525d2acb8d6e87c1e48b2b69611a8ff0d76a40defdf5f3"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/User.java",
+      "sha256": "0c4df7def4eb36be61f1db4b94a43af4f95f5120af4c5fbc9d14f7ef6390709a"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/UserDAO.java",
+      "sha256": "eabeae3c41505cadba7eeee9b1c9252171902408e2084462e420645b1ee2ba59"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/common/ApiError.java",
+      "sha256": "66dee9d5597879fb3b9fad5309d96ba427122161e51102ab6d57ecff2a02a2c3"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/common/Errors.java",
+      "sha256": "28435bc2f734c424e2c7d1ea6010b742f1c59b8405133c6ac83f073d712b3d0a"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/common/StrictString.java",
+      "sha256": "8aa583b6df7539d6e0aaeaa24b79bb706ec2dfcc58702a074c078b55cf92155f"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/ExportService.java",
+      "sha256": "30ca28465f55ede5837ca319aa6135c916934faccc1e98ac7c6123e0591aaef1"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/FinancialRules.java",
+      "sha256": "71cbcb2da1f353de793f3d90b76e9f35d696a16b65395d9df479dd31a17870f9"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/Movement.java",
+      "sha256": "83e6bfa0fdee8b4007aa1886f9619832dab0c20e5f1210e0ae5f132eacc3eb93"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/MovementDAO.java",
+      "sha256": "07e4dbff84712e39f1f32557fc7fe47dc859c8b21a21a90c64306f5c4d447854"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/Selection.java",
+      "sha256": "28b6aabd986c4fc0b056924fe71585d9f46db86e1abad494d89cd7e047b29bed"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/TransactionActor.java",
+      "sha256": "b01e541c151e4edb5108f01311cedeec49407601ad22b8f036c17ad8cc7bbf43"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/TransactionDTO.java",
+      "sha256": "ee0daefeb4328f3d95e7da2a44a56f6df5653fbb195bbbd9e6750dee42370000"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/transaction/TransactionREST.java",
+      "sha256": "4efa98f74e28c262e6af0c1069b17c3ab946b3012bae1f2797fbbddd21fa8cbd"
+    },
+    {
+      "path": "backend/src/main/resources/application.properties",
+      "sha256": "21091fbe958901f3e5b32b8a45d97097d5aea82d103fbce29b5db8ee5d2cb8fb"
+    },
+    {
+      "path": "backend/src/main/resources/db/migration/V1__initial.sql",
+      "sha256": "fcbc1fde63ae12cef109486e30670015d55d9a6a888d59c69baea9e33276d0ed"
+    },
+    {
+      "path": "backend/src/main/resources/fonts/DejaVuSans.ttf",
+      "sha256": "b4c632e3cdf9acc7f28758fb5a323c8524d7fc6660d46904d9b6cbe2809c419c"
+    },
+    {
+      "path": "backend/src/main/resources/fonts/LICENSE-DejaVu.txt",
+      "sha256": "63d3ba759d12804c5b31a9d5940d855c1820d1f5999e6b0872eb1c7ff045fbc9"
+    },
+    {
+      "path": "backend/src/test/java/br/com/puck/finance/ApiIntegrationTest.java",
+      "sha256": "257d8869cc68f86821b37a996ec7acbde7d4c25c0bee4f7304d15c223aa73c57"
+    },
+    {
+      "path": "backend/src/test/java/br/com/puck/finance/FinancialRulesTest.java",
+      "sha256": "4e291ad0f065f70dadccdf11e51e090333e03871f0d848acc4ddd686bb4d8c4c"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "900c822e48fb8994bff67c976a4f9153f463fb56e17fcb9c491dff32343cd552"
+    },
+    {
+      "path": "frontend/.dockerignore",
+      "sha256": "236c5a49e0b294291399deb704c61c144e75eb30cea725c5fd7f7f1e0d87e92b"
+    },
+    {
+      "path": "frontend/Dockerfile",
+      "sha256": "28b5f66a9510e24caab9f31f571b667973180e1f448e8314428bbcfab78feb78"
+    },
+    {
+      "path": "frontend/e2e/journey.spec.ts",
+      "sha256": "a5457a174fc3b3179101b9b94a8538097450a2dc736d630bf317bb87e29a05a8"
+    },
+    {
+      "path": "frontend/index.html",
+      "sha256": "7b70a354cc1c8259dbfd38c42aeb1e0b114707037b0ed8466463a732acb42ec2"
+    },
+    {
+      "path": "frontend/nginx.conf",
+      "sha256": "5a13a8fef8cb337a9ad6f0803455243c15dac7968da0b0b3f4abe6006a7f03fc"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "sha256": "c8acadb876ed1e5022dc4a834237b576f363956dfa3242fd2f09f76c349f3712"
+    },
+    {
+      "path": "frontend/package.json",
+      "sha256": "8ffa83717406b6095b0173c9235ddda01416fe48ad17e0fc025a1cdf946ba6d4"
+    },
+    {
+      "path": "frontend/playwright.config.ts",
+      "sha256": "a75364c5535b7765faca7ab3d4d3866417b82b7983e36662620abbcc94ddb361"
+    },
+    {
+      "path": "frontend/src/App.tsx",
+      "sha256": "e28516e2c9977a295182f3d103638bb0864fa5f9864880f3f9d3218ca56e3d98"
+    },
+    {
+      "path": "frontend/src/api.test.ts",
+      "sha256": "2c143b9356a5763def7f8c6329b80c0d9e1e87fa7bd340c78b89e0f846e5717b"
+    },
+    {
+      "path": "frontend/src/api.ts",
+      "sha256": "a3cf70912d5934718b4d759e8b5482d5273bc1e01adc4f19289d03d0457f291e"
+    },
+    {
+      "path": "frontend/src/main.tsx",
+      "sha256": "59ed28ad892d8deae3e4abc0e6ff4637c322b37688f547fe40917d27e342b1ed"
+    },
+    {
+      "path": "frontend/src/style.css",
+      "sha256": "a5733ab7b4b2cb98af0fe35e531104dd111a822a42536b199c2a93bd8b9f21f2"
+    },
+    {
+      "path": "frontend/tsconfig.json",
+      "sha256": "ff1d9c125338b2e58fcaedf49723d4ac4992bf92eee36157ce4ac6d5f7986588"
+    },
+    {
+      "path": "frontend/tsconfig.tsbuildinfo",
+      "sha256": "5a219855f9484771d22d1c1cdbd2228284a74e3a606c343459dbf99d4c968f5f"
+    },
+    {
+      "path": "frontend/vite.config.ts",
+      "sha256": "aa34e8678f616ff122bd7a2bde811dcf4461fc8799617ea1aaba9aaeae8296ba"
+    },
+    {
+      "path": "scripts/atualizar-dependencias.py",
+      "sha256": "d46e8bff3ef29ddffd8a076f911c655313ad64186d6f39b299612952bfd57eac"
+    },
+    {
+      "path": "scripts/ci/architecture-review.sh",
+      "sha256": "489169259c1399f8186ea8a9a39bede3bb81fb745b0b23fa3e51b99f6f091bdf"
+    },
+    {
+      "path": "scripts/ci/code-review.sh",
+      "sha256": "e56fa98bc97b0ee705f5c615d2f6cf39f4e645c8a4f3c42c6e33b948a4e5482e"
+    },
+    {
+      "path": "scripts/ci/metricas-fluxo.py",
+      "sha256": "378381f54f55e46923d5fdf4b8f04d0f11be2ac91b6f6a06158daf3298227d40"
+    },
+    {
+      "path": "scripts/ci/security-review.sh",
+      "sha256": "a1f1a9cbb010646416d3af255903eb3a96dbe2570b29cc4d4c0c3d5a2c9cf287"
+    },
+    {
+      "path": "scripts/ci/sintaxe.sh",
+      "sha256": "2d2a2475311060894aa9c286cf0099b7383f5b033794355f15e8d4cbc3e4db1c"
+    },
+    {
+      "path": "scripts/ci/test-review.sh",
+      "sha256": "a183072418746365152adef9b03112a9b38aae6b8f91cf09ee03758e2a0a0f3e"
+    },
+    {
+      "path": "scripts/pentest/api-cases.py",
+      "sha256": "25b00f3537f61cb228760d1da1389afdd2a47840a051499e2448e5ede7470a27"
+    },
+    {
+      "path": "scripts/pentest/runner.py",
+      "sha256": "01bf77b73fd7ef4369c601d4ae080f2966fd4441a655f87c183a5f0ae5c240a9"
+    },
+    {
+      "path": "scripts/pentest/validar-escopo.py",
+      "sha256": "f0bffe9580f7a246ca11d89c11cbbfad711b46671c8aa1fe885544d627557836"
+    },
+    {
+      "path": "scripts/pentest/zap-plan.py",
+      "sha256": "6d5327c38f55423720c3e5811719b1707db12c6e6e22ad9fb436559785257be6"
+    },
+    {
+      "path": "scripts/verify.sh",
+      "sha256": "cc0297c500f0799923f6f87c3a1e7b288240714e3ae90bd55dce11741d0598aa"
+    },
+    {
+      "path": "security/pentest/escopo.json",
+      "sha256": "66e2e7814be763d53d86c4d029234deb940947be4ef0fdc82c2cf4e971ee5e41"
+    },
+    {
+      "path": "security/pentest/superficie.md",
+      "sha256": "3230d5abacbbc208d3c616be9563eee1d7dabfcb47b7885cf781b6aa507c62e7"
+    }
+  ],
+  "serialization_note": "Mapa original convertido em registros path/sha256 para evitar falso positivo generic-api-key. Todos os caminhos e hashes historicos foram preservados; divergencias de integracao nao foram apagadas.",
+  "original_serialization_sha256": "b117cb89ec31b2bacdbc4072341dd9cec4a82ec12682d503988fdbdf2697d865"
+}

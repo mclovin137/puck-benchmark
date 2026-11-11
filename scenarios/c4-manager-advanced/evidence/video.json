@@ -1,0 +1,9 @@
+{
+  "origin": "autor C4",
+  "file": "jornada-final.webm",
+  "content": "login, dashboard, detalhes, tema escuro, logout; candidato Compose",
+  "codec": "VP8 WebM",
+  "resolution": "1280x900",
+  "observed_remux_duration": "00:00:05.88",
+  "validation": "ffmpeg remux copy exit0; sem conteúdo fabricado"
+}

@@ -1,0 +1,22 @@
+{
+  "origin": "autor C4",
+  "environment": "PostgreSQL17.11 Testcontainers; hostJava25 release21",
+  "suites": [
+    {
+      "name": "br.com.puck.finance.ApiIntegrationTest",
+      "tests": "2",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "26.286"
+    },
+    {
+      "name": "br.com.puck.finance.FinancialRulesTest",
+      "tests": "3",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0",
+      "time": "0.007"
+    }
+  ]
+}

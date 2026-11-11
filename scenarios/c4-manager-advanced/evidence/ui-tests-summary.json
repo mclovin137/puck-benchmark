@@ -1,0 +1,43 @@
+{
+  "origin": "Execução autoral C4 de 06/11; resumo sanitizado na integração, sem nova execução de navegador",
+  "source_sha256": "79b31f8dd3a8b7f65f4ced3957fc66daccf51efe61f50132148fcc76195fa70d",
+  "omitted": "Configuração local, traces, anexos, código e saída bruta; original preservado localmente, sem alterar resultados",
+  "stats": {
+    "startTime": "2026-11-06T14:24:46.465Z",
+    "duration": 14779.228,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "cases": [
+    {
+      "title": "jornada e acessibilidade 1280",
+      "file": "journey.spec.ts",
+      "project": "",
+      "status": "expected",
+      "expected_status": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 4220,
+          "error_count": 0
+        }
+      ]
+    },
+    {
+      "title": "jornada e acessibilidade 360",
+      "file": "journey.spec.ts",
+      "project": "",
+      "status": "expected",
+      "expected_status": "passed",
+      "results": [
+        {
+          "status": "passed",
+          "duration_ms": 3810,
+          "error_count": 0
+        }
+      ]
+    }
+  ]
+}
