@@ -27,7 +27,7 @@ class RuntimeFailClosedTests(unittest.TestCase):
                     return subprocess.CompletedProcess(command,0,stdout=output)
                 if 'config' in command:return subprocess.CompletedProcess(command,0,stdout=json.dumps(cfg))
                 return subprocess.CompletedProcess(command,0,stdout='')
-            with patch.object(r,'ROOT',root),patch.object(sys,'argv',['runtime','--scenario','C1']),patch.object(r.subprocess,'run',side_effect=run),patch.object(r,'wait_http'),patch.dict(os.environ,{'PATH':os.environ.get('PATH','')},clear=True),contextlib.redirect_stdout(io.StringIO()):
+            with patch.object(r,'ROOT',root),patch.object(sys,'argv',['runtime','--scenario','C1']),patch.object(r.subprocess,'run',side_effect=run),patch.object(r,'wait_http'),patch.object(r.time,'sleep'),patch.dict(os.environ,{'PATH':os.environ.get('PATH','')},clear=True),contextlib.redirect_stdout(io.StringIO()):
                 code=r.main()
             result=json.loads((root/'experiment/results/system-c1.json').read_text())
         return code,result,calls

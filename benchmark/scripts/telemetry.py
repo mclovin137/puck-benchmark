@@ -78,7 +78,8 @@ def aggregate(rows):
     return list(groups.values())
 
 
-def discover(logs, parent):
+def discover(logs, parent, continuations=()):
+    roots = {parent, *continuations}
     metadata = {}
     for path in Path(logs).rglob('*.jsonl'):
         try:
@@ -101,28 +102,56 @@ def discover(logs, parent):
                 continue
             source = m.get('source', {})
             spawn = source.get('subagent', {}).get('thread_spawn', {}) if isinstance(source, dict) else {}
-            agent = spawn.get('agent_path', '/root' if m['id'] == parent else None)
+            agent = spawn.get('agent_path', '/root' if m['id'] in roots else None)
             if agent is not None and not re.fullmatch(r'/root(?:/[a-z0-9_]{1,40}){0,5}',agent):
                 agent = None
             metadata[m['id']] = {'path': path, 'parent': spawn.get('parent_thread_id'),
                                   'agent': agent,
+                                  'started_at': m.get('timestamp') or '',
                                   'role': m.get('agent_role')}
         except (ValueError, OSError, KeyError):
             continue
-    keep = {parent}
+    if any(sid not in metadata for sid in continuations):
+        raise ValueError('Metadados de sessão de continuidade não encontrados')
+    for sid in continuations:
+        instant(metadata[sid]['started_at'])
+    keep = set(roots)
+    for sid in roots & metadata.keys():
+        metadata[sid]['root_started_at'] = metadata[sid]['started_at']
     while True:
         children = {sid for sid, m in metadata.items() if m['parent'] in keep}
+        for sid in children - keep:
+            metadata[sid]['root_started_at'] = metadata[metadata[sid]['parent']]['root_started_at']
         if children <= keep:
             break
         keep |= children
     return {sid: m for sid, m in metadata.items() if sid in keep}
 
 
+def instant(value):
+    if not isinstance(value,str):
+        raise ValueError('Timestamp inválido')
+    parsed = dt.datetime.fromisoformat(value)
+    if parsed.tzinfo is None:
+        raise ValueError('Timestamp sem fuso horário')
+    return parsed.astimezone(dt.timezone.utc)
+
+
+def phase_at(ledger, agent, timestamp, root_started_at=''):
+    if not timestamp:
+        return {}
+    end = instant(timestamp)
+    start = instant(root_started_at) if root_started_at else dt.datetime.min.replace(tzinfo=dt.timezone.utc)
+    choices = [e for e in ledger if e['agent'] == agent
+               and start <= instant(e['timestamp']) <= end]
+    return max(choices, key=lambda e:instant(e['timestamp'])) if choices else {}
+
+
 def collect(args):
     private = ROOT / '.private'
     selected = private / 'sessions'
     selected.mkdir(parents=True, exist_ok=True)
-    metadata = discover(args.logs, args.parent)
+    metadata = discover(args.logs, args.parent, getattr(args,'continuation_parent',()))
     for m in metadata.values():
         link = selected / m['path'].name
         if not link.exists():
@@ -144,8 +173,7 @@ def collect(args):
         if not m:
             continue
         agent = m['agent'] or 'nao_disponivel'
-        choices = [e for e in phases if e['agent'] == agent and e['timestamp'] <= (r['timestamp'] or '')]
-        phase = max(choices, key=lambda e:e['timestamp']) if choices else {}
+        phase = phase_at(phases, agent, r['timestamp'], m['root_started_at'])
         row = {k:r.get(k) for k in ('timestamp','model','effort',*TOKENS)}
         scenario_match = re.match(r'^/root/c([1-4])(?:/|$)',agent)
         scenario = 'C' + scenario_match.group(1) if scenario_match else 'overhead'
@@ -179,6 +207,7 @@ def main():
     p=argparse.ArgumentParser();sub=p.add_subparsers(dest='cmd',required=True)
     phase=sub.add_parser('phase');phase.add_argument('--agent',required=True);phase.add_argument('--phase',choices=PHASES,required=True);phase.add_argument('--scenario',required=True);phase.add_argument('--task',required=True)
     c=sub.add_parser('collect');c.add_argument('--puck',required=True);c.add_argument('--logs',default=str(Path.home()/'.codex/sessions'));c.add_argument('--parent',required=True);c.add_argument('--watch',type=int,default=0);c.add_argument('--reprocess',action='store_true')
+    c.add_argument('--continuation-parent',action='append',default=[],help='Sessão raiz adicional autorizada para esta execução; repetível, sem publicar IDs')
     a=p.parse_args()
     if a.cmd=='phase':
         append_phase(a.agent,a.phase,a.scenario,a.task);return
