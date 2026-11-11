@@ -1,0 +1,25 @@
+{
+  "at": "2026-11-06T18:10:15.172936+00:00",
+  "origin": "autor C4",
+  "environment": "Compose Java21 Node24 PostgreSQL17.11; API via loopback, UI HTTP200",
+  "passed": [
+    "cadastro",
+    "login",
+    "CRUD criação e seleção",
+    "filtros/lista/resumo consistentes",
+    "PDF pypdf: descrição, seleção e total",
+    "XLSX ZIP/XML: descrição, seleção e total",
+    "logout revogado"
+  ],
+  "filtered_summary": {
+    "income": "0.00",
+    "expense": "0.20",
+    "balance": "-0.20",
+    "count": 1
+  },
+  "xlsx_rows_including_headers_totals": 6,
+  "pdf_pages": 1,
+  "limitations": [
+    "smoke positivo sintético; não é pentest nem CI"
+  ]
+}

@@ -1,0 +1,6 @@
+{
+  "finance": "4|5|1|1",
+  "finance_restore": "4|5|1|1",
+  "at": "2026-11-06T14:18:17.285208+00:00",
+  "scope": "pg_dump/restore de dados sint\u00e9ticos no pr\u00f3prio container C4; sem credenciais ou dump publicado"
+}
