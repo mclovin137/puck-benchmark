@@ -1,0 +1,18 @@
+{
+  "scenario": "C1",
+  "observed_at": "2026-11-05",
+  "puck_commit": "c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a",
+  "configuration_source": "experiment/configs.yaml",
+  "host_toolchain": {
+    "node": "v24.16.0",
+    "npm": "11.13.0",
+    "java": "25.0.3 Corretto",
+    "maven": "3.9.16",
+    "docker_compose": "2.40.3+ds1-0ubuntu1",
+    "platform": "WSL2 Linux amd64"
+  },
+  "notes": [
+    "Protocol allows host Java 25; application and containers must target Java 21.",
+    "This is a read-only version inventory; no build, tests, or containers were run."
+  ]
+}
