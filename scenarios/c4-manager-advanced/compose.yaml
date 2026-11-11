@@ -1,0 +1,39 @@
+name: puck-c4
+services:
+  db:
+    image: postgres:17.11
+    environment:
+      POSTGRES_DB: finance
+      POSTGRES_USER: finance
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?Defina DATABASE_PASSWORD no .env local}
+    ports: ["127.0.0.1:15434:5432"]
+    volumes: ["c4-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finance -d finance"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  backend:
+    build: ./backend
+    environment:
+      PORT: 18084
+      SERVER_ADDRESS: 0.0.0.0
+      DATABASE_URL: jdbc:postgresql://db:5432/finance
+      DATABASE_USER: finance
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?Defina DATABASE_PASSWORD}
+    ports: ["127.0.0.1:18084:18084"]
+    depends_on:
+      db: {condition: service_healthy}
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports: ["127.0.0.1:18204:80"]
+    depends_on: [backend]
+volumes:
+  c4-data:
+networks:
+  default:
+    ipam:
+      config:
+        - subnet: 10.217.44.0/24

@@ -1,0 +1,9 @@
+.env
+.git
+.contexto
+**/node_modules
+**/target
+**/dist
+**/test-results
+**/playwright-report
+evidence
