@@ -9,6 +9,7 @@ from pathlib import Path
 import secrets
 import subprocess
 import sys
+import tempfile
 import time
 from urllib.request import build_opener,ProxyHandler
 from urllib.error import HTTPError,URLError
@@ -25,6 +26,20 @@ SERVICE_FIELDS=frozenset(('image','build','command','entrypoint','working_dir','
 
 
 def stamp():return dt.datetime.now(dt.timezone.utc).isoformat()
+
+
+def private_subnet(value):
+    network=ipaddress.ip_network(value,strict=True)
+    ranges=('10.0.0.0/8','172.16.0.0/12','192.168.0.0/16')
+    if network.version!=4 or network.prefixlen!=24 or not any(network.subnet_of(ipaddress.ip_network(block)) for block in ranges):
+        raise ValueError('Exigir uma sub-rede IPv4 privada /24 explícita')
+    return str(network)
+
+
+def assert_subnet(config,subnet):
+    networks=config.get('networks',{})
+    if set(networks)!={'default'} or networks['default'].get('ipam',{}).get('config')!=[{'subnet':subnet}]:
+        raise ValueError('Override deve usar somente a sub-rede default esperada')
 
 
 def local_url(port):
@@ -125,7 +140,12 @@ def wait_http(url,expected,timeout=120):
 
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--scenario',choices=SCENARIOS,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--scenario',choices=SCENARIOS,required=True)
+    p.add_argument('--subnet',help='IPv4 privada /24 previamente conferida contra redes e rotas do host')
+    a=p.parse_args()
+    if a.subnet is not None:
+        try:a.subnet=private_subnet(a.subnet)
+        except ValueError:p.error('Sub-rede inválida: exigir IPv4 privada /24 alinhada')
     directory=ROOT/'scenarios'/SCENARIOS[a.scenario]
     files=[directory/n for n in ('compose.yml','compose.yaml','docker-compose.yml','docker-compose.yaml') if (directory/n).is_file()]
     if len(files)!=1:raise SystemExit('Exigir exatamente um Compose por cenário')
@@ -142,10 +162,18 @@ def main():
     result={'scenario':a.scenario,'started_at':stamp(),'project':project,'scope':'fresh Compose startup and shared HTTP acceptance; UI and other gates separate','stage':'configuration','success':False}
     code=1
     resources_owned=False
+    override=None
     with (private/('runtime-'+a.scenario.lower()+'.log')).open('w') as log:
         try:
+            if a.subnet:
+                with tempfile.NamedTemporaryFile(mode='w',prefix='network-',suffix='.json',dir=private,delete=False) as stream:
+                    override=Path(stream.name)
+                    json.dump({'networks':{'default':{'ipam':{'config':[{'subnet':a.subnet}]}}}},stream)
+                command.extend(['-f',str(override)])
+                result['network_subnet']=a.subnet
             raw=subprocess.run(command+['config','--no-env-resolution','--format','json'],cwd=directory,env=env,check=True,capture_output=True,text=True)
             config=json.loads(raw.stdout)
+            if a.subnet:assert_subnet(config,a.subnet)
             assert_owned_resources(config,project,directory)
             api,web=published_urls(config);result.update(api=api,web=web)
             resources_owned=True
@@ -169,6 +197,7 @@ def main():
             result['error_type']=type(error).__name__
         finally:
             cleanup=subprocess.run(command+['down','--volumes','--remove-orphans'],cwd=directory,env=env,stdout=log,stderr=log) if resources_owned else None
+            if override:override.unlink(missing_ok=True)
             result['cleanup_success']=cleanup.returncode==0 if cleanup else None;result['finished_at']=stamp()
             if cleanup and cleanup.returncode:code=1;result['success']=False
             output.write_text(json.dumps(result,indent=2)+'\n')

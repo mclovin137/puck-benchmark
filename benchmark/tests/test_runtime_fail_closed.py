@@ -14,22 +14,30 @@ spec=importlib.util.spec_from_file_location('runtime_guard',Path(__file__).paren
 VALID={'services':{'backend':{'ports':[{'host_ip':'127.0.0.1','target':8080,'published':'18081'}]},'frontend':{'ports':[{'host_ip':'127.0.0.1','target':80,'published':'18080'}]}}}
 
 class RuntimeFailClosedTests(unittest.TestCase):
-    def exercise(self,config=None,git_fail=False,dirty=False):
+    def exercise(self,config=None,git_fail=False,dirty=False,subnet=None):
         calls=[]
         with tempfile.TemporaryDirectory() as d:
             root=Path(d);scenario=root/'scenarios'/r.SCENARIOS['C1'];scenario.mkdir(parents=True);(scenario/'compose.yaml').write_text('services: {}\n')
             cfg=config(scenario) if callable(config) else (config or copy.deepcopy(VALID))
             def run(command,**kwargs):
                 calls.append(command)
+                if subnet and command[0]=='docker':
+                    override=Path(command[command.index('-f',command.index('-f')+1)+1])
+                    self.assertEqual(json.loads(override.read_text()),{'networks':{'default':{'ipam':{'config':[{'subnet':subnet}]}}}})
                 if command[0]=='git':
                     if git_fail:raise subprocess.CalledProcessError(128,command)
                     output=(' M scoped-source.java\n' if dirty else '') if 'status' in command else 'a'*40+'\n'
                     return subprocess.CompletedProcess(command,0,stdout=output)
-                if 'config' in command:return subprocess.CompletedProcess(command,0,stdout=json.dumps(cfg))
+                if 'config' in command:
+                    if cfg.get('networks',{}).get('default',{}).get('name')=='fixture-project':
+                        cfg['networks']['default']['name']=command[command.index('-p')+1]+'_default'
+                    return subprocess.CompletedProcess(command,0,stdout=json.dumps(cfg))
                 return subprocess.CompletedProcess(command,0,stdout='')
-            with patch.object(r,'ROOT',root),patch.object(sys,'argv',['runtime','--scenario','C1']),patch.object(r.subprocess,'run',side_effect=run),patch.object(r,'wait_http'),patch.object(r.time,'sleep'),patch.dict(os.environ,{'PATH':os.environ.get('PATH','')},clear=True),contextlib.redirect_stdout(io.StringIO()):
+            argv=['runtime','--scenario','C1']+(['--subnet',subnet] if subnet else [])
+            with patch.object(r,'ROOT',root),patch.object(sys,'argv',argv),patch.object(r.subprocess,'run',side_effect=run),patch.object(r,'wait_http'),patch.object(r.time,'sleep'),patch.dict(os.environ,{'PATH':os.environ.get('PATH','')},clear=True),contextlib.redirect_stdout(io.StringIO()):
                 code=r.main()
             result=json.loads((root/'experiment/results/system-c1.json').read_text())
+            self.assertFalse(list((root/'.private').glob('network-*.json')))
         return code,result,calls
 
     def assert_rejected_before_up(self,config):
@@ -69,3 +77,19 @@ class RuntimeFailClosedTests(unittest.TestCase):
             cfg=copy.deepcopy(VALID);cfg['services']['frontend']['volumes']=[{'type':'bind','source':str(scope/'nginx.conf'),'target':'/etc/nginx/conf.d/default.conf','read_only':True}];return cfg
         code,result,calls=self.exercise(config)
         self.assertEqual(code,0);self.assertTrue(result['success']);self.assertEqual(result['stage'],'complete');self.assertEqual(result['commit'],'a'*40);self.assertTrue(any('up' in x for x in calls));self.assertTrue(any('down' in x for x in calls))
+
+    def test_private_subnet_keeps_guard_and_cleans_override(self):
+        cfg=copy.deepcopy(VALID);cfg['networks']={'default':{'name':'unused-by-fixture','ipam':{'config':[{'subnet':'10.254.244.0/24'}]}}}
+        # The generated project name is random, so a mismatching source name must fail closed.
+        code,result,calls=self.exercise(cfg,subnet='10.254.244.0/24')
+        self.assertNotEqual(code,0);self.assertFalse(result['success']);self.assertFalse(any('up' in x for x in calls))
+
+    def test_private_subnet_legitimate_run_and_post_start_failure(self):
+        for dirty in (False,True):
+            with self.subTest(dirty=dirty):
+                cfg=copy.deepcopy(VALID);cfg['networks']={'default':{'name':'fixture-project','ipam':{'config':[{'subnet':'10.254.244.0/24'}]}}}
+                code,result,calls=self.exercise(cfg,dirty=dirty,subnet='10.254.244.0/24')
+                self.assertEqual(code,1 if dirty else 0)
+                self.assertEqual(result['success'],not dirty)
+                self.assertEqual(result['network_subnet'],'10.254.244.0/24')
+                self.assertTrue(any('up' in x for x in calls));self.assertTrue(any('down' in x for x in calls))

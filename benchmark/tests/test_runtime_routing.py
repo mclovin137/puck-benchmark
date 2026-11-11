@@ -15,3 +15,15 @@ class RuntimeRoutingTests(unittest.TestCase):
 
     def test_ipv6_loopback_url_matches_interface(self):
         self.assertEqual(r.local_url({'host_ip':'::1','published':'18081'}),'http://[::1]:18081')
+
+    def test_explicit_subnet_is_small_private_ipv4_only(self):
+        self.assertEqual(r.private_subnet('10.254.244.0/24'),'10.254.244.0/24')
+        for value in ('0.0.0.0/0','8.8.8.0/24','127.0.0.0/24','10.0.0.0/8','10.1.1.1/24','::1/128','192.0.2.0/24'):
+            with self.subTest(value=value),self.assertRaises(ValueError):r.private_subnet(value)
+
+    def test_override_cannot_reuse_or_add_another_network(self):
+        good={'networks':{'default':{'ipam':{'config':[{'subnet':'10.254.244.0/24'}]}}}}
+        r.assert_subnet(good,'10.254.244.0/24')
+        for bad in ({'networks':{}},{'networks':dict(good['networks'],extra={})},good):
+            expected='10.254.245.0/24' if bad is good else '10.254.244.0/24'
+            with self.assertRaises(ValueError):r.assert_subnet(bad,expected)
