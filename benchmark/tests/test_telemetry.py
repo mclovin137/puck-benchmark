@@ -52,3 +52,45 @@ class RegressionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as d:
             with self.assertRaises((ValueError,RuntimeError)):
                 t.load_native(d)
+
+    def test_continuation_keeps_both_trees_without_unrelated_sessions(self):
+        import tempfile,json
+        ids=[f'{n:08d}-1111-1111-1111-111111111111' for n in range(1,6)]
+        with tempfile.TemporaryDirectory() as d:
+            for sid,up,agent,start in [
+                (ids[0],None,None,'2026-11-06T00:00:00Z'),
+                (ids[1],ids[0],'/root/c1','2026-11-06T01:00:00Z'),
+                (ids[2],None,None,'2026-11-11T00:00:00Z'),
+                (ids[3],ids[2],'/root/c4_qa_recovery','2026-11-11T01:00:00Z'),
+                (ids[4],None,None,'2026-11-11T00:00:00Z')]:
+                source={'subagent':{'thread_spawn':{'parent_thread_id':up,'agent_path':agent}}} if up else 'vscode'
+                Path(d,f'rollout-{sid}.jsonl').write_text(json.dumps({'type':'session_meta','payload':{'id':sid,'source':source,'timestamp':start}})+'\n')
+            found=t.discover(d,ids[0],continuations=[ids[2],ids[0]])
+            self.assertEqual(set(found),set(ids[:4]))
+            self.assertEqual(found[ids[2]]['agent'],'/root')
+            self.assertEqual(found[ids[3]]['root_started_at'],'2026-11-11T00:00:00Z')
+            self.assertEqual(found[ids[1]]['root_started_at'],'2026-11-06T00:00:00Z')
+
+    def test_continuation_cannot_inherit_phase_from_old_session(self):
+        ledger=[{'agent':'/root','timestamp':'2026-11-06T10:00:00Z','phase':'codigo'},
+                {'agent':'/root','timestamp':'2026-11-11T10:00:00Z','phase':'planejamento'}]
+        self.assertEqual(t.phase_at(ledger,'/root','2026-11-11T09:00:00Z','2026-11-11T00:00:00Z'),{})
+        self.assertEqual(t.phase_at(ledger,'/root','2026-11-11T11:00:00Z','2026-11-11T00:00:00Z')['phase'],'planejamento')
+        self.assertEqual(t.phase_at(ledger,'/root','2026-11-06T11:00:00Z','2026-11-06T00:00:00Z')['phase'],'codigo')
+
+    def test_continuation_requires_a_valid_timezone_aware_start(self):
+        import tempfile,json
+        sid='55555555-1111-1111-1111-111111111111'
+        with tempfile.TemporaryDirectory() as d:
+            for start in (None,'','invalid','2026-11-11T00:00:00',17):
+                with self.subTest(start=start):
+                    Path(d,f'rollout-{sid}.jsonl').write_text(json.dumps({'type':'session_meta','payload':{'id':sid,'timestamp':start}})+'\n')
+                    with self.assertRaises(ValueError):
+                        t.discover(d,sid,continuations=[sid])
+            with self.assertRaises(ValueError):
+                t.discover(d,sid,continuations=['66666666-1111-1111-1111-111111111111'])
+
+    def test_phase_times_compare_instants_across_timezone_offsets(self):
+        ledger=[{'agent':'/root','timestamp':'2026-11-11T10:00:00-03:00','phase':'codigo'},
+                {'agent':'/root','timestamp':'2026-11-11T12:00:00+00:00','phase':'busca'}]
+        self.assertEqual(t.phase_at(ledger,'/root','2026-11-11T14:00:00Z','2026-11-11T12:30:00Z')['phase'],'codigo')
