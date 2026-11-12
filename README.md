@@ -11,4 +11,6 @@ Experimento exploratório de quatro implementações independentes de controle f
 
 Resultados individuais em [runs.json](experiment/results/runs.json), [comparação e limites](reports/comparison.md) e [revisão de arquitetura](experiment/evaluation/architecture-final.md). O aceite HTTP não aprova a interface, a segurança ou a promoção de versão. A comparação permanece aberta até concluir os gates ou documentar os impedimentos externos.
 
+O [resumo de métricas do C1](reports/c1-resumo-metricas.md) reúne consumo, modelos, agentes, fases, testes e pendências do cenário em um único arquivo.
+
 O [detalhamento de tokens](reports/token-usage.md) separa fases declaradas e atividade observada, com [CSV](reports/token-breakdown.csv), [JSON](reports/token-breakdown.json) e [referência de custo API](reports/cost-estimates.json). Cobrança real e tempo ativo são desconhecidos. A execução usa a assinatura existente, sem compras autorizadas.
