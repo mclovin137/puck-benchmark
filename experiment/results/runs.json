@@ -1,18 +1,30 @@
 {
   "C1": {
-    "state": "implementacao_e_testes_locais",
-    "run": 1
+    "state": "avaliacao_http_aprovada_gates_restantes_pendentes",
+    "run": 1,
+    "source_commit": "1f552f1d5cbf014d3ed1da644cdc11d4e6262e3d",
+    "system_result": "system-c1.json",
+    "scope": "Retomada: aceite HTTP, fronteiras e restore sintético; não é aprovação integral do experimento."
   },
   "C2": {
-    "state": "preparado_aguardando_agendamento",
-    "run": 1
+    "state": "avaliacao_http_aprovada_gates_restantes_pendentes",
+    "run": 1,
+    "source_commit": "1f552f1d5cbf014d3ed1da644cdc11d4e6262e3d",
+    "system_result": "system-c2.json",
+    "scope": "Retomada: aceite HTTP, fronteiras e restore sintético; não é aprovação integral do experimento."
   },
   "C3": {
-    "state": "nao_iniciado",
-    "run": 1
+    "state": "avaliacao_http_aprovada_gates_restantes_pendentes",
+    "run": 1,
+    "source_commit": "1f552f1d5cbf014d3ed1da644cdc11d4e6262e3d",
+    "system_result": "system-c3.json",
+    "scope": "Retomada: aceite HTTP, fronteiras e restore sintético; não é aprovação integral do experimento."
   },
   "C4": {
-    "state": "nao_iniciado",
-    "run": 1
+    "state": "avaliacao_http_reprovada_correcao_pendente",
+    "run": 1,
+    "source_commit": "1f552f1d5cbf014d3ed1da644cdc11d4e6262e3d",
+    "system_result": "system-c4.json",
+    "scope": "Retomada: aceite HTTP, fronteiras e restore sintético; não é aprovação integral do experimento."
   }
 }

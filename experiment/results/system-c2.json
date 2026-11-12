@@ -1,0 +1,16 @@
+{
+  "scenario": "C2",
+  "started_at": "2026-11-11T19:04:25.287205+00:00",
+  "project": "benchmark-eval-c2-81b05fa9",
+  "scope": "fresh Compose startup and shared HTTP acceptance; UI and other gates separate",
+  "stage": "complete",
+  "success": true,
+  "network_subnet": "10.254.245.0/24",
+  "api": "http://127.0.0.1:18082/api",
+  "web": "http://127.0.0.1:18202",
+  "suite_cooldown_seconds": 65,
+  "commit": "1f552f1d5cbf014d3ed1da644cdc11d4e6262e3d",
+  "source_clean": true,
+  "cleanup_success": true,
+  "finished_at": "2026-11-11T19:05:49.574130+00:00"
+}

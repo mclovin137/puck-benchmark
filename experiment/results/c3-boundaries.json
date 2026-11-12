@@ -1,0 +1,26 @@
+{
+  "scenario": "C3",
+  "tests_run": 4,
+  "successful": true,
+  "failures": 0,
+  "errors": 0,
+  "cases": [
+    {
+      "case": "__main__.ContractBoundaries.test_empty_filter_has_zero_summary_and_valid_files",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.ContractBoundaries.test_password_upper_boundary_is_valid",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.ContractBoundaries.test_portuguese_export_preserves_text_and_decimal",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.ContractBoundaries.test_rejected_update_preserves_existing_record",
+      "status": "aprovado"
+    }
+  ],
+  "scope": "Complemento comum dos critérios originais: senha128, texto ptBR/decimal em exports, rollback e vazio; os16originais permanecem inalterados"
+}
