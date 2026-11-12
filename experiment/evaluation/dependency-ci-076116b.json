@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-11-12T12:23:14.740907+00:00",
+  "source_commit": "076116b24bb98cd28b5137a0818c3d6b45acbc56",
+  "workflow": "auditoria-dependencias.yml",
+  "run_id": 43215110268,
+  "run_url": "https://github.com/mclovin137/puck-benchmark/actions/runs/43215110268",
+  "job_url": "https://github.com/mclovin137/puck-benchmark/actions/runs/43215110268/job/131172249745",
+  "conclusion": "failure",
+  "failed_step": "Auditar manifests e locks",
+  "exit_code": 1,
+  "collector_script_sha256": "6510ee194a79b794c29e500a7a3382f21a861aff60ba401c4f8917adf293b961",
+  "sanitized_artifact_sha256": "78b9d9864d018884d75e6400561753d60a06c82d35745ee8e4f920a9b87c9779",
+  "sources": 9,
+  "package_entries": 1020,
+  "unresolved_high_critical": 8,
+  "scope": "Execução real da revisão R2 em GitHub Actions. Instalação do scanner e publicação do artefato aprovadas; auditoria reprovada pelos oito avisos A-002, sem exceção. Payload do artefato byte-idêntico ao inventário preservado na evidência anterior; não implica gate aprovado."
+}
