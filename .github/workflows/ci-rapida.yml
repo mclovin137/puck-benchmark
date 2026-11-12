@@ -6,6 +6,8 @@ name: ci-rapida
 on:
   pull_request:
     branches: [dev]
+  push:
+    branches: [dev]
 
 permissions:
   contents: read
@@ -32,6 +34,7 @@ jobs:
       - name: Sintaxe
         run: scripts/ci/sintaxe.sh
       - name: Tamanho do PR (máx. 30 arquivos)
+        if: github.event_name == 'pull_request'
         env:
           BASE: ${{ github.event.pull_request.base.sha }}
           HEAD: ${{ github.event.pull_request.head.sha }}
@@ -49,6 +52,6 @@ jobs:
       - name: Testes automatizados obrigatórios
         # A toolchain é fixada; este passo executa somente componentes alterados.
         env:
-          BASE: ${{ github.event.pull_request.base.sha }}
-          HEAD: ${{ github.event.pull_request.head.sha }}
+          BASE: ${{ github.event.pull_request.base.sha || github.event.before }}
+          HEAD: ${{ github.event.pull_request.head.sha || github.sha }}
         run: scripts/ci/test-review.sh
