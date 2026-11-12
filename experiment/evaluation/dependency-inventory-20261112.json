@@ -1,0 +1,168 @@
+{
+  "observed_at": "2026-11-12T12:04:49.280830+00:00",
+  "source_reference_commit": "548b14f31fc0752631383aee83c929a6d99a4f5d",
+  "source_trees": {
+    "C1": {
+      "directory": "scenarios/c1-specialists-economy",
+      "git_tree": "2eda51bfb8fb30e5229eed6db64cc35c7d608aec"
+    },
+    "C2": {
+      "directory": "scenarios/c2-specialists-advanced",
+      "git_tree": "64c31b42d29a3beae20f4c90e3856d0ae441f50c"
+    },
+    "C3": {
+      "directory": "scenarios/c3-manager-economy",
+      "git_tree": "0ff1698e4c7a4f96a1eb3df523531f14ce049c21"
+    },
+    "C4": {
+      "directory": "scenarios/c4-manager-advanced",
+      "git_tree": "0986c4865344f352f45f4621e6d36bd024e364ae"
+    }
+  },
+  "scanner": "OSV-Scanner 2.7.0",
+  "scanner_binary_sha256": "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b",
+  "collector_script_sha256": "565de0badbd77154e1318f6aa13c74bcdbb31675bef37ee7c8fe8198d242f38c",
+  "raw_sanitized_report_sha256": "78b9d9864d018884d75e6400561753d60a06c82d35745ee8e4f920a9b87c9779",
+  "scope": "Inventário real de nove fontes; parser carregado antes das correções DEP-01/DEP-02. Não é aprovação da versão corrigida do gate. Fontes rastreadas dos cenários idênticas entre c270374 e 548b14f e limpas na conferência; não garante lock integral de transitivas.",
+  "total_package_entries": 1020,
+  "report": {
+    "schema_version": 1,
+    "scanner": "OSV-Scanner 2.7.0",
+    "sources": [
+      {
+        "scenario": "C1",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c1-specialists-economy/backend",
+        "package_count": 119,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          }
+        ]
+      },
+      {
+        "scenario": "C1",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c1-specialists-economy/frontend",
+        "package_count": 145,
+        "findings": []
+      },
+      {
+        "scenario": "C2",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c2-specialists-advanced/backend",
+        "package_count": 140,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          }
+        ]
+      },
+      {
+        "scenario": "C2",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c2-specialists-advanced/frontend",
+        "package_count": 71,
+        "findings": []
+      },
+      {
+        "scenario": "C3",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c3-manager-economy/backend",
+        "package_count": 121,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          }
+        ]
+      },
+      {
+        "scenario": "C3",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c3-manager-economy/frontend",
+        "package_count": 176,
+        "findings": []
+      },
+      {
+        "scenario": "C4",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c4-manager-advanced/backend",
+        "package_count": 140,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "severity": "CRITICAL",
+            "triage": "pendente"
+          }
+        ]
+      },
+      {
+        "scenario": "C4",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c4-manager-advanced/frontend",
+        "package_count": 106,
+        "findings": []
+      },
+      {
+        "scenario": "avaliador Python",
+        "ecosystem": "PyPI",
+        "manifest": "benchmark/requirements.txt",
+        "package_count": 2,
+        "findings": []
+      }
+    ],
+    "status": "failed",
+    "untriaged_high_critical": [
+      "C1/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-j9f9-w8pj-32f8:CRITICAL",
+      "C1/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-pc63-qcmh-9cmg:CRITICAL",
+      "C2/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-j9f9-w8pj-32f8:CRITICAL",
+      "C2/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-pc63-qcmh-9cmg:CRITICAL",
+      "C3/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-j9f9-w8pj-32f8:CRITICAL",
+      "C3/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-pc63-qcmh-9cmg:CRITICAL",
+      "C4/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-j9f9-w8pj-32f8:CRITICAL",
+      "C4/Maven:org.springframework:spring-webmvc@6.2.19:GHSA-pc63-qcmh-9cmg:CRITICAL"
+    ]
+  }
+}
