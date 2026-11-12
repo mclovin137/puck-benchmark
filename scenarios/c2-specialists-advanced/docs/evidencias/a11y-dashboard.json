@@ -1,0 +1,12 @@
+{
+  "axeVersion": "4.12.1",
+  "counts": {
+    "inapplicable": 37,
+    "incomplete": 0,
+    "passes": 23,
+    "violations": 0
+  },
+  "incomplete": [],
+  "url": "http://127.0.0.1:18202/",
+  "violations": []
+}

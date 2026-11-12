@@ -1,0 +1,62 @@
+{
+  "timestamp": "2026-11-06T07:58:20.581026+00:00",
+  "scanner": "OSV-Scanner 2.7.0",
+  "binary_sha256": "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b",
+  "reports": [
+    {
+      "manifest": "backend/pom.xml",
+      "exit_code": 1,
+      "packages_in_vulnerability_result": 1,
+      "findings": [
+        {
+          "package": {
+            "name": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "ecosystem": "Maven",
+            "purl": "pkg:maven/org.springframework/spring-webmvc@6.2.19"
+          },
+          "id": "GHSA-j9f9-w8pj-32f8",
+          "aliases": [
+            "CVE-2026-47890"
+          ],
+          "severity": [
+            {
+              "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "type": "CVSS_V3"
+            }
+          ],
+          "database_severity": "CRITICAL"
+        },
+        {
+          "package": {
+            "name": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "ecosystem": "Maven",
+            "purl": "pkg:maven/org.springframework/spring-webmvc@6.2.19"
+          },
+          "id": "GHSA-pc63-qcmh-9cmg",
+          "aliases": [
+            "CVE-2026-47884"
+          ],
+          "severity": [
+            {
+              "score": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+              "type": "CVSS_V3"
+            }
+          ],
+          "database_severity": "CRITICAL"
+        }
+      ],
+      "completed": true,
+      "limit": "POM native não inclui dependências de teste; sem análise de alcançabilidade. Saída bruta privada temporária removida."
+    },
+    {
+      "manifest": "frontend/package-lock.json",
+      "exit_code": 0,
+      "packages_in_vulnerability_result": 0,
+      "findings": [],
+      "completed": true,
+      "limit": "POM native não inclui dependências de teste; sem análise de alcançabilidade. Saída bruta privada temporária removida."
+    }
+  ]
+}

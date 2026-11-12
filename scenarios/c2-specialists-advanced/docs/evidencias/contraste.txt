@@ -1,0 +1,12 @@
+tema modo    menor razão  par
+1    claro   4.83         estado aviso (aviso / superficie-2) (mín. 4.5)
+1    escuro  5.15         texto do botão primário (sobre-primaria / primaria) (mín. 4.5)
+2    claro   4.86         estado aviso sobre seu fundo suave (aviso / mix:aviso) (mín. 4.5)
+2    escuro  5.01         texto do botão de acento (sobre-acento / acento) (mín. 4.5)
+3    claro   4.97         acento como texto (acento-texto / superficie-2) (mín. 4.5)
+3    escuro  4.67         acento como texto (acento-texto / superficie-2) (mín. 4.5)
+4    claro   4.83         estado aviso (aviso / superficie-2) (mín. 4.5)
+4    escuro  5.29         texto do botão de acento (sobre-acento / acento) (mín. 4.5)
+5    claro   4.53         acento como texto (acento-texto / superficie-2) (mín. 4.5)
+5    escuro  5.70         acento como texto (acento-texto / superficie-2) (mín. 4.5)
+330 pares verificados, 0 falhas, 0 erros

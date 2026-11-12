@@ -1,0 +1,52 @@
+{
+  "tests": {
+    "domain": 2,
+    "integration": 10,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "last_verify_seconds": 33.143,
+  "database": "PostgreSQL17.11 Testcontainers",
+  "build": "success",
+  "post_format_package": "success",
+  "corrections": {
+    "compile_import_Row": 1,
+    "oversized_test_fixture": 1,
+    "date_error_mapping": 1
+  },
+  "intentional_red": {
+    "domain_before_implementation": 1,
+    "invalid_filter_date": 1
+  },
+  "format": {
+    "host_JDK25_failure": 1,
+    "Docker_JDK21_success": 1
+  },
+  "source": "Severino, comando mvn verify executado; XML bruto excluído dos artefatos públicos",
+  "encoding_followup": {
+    "new_regression": 1,
+    "selected_tests": 4,
+    "overlap_with_previous_suite": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 25.835,
+    "implementation_attempts": 1,
+    "intentional_red": 1,
+    "limit": "Não somar4a12como16testes únicos; suíte base e delta têm3testes em comum."
+  },
+  "login_status_followup": {
+    "selected_tests": 4,
+    "new_case": 1,
+    "overlap_with_prior_cases": 3,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 27.659,
+    "implementation_attempts": 1,
+    "intentional_red": 1,
+    "source": "login-status.json",
+    "limit": "Execução pertinente separada; não equivale a suíte única final de14 casos"
+  }
+}
