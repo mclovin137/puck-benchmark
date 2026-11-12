@@ -1,0 +1,24 @@
+# Arquitetura — C2, revisão de produção 1
+
+Parecer Yoda em 2026-11-06: **nenhum bloqueio arquitetural identificado na leitura estática**. Implementação adere às fronteiras e invariantes do HLD/ADRs, com simplificação de organização descrita abaixo. O autor deste parecer escreveu os documentos de desenho, mas não escreveu produção; esta revisão avalia código e não é aprovação independente do próprio desenho. Não autoriza merge/release nem substitui QA, segurança ou CI.
+
+Escopo: fontes Java de `backend/src/main/java`, configuração JPA/Jackson, migração V1 e fontes TS/TSX do frontend; referências em `docs/hlds/financas.md` e ADRs 001/002. Sem Git, outros cenários ou avaliador. Memória indisponível. Identidade dos 23 arquivos do escopo: SHA-256 `153a8277c1b9c88bca2c28299bc44f0fbd5085a8e13bd66dc73af0e7ae692914` (ordenar caminhos relativos; concatenar caminho, NUL e bytes do SHA-256 de cada conteúdo). Alterações posteriores exigem avaliar o delta.
+
+| Fronteira/invariante | Fonte e constatação | Efeito e parecer |
+|---|---|---|
+| REST → Actor → DAO/Service | `auth/rest/AuthREST.java` e `transaction/rest/TransactionREST.java` usam actors e DTOs; não acessam banco. Actors controlam transações; DAO concentra JPA. `PasswordService`, `TransactionRules` e `ExportService` isolam tarefas concretas. | Sem inversão de dependência ou exposição de entidades identificada. Organização por entidade/função atende o desenho. |
+| Sessão revogável | `AuthActor.java:40`, `AuthDAO.java:32` e `AuthSession.java:30`: token aleatório, digest persistido, seleção por validade/revogação, expiração de 12h e logout transacional. `frontend/src/App.tsx:13` mantém token no estado. | Compatível com ADR 001 em leitura; eficácia de autorização/runtime é gate de Neo. |
+| Proprietário obrigatório | `TransactionActor.java:85` consulta `(id,owner)`; `TransactionDAO.java:16` exige owner não nulo e o adiciona ao predicado. REST obtém owner do principal. | Mesmo caminho protege CRUD e consultas agregadas; não foi encontrada consulta de movimentação alheia no fluxo implementado. Testes de isolamento pertencem à evidência QA/Neo. |
+| Seleção única | `TransactionActor.java:52`, `:66` e `:71` reutilizam `TransactionDAO.selection`; filtros inclusivos e escape literal estão em `TransactionDAO.java:16`; sort acrescenta id em `:43`. | Paginação só na lista; resumo/export recebem todas as linhas selecionadas. `REPEATABLE_READ` cobre lista/count e seleção; linhas e totais de export vêm da mesma lista materializada. Atende ADR 002. |
+| Precisão e fonte de verdade | `TransactionRules.java:11` restringe sintaxe/precisão antes de `BigDecimal`; entidade e V1 usam NUMERIC(16,2) e amount>0. `TransactionActor.java:109` soma decimais e calcula saldo sem coluna redundante. DTO monetário exige string. Frontend formata strings e compara filtros por BigInt. | Nenhum caminho financeiro com conversão a ponto flutuante identificado. `Number` do frontend trata tamanho da página, sem valor monetário. |
+| Persistência e arquivos | JPA valida schema; V1 cria constraints/índices PostgreSQL. ExportService recebe DTOs e totais, fecha recursos, pagina PDF e cria células XLSX STRING. | Compatível com PostgreSQL/Flyway e geração sem acesso próprio ao banco. Não deduz execução PostgreSQL/Compose da configuração. |
+
+## Simplificações e riscos preservados
+
+`AuthActor.java:15` e `TransactionActor.java:18` agrupam casos de uso por entidade; cada método público representa um caso transacional, em vez de uma classe por caso. `TransactionActor.java:109` mantém a pequena soma decimal como método puro privado. É desvio organizacional do HLD, sem quebra funcional identificada: separar agora aumentaria arquivos/indireção sem necessidade comprovada. Correção não exigida neste congelamento; extrair serviço/classe específica apenas se crescerem regras ou surgirem consumidores independentes. Não foram encontrados fábricas, camadas genéricas, filas, cache ou abstrações sem uso.
+
+Resumo e exports materializam todas as linhas autorizadas (`TransactionActor.java:77`); memória e duração crescem com volume e a exportação mantém transação durante geração. Risco já previsto no HLD, sem carga/SLA ou exaustão demonstrada. Não é bloqueio no escopo local; antes de ampliar volume/exposição, medir consumo e considerar agregação SQL/streaming com snapshot consistente, mantendo a seleção compartilhada e sem truncar dados silenciosamente.
+
+## Limites da conclusão
+
+Não reexecutei build, testes ou verificações mecânicas já atribuídas ao implementador/coordenador. A informação recebida de 12 testes PostgreSQL e build frontend não é resultado produzido por esta revisão. Compose estava em construção no despacho; execução não foi inferida. Avisos Spring A-002 e gate de segurança continuam no parecer de Neo; QA, pentest e CI remota mantêm seus próprios estados. Este parecer não declara aplicação integralmente aprovada nem ausência geral de vulnerabilidades.

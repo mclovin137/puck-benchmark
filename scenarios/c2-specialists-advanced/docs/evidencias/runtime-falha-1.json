@@ -1,0 +1,10 @@
+{
+  "scenario": "C2",
+  "attempt": 1,
+  "command": "python3 scripts/runtime-check.py",
+  "status": "failed",
+  "error": "UnicodeDecodeError em JSON401 real",
+  "observed_content_type": "application/json;charset=ISO-8859-1",
+  "root_cause": "SecurityConfiguration escreve mensagem acentuada via ServletWriter sem definir UTF-8",
+  "action": "Regressão e correção delegadas Severino; não flexibilizar parser para ocultar violação JSON"
+}

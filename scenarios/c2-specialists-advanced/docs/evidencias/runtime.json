@@ -1,0 +1,16 @@
+{
+  "timestamp": "2026-11-06T08:12:10.725052+00:00",
+  "checks": [
+    "cadastro, login, me e proteção sem token",
+    "CRUD criação decimal em string e datas futuras",
+    "isolamento GET PUT DELETE e resumo",
+    "resumo exato, paginação e sort",
+    "substring literal porcentagem",
+    "validação intervalos e paginação",
+    "PDF e XLSX reais autenticados; assinatura de arquivo",
+    "edição e exclusão",
+    "logout revoga token também nas exportações"
+  ],
+  "passed": 9,
+  "limit": "assinaturas de exportação não verificam conteúdo; revisar testes backend e QA independente"
+}

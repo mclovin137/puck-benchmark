@@ -1,0 +1,151 @@
+{
+  "task": "login-status",
+  "attempts": [
+    {
+      "timestamp": "2026-11-06T14:06:15.325637+00:00",
+      "checks": [
+        {
+          "case": "cadastro válido",
+          "expected": 201,
+          "observed": 201,
+          "passed": true
+        },
+        {
+          "case": "login senha curta incorreta",
+          "expected": 401,
+          "observed": 400,
+          "passed": false
+        },
+        {
+          "case": "login válido",
+          "expected": 200,
+          "observed": 200,
+          "passed": true
+        },
+        {
+          "case": "me autenticado",
+          "expected": 200,
+          "observed": 200,
+          "passed": true
+        },
+        {
+          "case": "logout",
+          "expected": 204,
+          "observed": 204,
+          "passed": true
+        },
+        {
+          "case": "token revogado",
+          "expected": 401,
+          "observed": 401,
+          "passed": true
+        },
+        {
+          "case": "cadastro senha tamanho 11",
+          "expected": 400,
+          "observed": 400,
+          "passed": true
+        },
+        {
+          "case": "cadastro senha tamanho 128",
+          "expected": 201,
+          "observed": 201,
+          "passed": true
+        },
+        {
+          "case": "cadastro senha tamanho 129",
+          "expected": 400,
+          "observed": 400,
+          "passed": true
+        }
+      ],
+      "passed": false
+    },
+    {
+      "timestamp": "2026-11-06T14:09:35.684664+00:00",
+      "checks": [
+        {
+          "case": "cadastro válido",
+          "expected": 201,
+          "observed": 201,
+          "passed": true
+        },
+        {
+          "case": "login senha curta incorreta",
+          "expected": 401,
+          "observed": 401,
+          "passed": true
+        },
+        {
+          "case": "login válido",
+          "expected": 200,
+          "observed": 200,
+          "passed": true
+        },
+        {
+          "case": "me autenticado",
+          "expected": 200,
+          "observed": 200,
+          "passed": true
+        },
+        {
+          "case": "logout",
+          "expected": 204,
+          "observed": 204,
+          "passed": true
+        },
+        {
+          "case": "token revogado",
+          "expected": 401,
+          "observed": 401,
+          "passed": true
+        },
+        {
+          "case": "cadastro senha tamanho 11",
+          "expected": 400,
+          "observed": 400,
+          "passed": true
+        },
+        {
+          "case": "cadastro senha tamanho 128",
+          "expected": 201,
+          "observed": 201,
+          "passed": true
+        },
+        {
+          "case": "cadastro senha tamanho 129",
+          "expected": 400,
+          "observed": 400,
+          "passed": true
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "scope": "Prova HTTP própria; nenhum teste externo consultado; contas sintéticas e senhas omitidas",
+  "implementation": {
+    "cause": "Login repetia a restrição mínima de cadastro, devolvendo400 antes da autenticação",
+    "change": "Somente mínimo12 removido de AuthDtos.Login; @NotNull e @Size(max128) preservados; Register12–128 intacto",
+    "files": [
+      "backend/src/main/java/br/com/puck/finance/auth/dto/AuthDtos.java",
+      "backend/src/test/java/br/com/puck/finance/ApiIntegrationTest.java"
+    ],
+    "implementation_attempts": 1,
+    "intentional_red": 1,
+    "selected_tests": 4,
+    "selected_test_names": [
+      "unauthorizedResponsesUseUtf8WithMissingOrInvalidToken",
+      "loginCredentialStatusAndPasswordBoundaries",
+      "credentialsValidationAndRealRevocation",
+      "expiredSessionCannotBeUsed"
+    ],
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "seconds": 27.659,
+    "database": "PostgreSQL17.11 Testcontainers",
+    "source": "Execução Severino e XML Surefire pertinente conferido pelo coordenador",
+    "limit": "Não é execução de toda a suíte nem reavaliação externa"
+  },
+  "served_backend_jar_sha256": "3d6d1ab07332f34656d6a5c47b9f9f0d8ebce0ff5ac0c4697c98d432b9b602a9"
+}
