@@ -10,3 +10,13 @@ Para desenvolvimento: `docker compose up -d db`, exporte DATABASE_PASSWORD do se
 Valores monetários são strings decimais com ponto nos centavos, nunca Number; filtros inclusivos combinam tipo/categoria/descrição/período/faixa. Resumo e exports usam seleção autorizada integral, independentemente da página. XLSX armazena moeda como texto decimal para preservar os14inteiros e centavos. PDF embute DejaVuSans; glifos ausentes são representados por código Unicode legível `[U+…]` em vez de perda silenciosa. Dados não são convertidos de timezone.
 
 [Arquitetura e recuperação](docs/hlds/financeiro.md), [decisão de sessão](docs/adrs/001-sessoes.md), [bibliotecas](docs/lib.md), [comandos de verificação](docs/verificacao.md) e [evidências de autoria](evidence/autoria.md). CI e integração Git são conduzidas pelo Oráculo; sem commit/push/merge nesta autoria. Gates ausentes não são aprovação.
+
+## Avaliação comum — 12/11/2026
+
+O C4 passou nos **16 casos HTTP originais e quatro complementares (20/20)**. A execução comum observou inicialização limpa de backend, frontend e banco, migração e remoção do ambiente. A fonte executada corresponde a `13f775b94ab5731a4d6ae7b93aebc55513e1c2a8`; os registros preservam seus horários e alcance. Provas: [aceite HTTP](../../experiment/results/c4-acceptance.json), [complementares](../../experiment/results/c4-boundaries.json) e [runtime](../../experiment/results/system-c4.json).
+
+O [restore sintético histórico](../../experiment/results/restore-c4.json) foi aprovado no alcance de comparação de snapshots em banco novo; não mede recuperação de desastre. O aceite HTTP não aprova por si só interface, segurança ou versão. CI completa, tratamento do gate comum de dependências e pentest A1 protegido continuam pendentes. Os dois avisos Spring WebMVC 6.2.19 da A-002 permanecem visíveis e não estão declarados corrigidos.
+
+O aceite atual já inclui a correção de UTF-8 dos erros e status de login integrada no PR #20. Uma tentativa posterior de restore começou após o teardown e falhou na identidade do container; está [preservada separadamente](../../experiment/results/restore-c4-resume-unavailable.json) e não é restore novo aprovado.
+
+Esta seção registra a avaliação comum conduzida pelo Oráculo. As evidências autorais anteriores mantêm seu alcance original.
