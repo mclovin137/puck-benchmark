@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-12T19:02:29.354277+00:00",
+  "source_commit": "4735d70d4e55535fca7335b6e4807d7c756b7451",
+  "scope": "Oráculo: diagnóstico de descoberta de uma fonte C1 Maven; não é auditoria integral nem A1",
+  "scanner": "OSV-Scanner 2.7.0",
+  "scanner_sha256": "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b",
+  "neutral_config": true,
+  "hidden_ancestor": {
+    "exit_code": 128,
+    "stdout_bytes": 0,
+    "message": "No package sources found, --help for usage information."
+  },
+  "visible_ancestor": {
+    "exit_code": 1,
+    "package_entries": 119,
+    "finding_entries": 2,
+    "stdout_sha256": "956fad1f28545129e106a11509e2326d4bc70962590933706953970ad0f5b2cb",
+    "stderr_bytes": 0
+  },
+  "full_local_attempt": {
+    "exit_code": 2,
+    "report_produced": false,
+    "gate_passed": false
+  },
+  "interpretation": "Com fontes de cenário idênticas e os mesmos argumentos, o caminho sem ancestral oculto permitiu descoberta. A tentativa integral sob diretório privado permaneceu reprovada; validar auditoria completa na CI."
+}
