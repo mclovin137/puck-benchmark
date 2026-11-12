@@ -10,3 +10,6 @@
 *.webm
 # Puck: segredos e artefatos locais
 relatorio/
+
+# Cache incremental gerado pelo TypeScript, sem fonte de aplicacao
+**/*.tsbuildinfo
