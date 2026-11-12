@@ -1,49 +1,21 @@
 {
   "scenario": "C4",
   "tests_run": 16,
-  "successful": false,
-  "failures": 1,
-  "errors": 11,
+  "successful": true,
+  "failures": 0,
+  "errors": 0,
   "cases": [
     {
       "case": "__main__.Acceptance.test_01_private_routes_deny_anonymous",
-      "subcase": "test_01_private_routes_deny_anonymous (__main__.Acceptance.test_01_private_routes_deny_anonymous) (path='/auth/me')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_01_private_routes_deny_anonymous",
-      "subcase": "test_01_private_routes_deny_anonymous (__main__.Acceptance.test_01_private_routes_deny_anonymous) (path='/transactions')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_01_private_routes_deny_anonymous",
-      "subcase": "test_01_private_routes_deny_anonymous (__main__.Acceptance.test_01_private_routes_deny_anonymous) (path='/transactions/summary')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_01_private_routes_deny_anonymous",
-      "subcase": "test_01_private_routes_deny_anonymous (__main__.Acceptance.test_01_private_routes_deny_anonymous) (path='/transactions/export.pdf')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_01_private_routes_deny_anonymous",
-      "subcase": "test_01_private_routes_deny_anonymous (__main__.Acceptance.test_01_private_routes_deny_anonymous) (path='/transactions/export.xlsx')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
+      "status": "aprovado"
     },
     {
       "case": "__main__.Acceptance.test_02_registration_and_login_validation",
-      "status": "reprovado",
-      "reason": "AssertionError"
+      "status": "aprovado"
     },
     {
       "case": "__main__.Acceptance.test_03_logout_revokes_token_and_me_hides_secrets",
-      "status": "erro",
-      "reason": "UnicodeDecodeError"
+      "status": "aprovado"
     },
     {
       "case": "__main__.Acceptance.test_04_crud_and_decimal_contract",
@@ -95,32 +67,7 @@
     },
     {
       "case": "__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected",
-      "subcase": "test_16_anonymous_cannot_mutate_and_invalid_token_rejected (__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected) (method='POST')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected",
-      "subcase": "test_16_anonymous_cannot_mutate_and_invalid_token_rejected (__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected) (method='GET')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected",
-      "subcase": "test_16_anonymous_cannot_mutate_and_invalid_token_rejected (__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected) (method='PUT')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected",
-      "subcase": "test_16_anonymous_cannot_mutate_and_invalid_token_rejected (__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected) (method='DELETE')",
-      "status": "reprovado",
-      "reason": "UnicodeDecodeError"
-    },
-    {
-      "case": "__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected",
-      "status": "erro",
-      "reason": "UnicodeDecodeError"
+      "status": "aprovado"
     }
   ],
   "scope": "HTTP API only; UI, static security and CI are separate gates"

@@ -21,9 +21,9 @@
     "scope": "Retomada: aceite HTTP, fronteiras e restore sintético; não é aprovação integral do experimento."
   },
   "C4": {
-    "state": "avaliacao_http_reprovada_correcao_pendente",
+    "state": "avaliacao_http_aprovada_gates_restantes_pendentes",
     "run": 1,
-    "source_commit": "1f552f1d5cbf014d3ed1da644cdc11d4e6262e3d",
+    "source_commit": "13f775b94ab5731a4d6ae7b93aebc55513e1c2a8",
     "system_result": "system-c4.json",
     "scope": "Retomada: aceite HTTP, fronteiras e restore sintético; não é aprovação integral do experimento."
   }

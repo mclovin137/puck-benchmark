@@ -7,16 +7,16 @@
 4. Aplicar governança equivalente aos quatro cenários.
 
 ## v0.2 — Implementações independentes
-1. C1: planejamento, aplicação e testes.
-2. C2: planejamento, aplicação e testes.
-3. C3: planejamento, aplicação e testes.
-4. C4: planejamento, aplicação e testes.
+1. C1: aplicação e testes integrados em dev (PRs #6, #10); correção de UI no candidato integrado. Gates de versão pendentes.
+2. C2: aplicação e testes integrados em dev (PRs #7, #9); documentação recuperada no #17. Gates de versão pendentes.
+3. C3: aplicação e testes integrados em dev (PRs #5, #8); documentação recuperada no #19. Gates de versão pendentes.
+4. C4: aplicação e testes integrados em dev (PRs #12, #13); correção de contrato no #20. Gates de versão pendentes.
 
 ## v0.3 — Avaliação
-1. Executar aceite externo idêntico nas quatro aplicações.
-2. Revisar arquitetura, segurança e QA.
+1. Aceite externo comum: C1–C3 aprovados em 11/11; C4 aprovado em 12/11 após correção (#20), 16+4 casos por cenário. Evidência nova aguardando integração.
+2. Arquitetura independente publicada; auditorias de suficiência de segurança/QA em consolidação. Pentest A1 e triagem final pendentes.
 3. Validar operação, interface e demonstrações.
-4. Consolidar métricas, desvios e comparação.
+4. Consolidar métricas, desvios e comparação — snapshot de continuidade em preparação; perdas de telemetria e cobrança desconhecida preservadas.
 5. Preparar promoção com evidências e gates.
 
 Tasks só são concluídas após integração aprovada conforme contrato.
