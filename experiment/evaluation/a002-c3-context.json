@@ -1,0 +1,267 @@
+{
+  "active_profiles": [],
+  "application_class": "com.puck.finance.App",
+  "artifact_sha256": "3eb1fce94a3cc0e804c9519cb4404f36e7f0464b14d89a6eab04bb6f8cd1c83c",
+  "boot_version": "3.5.16",
+  "context_closed": true,
+  "finished_at": "2026-11-12T12:14:35.955790355Z",
+  "handler_mappings": [
+    {
+      "bean": "beanNameHandlerMapping",
+      "class": "org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping",
+      "url_handler_classes": {}
+    },
+    {
+      "bean": "requestMappingHandlerMapping",
+      "class": "org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping"
+    },
+    {
+      "bean": "resourceHandlerMapping",
+      "class": "org.springframework.web.servlet.handler.SimpleUrlHandlerMapping",
+      "url_handler_classes": {
+        "/**": "org.springframework.web.servlet.resource.ResourceHttpRequestHandler",
+        "/webjars/**": "org.springframework.web.servlet.resource.ResourceHttpRequestHandler"
+      }
+    },
+    {
+      "bean": "routerFunctionMapping",
+      "class": "org.springframework.web.servlet.function.support.RouterFunctionMapping"
+    },
+    {
+      "bean": "welcomePageHandlerMapping",
+      "class": "org.springframework.boot.autoconfigure.web.servlet.WelcomePageHandlerMapping",
+      "url_handler_classes": {}
+    },
+    {
+      "bean": "welcomePageNotAcceptableHandlerMapping",
+      "class": "org.springframework.boot.autoconfigure.web.servlet.WelcomePageNotAcceptableHandlerMapping",
+      "url_handler_classes": {}
+    }
+  ],
+  "java_version": "21.0.13",
+  "request_handlers": [
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "DELETE"
+      ],
+      "method": "delete",
+      "patterns": [
+        "/api/transactions/{id:[0-9]+}"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "void"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "GET"
+      ],
+      "method": "get",
+      "patterns": [
+        "/api/transactions/{id:[0-9]+}"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "com.puck.finance.Api$View"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "GET"
+      ],
+      "method": "list",
+      "patterns": [
+        "/api/transactions"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "java.lang.Object"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "GET"
+      ],
+      "method": "me",
+      "patterns": [
+        "/api/auth/me"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "java.lang.Object"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "GET"
+      ],
+      "method": "pdf",
+      "patterns": [
+        "/api/transactions/export.pdf"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "org.springframework.http.ResponseEntity<byte[]>"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "GET"
+      ],
+      "method": "sum",
+      "patterns": [
+        "/api/transactions/summary"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "com.puck.finance.Api$Summary"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "GET"
+      ],
+      "method": "xlsx",
+      "patterns": [
+        "/api/transactions/export.xlsx"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "org.springframework.http.ResponseEntity<byte[]>"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "POST"
+      ],
+      "method": "create",
+      "patterns": [
+        "/api/transactions"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "com.puck.finance.Api$View"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "POST"
+      ],
+      "method": "login",
+      "patterns": [
+        "/api/auth/login"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "java.lang.Object"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "POST"
+      ],
+      "method": "logout",
+      "patterns": [
+        "/api/auth/logout"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "void"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "POST"
+      ],
+      "method": "register",
+      "patterns": [
+        "/api/auth/register"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "java.lang.Object"
+    },
+    {
+      "controller": "com.puck.finance.Api",
+      "http_methods": [
+        "PUT"
+      ],
+      "method": "update",
+      "patterns": [
+        "/api/transactions/{id:[0-9]+}"
+      ],
+      "produces": [],
+      "rest_controller": true,
+      "return_type": "com.puck.finance.Api$View"
+    },
+    {
+      "controller": "org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController",
+      "http_methods": [],
+      "method": "error",
+      "patterns": [
+        "/error"
+      ],
+      "produces": [],
+      "rest_controller": false,
+      "return_type": "org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>>"
+    },
+    {
+      "controller": "org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController",
+      "http_methods": [],
+      "method": "errorHtml",
+      "patterns": [
+        "/error"
+      ],
+      "produces": [
+        "text/html"
+      ],
+      "rest_controller": false,
+      "return_type": "org.springframework.web.servlet.ModelAndView"
+    }
+  ],
+  "scenario": "C3",
+  "schema_version": 1,
+  "source_commit": "076116b24bb98cd28b5137a0818c3d6b45acbc56",
+  "spring_version": "6.2.19",
+  "started_at": "2026-11-12T12:14:29.581349168Z",
+  "status": "observed",
+  "view_resolvers": [
+    {
+      "bean": "beanNameViewResolver",
+      "class": "org.springframework.web.servlet.view.BeanNameViewResolver"
+    },
+    {
+      "bean": "defaultViewResolver",
+      "class": "org.springframework.web.servlet.view.InternalResourceViewResolver",
+      "configured_view_class": "org.springframework.web.servlet.view.InternalResourceView",
+      "configured_view_is_xslt": false
+    },
+    {
+      "bean": "mvcViewResolver",
+      "class": "org.springframework.web.servlet.view.ViewResolverComposite",
+      "delegates": []
+    },
+    {
+      "bean": "viewResolver",
+      "class": "org.springframework.web.servlet.view.ContentNegotiatingViewResolver",
+      "delegates": [
+        {
+          "class": "org.springframework.web.servlet.view.BeanNameViewResolver"
+        },
+        {
+          "class": "org.springframework.web.servlet.view.ViewResolverComposite",
+          "delegates": []
+        },
+        {
+          "class": "org.springframework.web.servlet.view.InternalResourceViewResolver",
+          "configured_view_class": "org.springframework.web.servlet.view.InternalResourceView",
+          "configured_view_is_xslt": false
+        }
+      ]
+    }
+  ],
+  "xslt_resolver_beans": [],
+  "xslt_view_beans": []
+}

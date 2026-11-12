@@ -1,0 +1,65 @@
+{
+  "observed_at": "2026-11-12T12:45:08.314366+00:00",
+  "source_reference_commit": "6d02c266006149faeb031a9e31c0344354a0436d",
+  "tool": "org.apache.maven.plugins:maven-dependency-plugin:3.8.1:tree",
+  "format": "json",
+  "canonicalization": "Recursively sort child nodes by canonical JSON; preserve string fields; JSON sort_keys=true, separators comma/colon, UTF-8. Optional children omitted when empty.",
+  "scope": "Árvores Maven resolvidas reportadas pela ferramenta; não são grafo de chamadas, prova de ausência de vulnerabilidade ou inventário OSV. Quatro comandos reais terminaram com código zero. Resolução em Maven do host permitida pelo protocolo; a prova de contexto C3 separada usa Java 21. O hash da árvore deverá coincidir na execução final, não é presumido por versão de ferramenta.",
+  "records": [
+    {
+      "scenario": "C1",
+      "source_directory": "scenarios/c1-specialists-economy/backend",
+      "scenario_git_tree": "0d350a19c9226175ff6bf0078100758d4ede6af8",
+      "source_pom_sha256": "f45801907a8ef501fbe4f79a567a9727550d4b044aac48b3c90c8f431db5ea81",
+      "tree_file": "experiment/evaluation/dependency-graphs/c1.json",
+      "canonical_tree_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
+      "reported_nodes": 113,
+      "reported_edges": 112,
+      "spring_webmvc_versions": [
+        "6.2.19"
+      ]
+    },
+    {
+      "scenario": "C2",
+      "source_directory": "scenarios/c2-specialists-advanced/backend",
+      "scenario_git_tree": "4dc3254b66e86625f12fba95c05ecd75a73dd120",
+      "source_pom_sha256": "8b8915a5d0bebf3229c6efe4ef600076cc71af348adfd182b2f6722ecb009040",
+      "tree_file": "experiment/evaluation/dependency-graphs/c2.json",
+      "canonical_tree_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701",
+      "reported_nodes": 131,
+      "reported_edges": 130,
+      "spring_webmvc_versions": [
+        "6.2.19"
+      ]
+    },
+    {
+      "scenario": "C3",
+      "source_directory": "scenarios/c3-manager-economy/backend",
+      "scenario_git_tree": "729a7d0386e32ab951468479abb5900580fc16f1",
+      "source_pom_sha256": "0df92e1d5518aa5167b328bb8b50882719209b87a900f102babf775d8e1a9418",
+      "tree_file": "experiment/evaluation/dependency-graphs/c3.json",
+      "canonical_tree_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294",
+      "reported_nodes": 113,
+      "reported_edges": 112,
+      "spring_webmvc_versions": [
+        "6.2.19"
+      ]
+    },
+    {
+      "scenario": "C4",
+      "source_directory": "scenarios/c4-manager-advanced/backend",
+      "scenario_git_tree": "68c3baf09a9a10352cfc88dae4d4b4968a117547",
+      "source_pom_sha256": "56ea913d8f59f8a42d35b793af9e2c84d8157d6f4fa1e6ba0ae26fe1b903fe65",
+      "tree_file": "experiment/evaluation/dependency-graphs/c4.json",
+      "canonical_tree_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
+      "reported_nodes": 131,
+      "reported_edges": 130,
+      "spring_webmvc_versions": [
+        "6.2.19"
+      ]
+    }
+  ],
+  "host_maven_version": "Apache Maven 3.9.16",
+  "host_java_version": "25.0.3",
+  "source_reference_scope": "Tracked scenario trees and common runtime/config inputs are identical to this public dev commit; graph collection ran in the recovery checkout. No claim that unrelated recovery files were part of the source reference."
+}
