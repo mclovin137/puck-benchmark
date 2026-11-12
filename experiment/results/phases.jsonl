@@ -166,3 +166,4 @@
 {"timestamp": "2026-11-11T18:46:50.635275+00:00", "agent": "/root", "phase": "planejamento", "scenario": "overhead", "run": 1, "task": "benchmark-recovery", "correlation": "43819ebad48105af"}
 {"timestamp": "2026-11-11T18:47:56.849691+00:00", "agent": "/root/c4_qa_recovery", "phase": "testes", "scenario": "C4", "run": 1, "task": "qa-recovery", "correlation": "4b58a9ab9812479b"}
 {"timestamp": "2026-11-11T18:49:48.154721+00:00", "agent": "/root", "phase": "testes", "scenario": "overhead", "run": 1, "task": "benchmark-recovery", "correlation": "163525a71903f3a0"}
+{"timestamp": "2026-11-12T11:39:35.965068+00:00", "agent": "/root", "phase": "doc", "scenario": "overhead", "run": 1, "task": "benchmark-recovery", "correlation": "d84f9175c50cc767"}

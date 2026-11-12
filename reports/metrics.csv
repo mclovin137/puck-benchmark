@@ -1,6 +1,6 @@
 scenario,run,state,responses,input_tokens,output_tokens,cache_read_tokens,cache_write_tokens,reasoning_tokens,billed_usd,active_seconds,functional_pass_rate,source,generated_at
-overhead,1,em_andamento,134,15395851,98424,15121280,0,35856,,,,reports/token-breakdown.json,2026-11-06T02:11:07.569941+00:00
-C1,1,implementacao_e_testes_locais,261,21271878,74106,21005568,0,19423,,,,reports/token-breakdown.json,2026-11-06T02:11:07.569941+00:00
-C2,1,preparado_aguardando_agendamento,10,367651,2048,323968,0,61,,,,reports/token-breakdown.json,2026-11-06T02:11:07.569941+00:00
-C3,1,nao_iniciado,0,,,,,,,,,reports/token-breakdown.json,2026-11-06T02:11:07.569941+00:00
-C4,1,nao_iniciado,0,,,,,,,,,reports/token-breakdown.json,2026-11-06T02:11:07.569941+00:00
+overhead,1,em_andamento,1296,187569287,793988,183523328,0,386693,,,,reports/token-breakdown.json,2026-11-12T11:38:56.502412+00:00
+C1,1,avaliacao_http_aprovada_gates_restantes_pendentes,954,95499973,304539,93940864,0,118295,,,,reports/token-breakdown.json,2026-11-12T11:38:56.502412+00:00
+C2,1,avaliacao_http_aprovada_gates_restantes_pendentes,432,43450614,225418,42461824,0,77526,,,,reports/token-breakdown.json,2026-11-12T11:38:56.502412+00:00
+C3,1,avaliacao_http_aprovada_gates_restantes_pendentes,275,22138201,78972,21618816,0,10488,,,,reports/token-breakdown.json,2026-11-12T11:38:56.502412+00:00
+C4,1,avaliacao_http_aprovada_gates_restantes_pendentes,186,22017531,108835,21562752,0,26951,,,,reports/token-breakdown.json,2026-11-12T11:38:56.502412+00:00
