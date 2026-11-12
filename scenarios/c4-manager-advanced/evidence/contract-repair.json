@@ -1,0 +1,77 @@
+{
+  "origin": "autor C4 original Sol medium; correção delimitada",
+  "at": "2026-11-12T01:28:59.386956+00:00",
+  "before": [
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/Security.java",
+      "sha256": "2f3e235f1bbc3132b2d0f08c46a055851557f0b604ff884170054367f56221ef"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/AuthActor.java",
+      "sha256": "34dbe804d0df0b9f34d19bece7cc36f06e77cee288b58139e95eb4dee7a8d1c3"
+    }
+  ],
+  "red": {
+    "command": "mvn -o -B -f backend/pom.xml -Dtest=AuthContractTest test",
+    "exit": 1,
+    "tests": 5,
+    "failures": 2,
+    "errors": 0,
+    "skipped": 0,
+    "observations": [
+      "Senha incorreta curta: esperado401, obtido400",
+      "Tomcat: MalformedInputException na decodificação UTF-8 estrita"
+    ]
+  },
+  "after": [
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/Security.java",
+      "sha256": "a7fd07629c310a201051820cf0dc5fbc1c6bc848a1437e14bb6d3e8f9db6cd60"
+    },
+    {
+      "path": "backend/src/main/java/br/com/puck/finance/auth/AuthActor.java",
+      "sha256": "c03cf9d324858f0e6d05538622c4d3c1a8a87367acaa406019b5d1dcb41394ea"
+    },
+    {
+      "path": "backend/src/test/java/br/com/puck/finance/AuthContractTest.java",
+      "sha256": "18d88901d406371389a4a27fe3794f2597581dc335d78825915793b6fe2f4a71"
+    }
+  ],
+  "green": {
+    "command": "mvn -o -B -f backend/pom.xml -Dtest=AuthContractTest,FinancialRulesTest test",
+    "exit": 0,
+    "tests": 8,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "suites": [
+      {
+        "name": "br.com.puck.finance.AuthContractTest",
+        "tests": "5",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "6.728"
+      },
+      {
+        "name": "br.com.puck.finance.FinancialRulesTest",
+        "tests": "3",
+        "failures": "0",
+        "errors": "0",
+        "skipped": "0",
+        "time": "0.018"
+      }
+    ]
+  },
+  "verified_at": "2026-11-12T01:30:12.236788+00:00",
+  "limitations": [
+    "Host Java25, compilação release21; runtime Compose Java21 não executado nesta correção",
+    "Docker: permission denied while trying to connect to the docker API at unix:///var/run/docker.sock",
+    "MVC usa actor substituto local apenas para isolar contrato; não testa persistência nem hash de senha",
+    "Writer verificado com classes Tomcat reais e saída em memória, sem listener/rede",
+    "Sem CI ou revisão independente executadas nesta correção",
+    "Evidências históricas e manifestos anteriores preservados; hashes deste delta têm proveniência nova"
+  ],
+  "original_serialization_sha256": "31bd12da24a6883489f224ef1f3970f6ca2702375c839f74c55a095b02869083",
+  "publication_note": "Somente serialização alterada pelo Oráculo para separar caminhos de hashes e eliminar falso positivo de chave; pares preservados, original mantido no checkout de autoria. Não é nova execução."
+}

@@ -11,7 +11,7 @@ import java.util.*;
 @Service
 public class AuthActor {
  public record Register(@NotBlank @Size(max=120) String name,@NotBlank @Email @Size(max=254) String email,@NotNull @Size(min=12,max=128) String password){public Register{if(name!=null)name=name.strip();if(email!=null)email=email.strip();}}
- public record Login(@NotBlank @Email @Size(max=254) String email,@NotNull @Size(min=12,max=128) String password){public Login{if(email!=null)email=email.strip();}}
+ public record Login(@NotBlank @Email @Size(max=254) String email,@NotNull @Size(max=128) String password){public Login{if(email!=null)email=email.strip();}}
  public record Profile(UUID id,String name,String email){}
  private final UserDAO users; private final SessionDAO sessions;
  private final Pbkdf2PasswordEncoder encoder=Pbkdf2PasswordEncoder.defaultsForSpringSecurity_v5_8();
