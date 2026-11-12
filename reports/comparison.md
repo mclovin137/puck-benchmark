@@ -56,6 +56,8 @@ A revisão independente `experiment/evaluation/architecture-final.md` aprova os 
 
 Pareceres de segurança e QA próprios de cada cenário são evidências delimitadas, não aprovação global. CI rápida foi exigida nos PRs de implementação; CI completa de promoção, scanner comum atualizado e pentest comum ainda precisam de evidência. O pentest está preparado em A0: a API do GitHub retornou nenhum environment em 12/11, logo falta `pentest-owner` com aprovação exclusiva do dono, além das imagens fixadas e gates exigidos. Não houve A1 nesta retomada.
 
+A [jornada adicional independente do C1](../experiment/evaluation/c1-ui-completion.md), em 12/11, comprovou CRUD, filtros/resumo, downloads e logout pela tela. Desktop 1280 e mobile 360 foram aprovados no escopo observado; filtros a 320 têm excesso visual de cerca de 11 px, sem ação inacessível confirmada. A [auditoria operacional](../experiment/evaluation/operations-completion-audit.md) não encontrou bloqueio operacional adicional no ambiente sintético. O [resumo individual C1](c1-resumo-metricas.md) preserva os números e limites do snapshot.
+
 Vídeos e capturas não provam por si só toda a jornada. `experiment/results/media-validation.json` registra remux e limites históricos; disponibilidade no checkout e cobertura visual são auditadas separadamente. A ausência de vídeo integral deve continuar explícita, com alternativas verificáveis.
 
 ## Limitações e próximos resultados necessários
