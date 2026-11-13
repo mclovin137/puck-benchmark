@@ -201,6 +201,21 @@ def _check_ancestry(repo: Path, base: str, head: str) -> None:
         _git(repo, "merge-base", "--is-ancestor", base, head)
     except BootstrapError as exc:
         raise BootstrapError("unexpected_commit_ancestry") from exc
+    try:
+        history = _git(repo, "rev-list", "--topo-order", head, "^" + INITIAL_MAIN).splitlines()
+    except BootstrapError as exc:
+        raise BootstrapError("history_read_failed") from exc
+    for commit in history:
+        try:
+            _git(repo, "merge-base", "--is-ancestor", INITIAL_MAIN, commit)
+        except BootstrapError as exc:
+            raise BootstrapError("historical_commit_outside_initial_line") from exc
+        entries = _tree(repo, commit)
+        for path, (mode, kind, _oid) in entries.items():
+            if path not in ALLOWLIST:
+                raise BootstrapError("historical_path_outside_allowlist")
+            if mode != "100644" or kind != "blob":
+                raise BootstrapError("historical_entry_type_or_mode_invalid")
     if base != INITIAL_MAIN:
         _validate_tree(repo, base)
 
@@ -528,10 +543,10 @@ def run_audit(
         temp_root = Path(temp_name)
         npm_copy = temp_root / "package-lock.json"
         pypi_copy = temp_root / "requirements.txt"
-        config = temp_root / "osv-config.json"
+        config = temp_root / "osv-config.toml"
         npm_copy.write_bytes(npm_original)
         pypi_copy.write_bytes(pypi_lock)
-        config.write_text("{}\n", encoding="utf-8")
+        config.write_text("", encoding="utf-8")
         if hashlib.sha256(npm_copy.read_bytes()).hexdigest() != input_hashes["npm"]:
             raise BootstrapError("npm_lock_copy_mismatch")
         if hashlib.sha256(pypi_copy.read_bytes()).hexdigest() != input_hashes["pypi"]:

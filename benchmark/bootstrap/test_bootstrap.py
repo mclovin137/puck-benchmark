@@ -9,6 +9,7 @@ import os
 import subprocess
 import sys
 import tempfile
+import tomllib
 import unittest
 from contextlib import redirect_stderr
 from io import StringIO
@@ -111,8 +112,66 @@ class VerifyTests(unittest.TestCase):
             environment={},
         )
 
+    def commit_tree(self, tree: str, *parents: str) -> str:
+        command = ["git", "-C", str(self.repo), "commit-tree", tree]
+        for parent in parents:
+            command.extend(("-p", parent))
+        result = subprocess.run(
+            command,
+            check=True,
+            input=b"synthetic merge\n",
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+        )
+        return result.stdout.decode("ascii").strip()
+
     def test_accepts_closed_tree_with_source_verified_imports(self) -> None:
         self.verify()
+
+    def test_rejects_source_side_parent_with_forbidden_ancestor(self) -> None:
+        git(self.repo, "switch", "-q", "--detach", self.initial)
+        forbidden = self.repo / "scenarios" / "hidden" / "app.py"
+        forbidden.parent.mkdir(parents=True)
+        forbidden.write_text("outside candidate tree\n", encoding="utf-8")
+        git(self.repo, "add", "scenarios/hidden/app.py")
+        git(self.repo, "commit", "-qm", "forbidden ancestor")
+
+        for relative in bootstrap.IMPORT_PATHS:
+            path = self.repo / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            path.write_bytes(("source:" + relative + "\n").encode())
+        git(self.repo, "add", *bootstrap.IMPORT_PATHS)
+        git(self.repo, "commit", "-qm", "source descendant of forbidden ancestor")
+        source = git(self.repo, "rev-parse", "HEAD")
+        bootstrap.SOURCE_COMMIT = source
+
+        git(self.repo, "switch", "-q", "--detach", self.initial)
+        for relative in bootstrap.ALLOWLIST:
+            path = self.repo / relative
+            if relative in bootstrap.IMPORT_PATHS:
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_bytes(("source:" + relative + "\n").encode())
+            elif relative != "bootstrap-manifest.json":
+                path.parent.mkdir(parents=True, exist_ok=True)
+                path.write_text("fixture\n", encoding="utf-8")
+        write_manifest(self.repo, source, self.initial)
+        git(self.repo, "add", "-A")
+        git(self.repo, "commit", "-qm", "closed candidate independent from source")
+        head = git(self.repo, "rev-parse", "HEAD")
+        self.verify(head)
+
+        is_source_ancestor = subprocess.run(
+            ["git", "-C", str(self.repo), "merge-base", "--is-ancestor", source, head],
+            check=False,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        ).returncode == 0
+        self.assertFalse(is_source_ancestor)
+        merge_tree = git(self.repo, "rev-parse", f"{head}^{{tree}}")
+        unsafe_merge = self.commit_tree(merge_tree, head, source)
+
+        with self.assertRaises(bootstrap.BootstrapError):
+            self.verify(unsafe_merge)
 
     def test_rejects_extra_path_and_candidate_application_tree(self) -> None:
         (self.repo / "scenarios" / "other" / "app.py").parent.mkdir(
@@ -199,6 +258,54 @@ class VerifyTests(unittest.TestCase):
         with self.assertRaises(bootstrap.BootstrapError):
             bootstrap._validate_event(self.repo, zero, self.head, event, env)
 
+    def test_accepts_task_promotion_and_push_commit_graphs(self) -> None:
+        tree = git(self.repo, "rev-parse", f"{self.head}^{{tree}}")
+        task_merge = self.commit_tree(tree, self.initial, self.head)
+        git(self.repo, "switch", "-q", "--detach", task_merge)
+
+        pr_event = {
+            "pull_request": {
+                "base": {"ref": "integration/pentest-bootstrap", "sha": self.initial,
+                         "repo": {"full_name": "owner/project"}},
+                "head": {"ref": "feat/pentest-bootstrap", "sha": self.head,
+                         "repo": {"full_name": "owner/project"}},
+            }
+        }
+        pr_env = {
+            "GITHUB_ACTIONS": "true", "GITHUB_EVENT_NAME": "pull_request",
+            "GITHUB_REPOSITORY": "owner/project", "GITHUB_SHA": task_merge,
+        }
+        bootstrap.verify_repository(
+            self.repo, self.initial, self.head, event=pr_event, environment=pr_env
+        )
+
+        push_event = {"before": self.initial}
+        push_env = {
+            "GITHUB_ACTIONS": "true", "GITHUB_EVENT_NAME": "push",
+            "GITHUB_REPOSITORY": "owner/project",
+            "GITHUB_REF": "refs/heads/integration/pentest-bootstrap",
+            "GITHUB_SHA": task_merge,
+        }
+        bootstrap.verify_repository(
+            self.repo, self.initial, task_merge, event=push_event, environment=push_env
+        )
+
+        promotion_merge = self.commit_tree(tree, self.initial, task_merge)
+        git(self.repo, "switch", "-q", "--detach", promotion_merge)
+        promotion_event = {
+            "pull_request": {
+                "base": {"ref": "main", "sha": self.initial,
+                         "repo": {"full_name": "owner/project"}},
+                "head": {"ref": "integration/pentest-bootstrap", "sha": task_merge,
+                         "repo": {"full_name": "owner/project"}},
+            }
+        }
+        promotion_env = dict(pr_env, GITHUB_SHA=promotion_merge)
+        bootstrap.verify_repository(
+            self.repo, self.initial, task_merge,
+            event=promotion_event, environment=promotion_env,
+        )
+
 
 class AuditTests(unittest.TestCase):
     def setUp(self) -> None:
@@ -229,10 +336,11 @@ class AuditTests(unittest.TestCase):
 
     def scanner_with(self, outputs: list[dict], codes: list[int] | None = None) -> Path:
         codes = codes or [0] * len(outputs)
-        body = "import json, pathlib, sys\nargs = sys.argv\nlock = next(args[i+1] for i,x in enumerate(args[:-1]) if x == '--lockfile')\n"
+        body = "import json, pathlib, sys, tomllib\nargs = sys.argv\nlock = next(args[i+1] for i,x in enumerate(args[:-1]) if x == '--lockfile')\n"
         body += "required = ['scan', 'source', '--format', 'json', '--all-packages', '--all-vulns', '--verbosity', 'error', '--config']\n"
         body += "assert all(x in args for x in required)\nassert pathlib.Path(lock).parent == pathlib.Path.cwd()\n"
-        body += "config = pathlib.Path(args[args.index('--config')+1])\nassert config.read_text() == '{}\\n'\n"
+        body += "config = pathlib.Path(args[args.index('--config')+1])\nassert config.suffix == '.toml'\n"
+        body += "assert tomllib.loads(config.read_text()) == {}\n"
         body += "items = " + repr(outputs) + "\n"
         body += "codes = " + repr(codes) + "\n"
         body += "index = 0 if lock.endswith('package-lock.json') else 1\n"
