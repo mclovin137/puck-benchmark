@@ -24,3 +24,7 @@ Tasks só são concluídas após integração aprovada conforme contrato.
 A preparação isolada v0.1.0 foi admitida em main pelo PR #31, com CI A0 verde e tag confirmada. Esta task integra a base de volta à dev e retira seus controles exclusivos; a promoção das aplicações continua dependente da CI completa e de A1/triagem no candidato pertinente.
 
 O marcador de v0.3.0 descreve o conteúdo pós-promoção preparado no PR #28, conforme fechamento de versão. Enquanto não houver CI completa, A1/triagem, merge e tag verificáveis, a entrega continua em revisão; nenhum gate pendente é aprovado por esta anotação. A data efetiva da entrega deve ser conferida no merge/tag.
+
+## Patch comum v0.1.1 — integração da base corrigida
+
+A main `86275581c5d3b9c28654a6a10c36844984175ea0` foi admitida pelo PR #36, com CI `43437630894` aprovada e tag anotada v0.1.1 remota confirmada. Esta task integra a base corrigida preservando aplicações, política e CI; os controles exclusivos do bootstrap continuam retirados. A promoção v0.3.0 permanece condicionada aos gates do candidato e a novo A1/triagem pelo dono.

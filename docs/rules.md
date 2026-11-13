@@ -13,3 +13,9 @@ A versão v0.1.0 foi integrada em main pelo PR #31 no commit `98894e1e09585f9b12
 Esta integração incorpora a ancestralidade real da base confiável, preserva os 16 arquivos comuns byte a byte e retira da dev apenas workflow, verificador, manifesto e testes exclusivos de bootstrap. As fixtures das guardas comuns permanecem e passam a executar na CI rápida/completa. Não se amplia a allowlist nem se usa o gate A0 como substituto da CI funcional ou do A1. O parecer da preparação é histórico, não aprovação automática deste candidato.
 
 O acionamento e a configuração protegida do pentest continuam reservados ao dono. A1/triagem e os gates do novo SHA continuam necessários antes da promoção das aplicações; resultados anteriores permanecem evidência histórica de seu escopo. Sem alteração de defaultbranch, proteções, variáveis ou environment por esta integração.
+
+## Base confiável v0.1.1
+
+O patch de autorização foi admitido na main pelo PR #36, sem aplicações, após revisão combinada Neo e gates A0. A guarda exige o job ativo do próprio cenário quando o estado global da matriz é waiting, mantendo run/tentativa/runner, aprovação protegida e os demais gates. A fonte revisada do runtime é `b5d680d8f158d4edd60495cda9333acca1919b71`; nenhuma exigência funcional mudou.
+
+Esta integração preserva os quatro arquivos exclusivos de bootstrap retirados na admissão anterior: workflow, helper, manifesto e testes do bootstrap continuam ausentes na dev das aplicações. Os 16 imports comuns permanecem idênticos à main v0.1.1. A promoção das aplicações exige CI completa e novo A1/triagem no candidato pertinente; execução falha e aprovação anteriores não são reutilizadas. Environment, imagens e acionamento/aprovação continuam sob controle do dono.
