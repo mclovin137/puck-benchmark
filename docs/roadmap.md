@@ -28,3 +28,7 @@ O marcador de v0.3.0 descreve o conteúdo pós-promoção preparado no PR #28, c
 ## Patch comum v0.1.1 — integração da base corrigida
 
 A main `86275581c5d3b9c28654a6a10c36844984175ea0` foi admitida pelo PR #36, com CI `43437630894` aprovada e tag anotada v0.1.1 remota confirmada. Esta task integra a base corrigida preservando aplicações, política e CI; os controles exclusivos do bootstrap continuam retirados. A promoção v0.3.0 permanece condicionada aos gates do candidato e a novo A1/triagem pelo dono.
+
+## Patch comum v0.1.2 — integração da base de ciclo e atividade
+
+A main `4c5ff7eb01c439a4d42ee2dbeb6127f6263fedb4` foi admitida pelo PR #41, com CI `43450216946` aprovada e tag anotada v0.1.2 remota confirmada. Esta task preserva os 16 imports e a retirada dos controles exclusivos do bootstrap, sem alterar aplicações ou critérios. A promoção v0.3.0 continua exigindo os gates do novo candidato e novo A1/triagem pelo dono.
