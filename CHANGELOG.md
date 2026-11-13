@@ -1,5 +1,11 @@
 # Changelog
 
+## v0.1.3 — 2026-11-13
+
+Alinha o contexto de build frontend C1 à raiz do próprio cenário, incluindo os tokens de design originais. É o único import comum alterado; guardas, autorização, suíte, limites e workflow de pentest permanecem iguais. As correções de Dockerfiles/compose ficam na dev e não são importadas nesta árvore de 30 arquivos.
+
+Mantém origem/base/ref e hashes fixados, com revisão e CI A0 antes da promoção. Não é execução A1 nem promoção de aplicações. Falhas Docker do run43503520863 não preservaram subetapa nem prova pública de cleanup. Novo candidato e novo A1 pelo dono continuam necessários após integração e gates. Sem migração, release ou deploy.
+
 ## v0.1.2 — 2026-11-13
 
 Separa o ciclo global da execução e a atividade do job protegido. A guarda reconhece os estados globais não terminais documentados e continua exigindo prova do job ativo do próprio cenário, run/tentativa/runner exatos e aprovação do dono. Estados terminais ou desconhecidos continuam bloqueados, sem retry ou fallback.
