@@ -19,3 +19,9 @@ O acionamento e a configuração protegida do pentest continuam reservados ao do
 O patch de autorização foi admitido na main pelo PR #36, sem aplicações, após revisão combinada Neo e gates A0. A guarda exige o job ativo do próprio cenário quando o estado global da matriz é waiting, mantendo run/tentativa/runner, aprovação protegida e os demais gates. A fonte revisada do runtime é `b5d680d8f158d4edd60495cda9333acca1919b71`; nenhuma exigência funcional mudou.
 
 Esta integração preserva os quatro arquivos exclusivos de bootstrap retirados na admissão anterior: workflow, helper, manifesto e testes do bootstrap continuam ausentes na dev das aplicações. Os 16 imports comuns permanecem idênticos à main v0.1.1. A promoção das aplicações exige CI completa e novo A1/triagem no candidato pertinente; execução falha e aprovação anteriores não são reutilizadas. Environment, imagens e acionamento/aprovação continuam sob controle do dono.
+
+## Base confiável v0.1.2
+
+O ciclo global não terminal é admitido somente nos cinco estados documentados, com conclusão presente/nula; a prova de atividade permanece no job único do cenário, run/tentativa/runner vinculados e aprovação do dono. Terminais, desconhecidos e dados malformados continuam negados. Os códigos RUN_ID_INVALID, RUN_ATTEMPT_INVALID, RUN_STATUS_INVALID e RUN_CONCLUSION_INVALID discriminam falhas sem refletir payload. Não há retry, cache-bust ou fallback.
+
+A integração preserva a retirada dos quatro controles exclusivos de bootstrap na dev e mantém as aplicações, avaliador, protocolo/freeze, política e CI completa. Esta é a terceira variante do caminho de autorização; nova falha requer escalonamento do diagnóstico, sem outra ampliação de estados por tentativa. A promoção das aplicações continua exigindo novo candidato/gates e execução A1 real pelo dono, sem reutilizar aprovação ou resultado dos runs falhos.
