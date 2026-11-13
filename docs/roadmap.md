@@ -1,5 +1,11 @@
 # Roadmap da preparação
 
+## v0.1.3 — contexto de build C1 — em revisão
+
+1. Admitir na dev o empacotamento C1 e os oito vínculos exatos afetados pelo contexto comum, com provas de build limpo, inicialização restrita, HTTP e revisão.
+2. Importar somente a policy de contexto e fixar a proveniência, preservando os outros 15 imports, as guardas e a árvore fechada de 30 arquivos; revisão e CI A0.
+3. Promover infraestrutura, conferir CI main e tag; integrar de volta à dev sem bootstrap-only, congelar candidato e conferir gates antes de novo A1 pelo dono.
+
 ## v0.1.2 — ciclo global e atividade do job — lançado no conteúdo da promoção
 
 1. Admitir o delta da guarda e os vínculos exatos da política, com revisão Neo e gates próprios.

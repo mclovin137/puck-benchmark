@@ -15,8 +15,8 @@ from pathlib import Path
 from typing import Any
 
 
-SOURCE_COMMIT = "450d1b250e707eed682c2e0bf4f9bd8699b7a3b9"
-INITIAL_MAIN = "86275581c5d3b9c28654a6a10c36844984175ea0"
+SOURCE_COMMIT = "908047555ea8808d7c263f42adb62692a043a225"
+INITIAL_MAIN = "4c5ff7eb01c439a4d42ee2dbeb6127f6263fedb4"
 OSV_SCANNER_SHA256 = "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b"
 OSV_VERSION = "2.7.0"
 MAX_FILES = 30
@@ -282,7 +282,7 @@ def _validate_event(
             raise BootstrapError("pull_request_fork_forbidden")
         allowed_refs = {
             ("main", "integration/pentest-bootstrap", INITIAL_MAIN),
-            ("integration/pentest-bootstrap", "feat/pentest-runtime-v012", None),
+            ("integration/pentest-bootstrap", "fix/pentest-c1-build-context", None),
         }
         if not any(
             base_ref == expected_base and head_ref == expected_head

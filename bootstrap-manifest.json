@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_commit": "450d1b250e707eed682c2e0bf4f9bd8699b7a3b9",
-  "initial_main": "86275581c5d3b9c28654a6a10c36844984175ea0",
+  "source_commit": "908047555ea8808d7c263f42adb62692a043a225",
+  "initial_main": "4c5ff7eb01c439a4d42ee2dbeb6127f6263fedb4",
   "imports": {
     ".github/workflows/pentest.yml": {
       "mode": "100644",
@@ -25,7 +25,7 @@
     },
     "benchmark/pentest/policy.json": {
       "mode": "100644",
-      "sha256": "70e90e84e8d092e446fb6591939757c8b62d6897410da91425d1805b56b72184"
+      "sha256": "52a553ce88823a0a122d86c3b4b519a816efb31e38781fcb66843fcddbbb2f54"
     },
     "benchmark/pentest/runner.Dockerfile": {
       "mode": "100644",

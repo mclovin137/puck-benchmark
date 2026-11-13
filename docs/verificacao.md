@@ -32,3 +32,9 @@ Neo R1 combinada executou 41 testes de guardas e 77 controles independentes; R2 
 Severino executou RED/GREEN dos pins e da ref antiga; 20 testes do verificador passaram na versão v0.1.2. A fixture de patch tem baseline não vazia de 30 caminhos, 10 alterações e preservação dos 14 imports, além dos negativos de origem/base/manifesto/histórico/ref/merge. AST e diff check passaram. O parser e as regras de auditoria não mudaram; a CI hospedada e a revisão de proveniência ainda são exigidas antes da admissão.
 
 CI do patch `43449647441` aprovada no head `7a835ca`: logs confirmam 20 testes bootstrap e 41 fixtures de guardas. A auditoria npm/PyPI reportou duas fontes aprovadas sem advisories no escopo, artefato SHA-256 `5bc68056e02bd518b39ed740786ba9cd7188f487248060c1a322893163f07cb9`. Neo R1 de transporte foi concluída e congelada. A preparação posterior altera somente registro de evidências e roadmap; CI do novo SHA e da main continuam exigidas antes da tag. Não houve A1 por esses testes.
+
+## Patch v0.1.3 — contexto C1
+
+Fonte admitida `908047555ea8808d7c263f42adb62692a043a225`, PR #44. CI rápida43507218043 (88+41 testes e segredos) e auditoria43507218020 aprovadas no head revisado K5. Artefato SHA-256 ec6a5e93624cd1532232c4b392b25be79a27f8eb094a8c8eda533291d30edbf1: nove fontes/1.020 pacotes, oito CRITICAL com decisões exatas aplicadas e zero não triados. A política confiável e84832fc4b388fa7b0278fe3d9f764a161c61bf8 foi admitida antes dos pins, sem renovar validade.
+
+O transporte altera somente a policy de contexto entre os imports; helper/manifesto/fixtures fixam fonte, baseline v0.1.2 e ref exata da task. Algoritmos e allowlist permanecem iguais. Testes bootstrap e guardas são fixtures inertes, sem A1. Somente CI A0 e revisão próprias deste transporte podem aprovar a preparação; não atribuir resultados de aplicação a esta árvore.
