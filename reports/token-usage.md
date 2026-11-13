@@ -1,6 +1,6 @@
 # Uso de tokens por atividade
 
-Snapshot: 2026-11-12T11:38:56.502412+00:00.
+Snapshot: 2026-11-13T02:19:47.330840+00:00.
 
 Entrada inclui cache; saída inclui raciocínio. Não somar esses subconjuntos novamente. Categorias indicam associação por resposta, não a causa de cada token de contexto. Fases declaradas são uma dimensão separada da atividade detectada.
 
@@ -12,27 +12,27 @@ O overhead inclui coordenação, instrumentação e avaliação externas; não �
 
 | Fase declarada | Respostas | Entrada | Saída |
 | --- | ---: | ---: | ---: |
-| Código | 214 | 47722461 | 211066 |
-| Documentação | 0 | n/d | n/d |
-| Testes | 449 | 66078862 | 210802 |
+| Código | 264 | 57941140 | 294464 |
+| Documentação | 152 | 24222000 | 73738 |
+| Testes | 599 | 98699306 | 391945 |
 | Planejamento | 45 | 7460764 | 46569 |
 | Revisão | 54 | 11775564 | 32442 |
 | Busca | 0 | n/d | n/d |
 | Configuração | 0 | n/d | n/d |
 | Mista | 0 | n/d | n/d |
-| Não disponível | 534 | 54531636 | 293109 |
+| Não disponível | 956 | 105244388 | 513808 |
 
 | Atividade nativa observada | Respostas | Entrada | Saída | % da saída |
 | --- | ---: | ---: | ---: | ---: |
-| Código | 31 | 4799150 | 66236 | 8.34 |
-| Documentação | 48 | 6552916 | 64587 | 8.13 |
-| Testes | 450 | 65632972 | 219793 | 27.68 |
-| Planejamento | 37 | 6109505 | 32241 | 4.06 |
-| Revisão | 45 | 9801730 | 18587 | 2.34 |
+| Código | 54 | 9244794 | 115140 | 8.51 |
+| Documentação | 71 | 10447643 | 107480 | 7.94 |
+| Testes | 615 | 100090985 | 411384 | 30.41 |
+| Planejamento | 37 | 6109505 | 32241 | 2.38 |
+| Revisão | 45 | 9801730 | 18587 | 1.37 |
 | Busca | 0 | n/d | n/d | n/d |
-| Configuração | 3 | 505803 | 6291 | 0.79 |
-| Mista | 12 | 1615640 | 22061 | 2.78 |
-| Não disponível | 670 | 92551571 | 364192 | 45.87 |
+| Configuração | 4 | 562939 | 7266 | 0.54 |
+| Mista | 18 | 2593789 | 30898 | 2.28 |
+| Não disponível | 1226 | 166491777 | 629970 | 46.56 |
 
 ## C1
 

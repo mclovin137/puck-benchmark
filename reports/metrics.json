@@ -1,51 +1,51 @@
 {
-  "generated_at": "2026-11-12T11:40:34.551568+00:00",
+  "generated_at": "2026-11-13T02:20:23.556909+00:00",
   "status": "interim",
   "records": [
     {
       "scenario": "overhead",
       "run": 1,
       "state": "em_andamento",
-      "responses": 1296,
-      "input_tokens": 187569287,
-      "output_tokens": 793988,
-      "cache_read_tokens": 183523328,
+      "responses": 2070,
+      "input_tokens": 305343162,
+      "output_tokens": 1352966,
+      "cache_read_tokens": 299041280,
       "cache_write_tokens": 0,
-      "reasoning_tokens": 386693,
+      "reasoning_tokens": 703707,
       "billed_usd": null,
       "active_seconds": null,
       "functional_pass_rate": null,
       "skills_attribution": null,
       "activity": {
         "codigo": {
-          "responses": 31,
-          "input_tokens": 4799150,
-          "output_tokens": 66236,
-          "output_share_pct": 8.34
+          "responses": 54,
+          "input_tokens": 9244794,
+          "output_tokens": 115140,
+          "output_share_pct": 8.51
         },
         "doc": {
-          "responses": 48,
-          "input_tokens": 6552916,
-          "output_tokens": 64587,
-          "output_share_pct": 8.13
+          "responses": 71,
+          "input_tokens": 10447643,
+          "output_tokens": 107480,
+          "output_share_pct": 7.94
         },
         "testes": {
-          "responses": 450,
-          "input_tokens": 65632972,
-          "output_tokens": 219793,
-          "output_share_pct": 27.68
+          "responses": 615,
+          "input_tokens": 100090985,
+          "output_tokens": 411384,
+          "output_share_pct": 30.41
         },
         "planejamento": {
           "responses": 37,
           "input_tokens": 6109505,
           "output_tokens": 32241,
-          "output_share_pct": 4.06
+          "output_share_pct": 2.38
         },
         "revisao": {
           "responses": 45,
           "input_tokens": 9801730,
           "output_tokens": 18587,
-          "output_share_pct": 2.34
+          "output_share_pct": 1.37
         },
         "busca": {
           "responses": 0,
@@ -54,39 +54,39 @@
           "output_share_pct": null
         },
         "configuracao": {
-          "responses": 3,
-          "input_tokens": 505803,
-          "output_tokens": 6291,
-          "output_share_pct": 0.79
+          "responses": 4,
+          "input_tokens": 562939,
+          "output_tokens": 7266,
+          "output_share_pct": 0.54
         },
         "mista": {
-          "responses": 12,
-          "input_tokens": 1615640,
-          "output_tokens": 22061,
-          "output_share_pct": 2.78
+          "responses": 18,
+          "input_tokens": 2593789,
+          "output_tokens": 30898,
+          "output_share_pct": 2.28
         },
         "nao_disponivel": {
-          "responses": 670,
-          "input_tokens": 92551571,
-          "output_tokens": 364192,
-          "output_share_pct": 45.87
+          "responses": 1226,
+          "input_tokens": 166491777,
+          "output_tokens": 629970,
+          "output_share_pct": 46.56
         }
       },
       "phase": {
         "codigo": {
-          "responses": 214,
-          "input_tokens": 47722461,
-          "output_tokens": 211066
+          "responses": 264,
+          "input_tokens": 57941140,
+          "output_tokens": 294464
         },
         "doc": {
-          "responses": 0,
-          "input_tokens": null,
-          "output_tokens": null
+          "responses": 152,
+          "input_tokens": 24222000,
+          "output_tokens": 73738
         },
         "testes": {
-          "responses": 449,
-          "input_tokens": 66078862,
-          "output_tokens": 210802
+          "responses": 599,
+          "input_tokens": 98699306,
+          "output_tokens": 391945
         },
         "planejamento": {
           "responses": 45,
@@ -114,13 +114,13 @@
           "output_tokens": null
         },
         "nao_disponivel": {
-          "responses": 534,
-          "input_tokens": 54531636,
-          "output_tokens": 293109
+          "responses": 956,
+          "input_tokens": 105244388,
+          "output_tokens": 513808
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-12T11:38:56.502412+00:00"
+      "generated_at": "2026-11-13T02:19:47.330840+00:00"
     },
     {
       "scenario": "C1",
@@ -240,7 +240,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-12T11:38:56.502412+00:00"
+      "generated_at": "2026-11-13T02:19:47.330840+00:00"
     },
     {
       "scenario": "C2",
@@ -360,7 +360,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-12T11:38:56.502412+00:00"
+      "generated_at": "2026-11-13T02:19:47.330840+00:00"
     },
     {
       "scenario": "C3",
@@ -480,7 +480,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-12T11:38:56.502412+00:00"
+      "generated_at": "2026-11-13T02:19:47.330840+00:00"
     },
     {
       "scenario": "C4",
@@ -600,7 +600,7 @@
         }
       },
       "source": "reports/token-breakdown.json",
-      "generated_at": "2026-11-12T11:38:56.502412+00:00"
+      "generated_at": "2026-11-13T02:19:47.330840+00:00"
     }
   ]
 }
