@@ -1,9 +1,9 @@
 # Roadmap da preparação
 
-## v0.1.0 — base confiável de pentest — em revisão
+## v0.1.0 — base confiável de pentest — lançado
 
-1. Preservar os 16 arquivos comuns em uma árvore sem aplicações, com manifesto e contrato do bootstrap.
-2. Verificar escopo, contexto GitHub, fixtures A0, sintaxe, segredos e dependências; obter revisão Neo/QA e CI automática na linha temporária.
-3. Promover somente esta versão para main após os gates; conferir a base real e criar tag depois da CI verde. Retomar integração das aplicações preservando A1 e triagem.
+1. Infraestrutura e integridade integradas pelo PR #30: 16 imports preservados, árvore sem aplicações e contrato de bootstrap.
+2. Gates A0 e revisão Neo concluídos no PR #30, incluindo revisão extra focada autorizada pelo dono. CI `43416095428` aprovada no candidato integrado.
+3. Esta versão preparatória é o conteúdo da promoção para main. A tag só é criada após merge e CI verde na main; a integração posterior das aplicações preserva A1 e triagem.
 
 O escopo funcional do experimento não mudou. A1, environment, imagens e aprovação do dono continuam pendentes; esta versão não os dá como concluídos.
