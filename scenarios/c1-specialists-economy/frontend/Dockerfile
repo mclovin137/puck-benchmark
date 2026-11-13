@@ -14,6 +14,6 @@ RUN sed -i 's|^pid[[:space:]]*[^;]*;|pid /tmp/nginx.pid;|' /etc/nginx/nginx.conf
     && sed -i '/^http {/a\    uwsgi_temp_path /tmp/uwsgi_temp;' /etc/nginx/nginx.conf \
     && sed -i '/^http {/a\    scgi_temp_path /tmp/scgi_temp;' /etc/nginx/nginx.conf
 COPY --from=build /app/frontend/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY frontend/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 5173
 CMD ["nginx","-g","daemon off;"]
