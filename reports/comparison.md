@@ -30,6 +30,12 @@ Taxa dos casos HTTP comuns: 20/20 (100%) por cenário. Esse denominador é a su�
 
 C4 falhou inicialmente em respostas JSON de erro não UTF-8 e no status de login com senha incorreta curta. A correção independente foi integrada no PR #20, com CI rápida aprovada e revisão de segurança do delta. As falhas originais permanecem em `*-c4-initial.json` e `c4-*-initial.json`. Em 12/11, uma tentativa de restore começou depois do teardown e falhou na identidade do container, antes de acessar o banco; está preservada em `restore-c4-resume-unavailable.json` e não substitui a prova histórica.
 
+## Intervenção comum na preparação de A1
+
+A execução protegida [43424007867](https://github.com/mclovin137/puck-benchmark/actions/runs/43424007867) falhou no C1 antes de construir a aplicação: a guarda exigia status global in_progress enquanto outros cenários aguardavam aprovação. Essa falha é da infraestrutura comum e não constitui resultado de segurança ou falha funcional de C1. O PR #33 corrige a autorização exigindo prova do job ativo do próprio cenário, run, tentativa e runner, mantendo aprovação protegida. O PR #34 renova somente os vínculos de fonte das decisões de dependências para esse delta, sem alterar decisões, severidades ou expiração.
+
+A intervenção ocorre depois do corte de telemetria de 13/11/2026 02:19:47 UTC. Seus tokens, custo e tempo ativo não estão medidos no snapshot publicado; não foram estimados nem atribuídos aos cenários. O novo candidato continua dependente dos gates pertinentes e de execução A1 real. Esse retrabalho comum precisa permanecer separado da comparação entre as quatro implementações.
+
 ## Tokens, referência API e duração
 
 Snapshot nativo de 13/11/2026 02:19:47 UTC: 3.917 respostas observadas, 46 sessões e dois erros de parse. A atualização preserva byte a byte os contadores dos 3.143 eventos anteriores e acrescenta 774 eventos, todos no overhead; nenhum contador de cenário foi alterado. A [prova de continuidade](../experiment/evaluation/telemetry-continuity-20261113.json) registra cobertura e hashes sem IDs nativos. Os históricos com NUL foram preservados privadamente; não se conhece o consumo perdido. Os totais abaixo são observados, com essa incompletude. Entrada inclui cache; saída inclui raciocínio.
