@@ -23,5 +23,16 @@
     "report_produced": false,
     "gate_passed": false
   },
-  "interpretation": "Com fontes de cenário idênticas e os mesmos argumentos, o caminho sem ancestral oculto permitiu descoberta. A tentativa integral sob diretório privado permaneceu reprovada; validar auditoria completa na CI."
+  "interpretation": "Com fontes de cenário idênticas e os mesmos argumentos, o caminho sem ancestral oculto permitiu descoberta. A tentativa integral sob diretório privado permaneceu reprovada; validar auditoria completa na CI.",
+  "first_ci_attempt": {
+    "run_id": 43285917142,
+    "head_sha": "426fd5804e1d4dd8f6190f0aaed8e4d57c7c5dbf",
+    "status": "failure",
+    "audit_exit_code": 2,
+    "message": "caminho fora do root ou ausente",
+    "report_produced": false,
+    "cause": "ACT-01: composição relativa duplicava trusted no caminho do scanner",
+    "correction": "Workflow fornece source-root e trusted-root absolutos; scanner relativo combina uma vez com trusted absoluto.",
+    "verification": "R2 Neo confirmou causa/correção com oito casos sintéticos; 88 testes de infraestrutura aprovados localmente. Execução remota do novo candidato pendente."
+  }
 }

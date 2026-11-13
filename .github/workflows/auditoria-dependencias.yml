@@ -43,8 +43,8 @@ jobs:
       - name: Auditar nove fontes com decisões restritas ao snapshot
         run: >-
           python3 -I trusted/scripts/ci/dependency-audit.py
-          --root candidate
-          --trusted-root trusted
+          --root "${{ github.workspace }}/candidate"
+          --trusted-root "${{ github.workspace }}/trusted"
           --trusted-sha 4735d70d4e55535fca7335b6e4807d7c756b7451
           --scanner .private/tools/osv-scanner
           --report "${{ runner.temp }}/dependency-audit.json"
