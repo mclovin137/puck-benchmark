@@ -1,5 +1,11 @@
 # Roadmap da preparação
 
+## v0.1.2 — ciclo global e atividade do job — em revisão
+
+1. Admitir o delta da guarda e os vínculos exatos da política, com revisão Neo e gates próprios.
+2. Transportar somente os dois imports alterados para a base confiável, preservando os outros 14 e a árvore de 30 arquivos.
+3. Promover a versão com CI A0 e tag após CI verde na main; integrar de volta à dev e renovar os gates do candidato antes de novo A1 pelo dono.
+
 ## v0.1.1 — autorização por job ativo — lançado no conteúdo da promoção
 
 1. Admitir na dev a correção e os testes da autorização por cenário.

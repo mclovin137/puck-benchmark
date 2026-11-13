@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_commit": "b5d680d8f158d4edd60495cda9333acca1919b71",
-  "initial_main": "98894e1e09585f9b12f07921eb4650fd3ce4f1a8",
+  "source_commit": "450d1b250e707eed682c2e0bf4f9bd8699b7a3b9",
+  "initial_main": "86275581c5d3b9c28654a6a10c36844984175ea0",
   "imports": {
     ".github/workflows/pentest.yml": {
       "mode": "100644",
@@ -33,7 +33,7 @@
     },
     "benchmark/pentest/tests/test_guards.py": {
       "mode": "100644",
-      "sha256": "a0c5c9e786bb5470d8c9587d8f89def97c1aeb117f79c2e4b4f3e1c856e76222"
+      "sha256": "8035f9902c18da41d6d3e63c28782ea835e72ba574c681c6cb2cb9825a1874aa"
     },
     "benchmark/pentest/triagem.json": {
       "mode": "100644",
@@ -49,7 +49,7 @@
     },
     "scripts/pentest/guards.py": {
       "mode": "100644",
-      "sha256": "a04bb985ffda73dd36bde4403f4c0313016c314ec0c6c6e89c46dd32c4bdf5d1"
+      "sha256": "838b7b6fd181dd539ff70839c875130f297ff6a8ba600dd13cec4ab0be1d9c60"
     },
     "scripts/pentest/preflight.py": {
       "mode": "100644",
