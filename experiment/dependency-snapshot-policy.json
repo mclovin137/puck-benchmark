@@ -23,7 +23,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "f2e60755e869e7da1716ecef12debcd56b306847e96d9c249473f9e2353d98af",
+      "source_sha256": "2e62c1d6c7689a4d2de0c2593335b6857f4830b5415cd29608c7709dbb622dc7",
       "graph_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -54,6 +54,10 @@
         {
           "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
           "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     },
@@ -70,7 +74,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "f2e60755e869e7da1716ecef12debcd56b306847e96d9c249473f9e2353d98af",
+      "source_sha256": "2e62c1d6c7689a4d2de0c2593335b6857f4830b5415cd29608c7709dbb622dc7",
       "graph_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -101,6 +105,10 @@
         {
           "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
           "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     },
@@ -117,7 +125,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "326a2dc059f72667aeb1909902caee865906114aadd4ba7fd87f54b9a9a081e3",
+      "source_sha256": "1280b437e9bee9e800e23c9d8375292be8580c51e16c26a9e1bfe954c19f5850",
       "graph_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -148,6 +156,10 @@
         {
           "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
           "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     },
@@ -164,7 +176,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "326a2dc059f72667aeb1909902caee865906114aadd4ba7fd87f54b9a9a081e3",
+      "source_sha256": "1280b437e9bee9e800e23c9d8375292be8580c51e16c26a9e1bfe954c19f5850",
       "graph_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -195,6 +207,10 @@
         {
           "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
           "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     },
@@ -211,7 +227,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "6aad192371cf68ed520acfb3ea4d4919c4a53b53a4846557b807a79d1dee81c9",
+      "source_sha256": "29eeed46358a5ab15351b66231e4f2c2be41444bab5f4c1c3835d39783e62385",
       "graph_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -246,6 +262,10 @@
         {
           "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
           "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     },
@@ -262,7 +282,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "6aad192371cf68ed520acfb3ea4d4919c4a53b53a4846557b807a79d1dee81c9",
+      "source_sha256": "29eeed46358a5ab15351b66231e4f2c2be41444bab5f4c1c3835d39783e62385",
       "graph_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -297,6 +317,10 @@
         {
           "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
           "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     },
@@ -313,7 +337,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "1e94b313525d7a0607b2ab5babb5db430c43c337742b9e36857813be4350347c",
+      "source_sha256": "06baf914b7a310dcd7d127d14ce6906b39b8737aa55c8e7a40e98a4c5553265c",
       "graph_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -352,6 +376,10 @@
         {
           "path": "experiment/evaluation/c4-pdf-literal-security.md",
           "sha256": "65d9eeeb869a97e96523a80d83d98cbcdd281fb2392de18439245176babf8035"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     },
@@ -368,7 +396,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "1e94b313525d7a0607b2ab5babb5db430c43c337742b9e36857813be4350347c",
+      "source_sha256": "06baf914b7a310dcd7d127d14ce6906b39b8737aa55c8e7a40e98a4c5553265c",
       "graph_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -407,6 +435,10 @@
         {
           "path": "experiment/evaluation/c4-pdf-literal-security.md",
           "sha256": "65d9eeeb869a97e96523a80d83d98cbcdd281fb2392de18439245176babf8035"
+        },
+        {
+          "path": "experiment/evaluation/c1-clean-build-security.md",
+          "sha256": "c1d631e1dbe5a1e008dc06c681357dcdb4158b26f770e0d2226c069a83b3591a"
         }
       ]
     }

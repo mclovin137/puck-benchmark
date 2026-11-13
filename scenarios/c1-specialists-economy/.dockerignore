@@ -1,0 +1,10 @@
+**
+!frontend/
+!frontend/**
+!design/
+!design/**
+frontend/node_modules
+frontend/dist
+**/.env
+**/.env.*
+**/*.tsbuildinfo

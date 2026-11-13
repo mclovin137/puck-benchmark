@@ -1,6 +1,6 @@
 {
   "observed_at": "2026-11-12T12:45:08.314366+00:00",
-  "source_reference_commit": "ac779ed9c86e63c90fb8245f24b43388e8b9b218",
+  "source_reference_commit": "f3477038c2c2e87a966c87f2fe21863b268d7cac",
   "tool": "org.apache.maven.plugins:maven-dependency-plugin:3.8.1:tree",
   "format": "json",
   "canonicalization": "Recursively sort child nodes by canonical JSON; preserve string fields; JSON sort_keys=true, separators comma/colon, UTF-8. Optional children omitted when empty.",
@@ -9,7 +9,7 @@
     {
       "scenario": "C1",
       "source_directory": "scenarios/c1-specialists-economy/backend",
-      "scenario_git_tree": "0d350a19c9226175ff6bf0078100758d4ede6af8",
+      "scenario_git_tree": "0fd6223f0e6f958d62eed0204ffd14339cf855a6",
       "source_pom_sha256": "f45801907a8ef501fbe4f79a567a9727550d4b044aac48b3c90c8f431db5ea81",
       "tree_file": "experiment/evaluation/dependency-graphs/c1.json",
       "canonical_tree_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
