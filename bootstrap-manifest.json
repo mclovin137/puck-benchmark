@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "source_commit": "219d50f920ba9fbcd107e202d5661185d11e5676",
-  "initial_main": "c5d985cbb5adff2983325bc3feeb4c90856d2b3a",
+  "source_commit": "b5d680d8f158d4edd60495cda9333acca1919b71",
+  "initial_main": "98894e1e09585f9b12f07921eb4650fd3ce4f1a8",
   "imports": {
     ".github/workflows/pentest.yml": {
       "mode": "100644",
@@ -33,7 +33,7 @@
     },
     "benchmark/pentest/tests/test_guards.py": {
       "mode": "100644",
-      "sha256": "d9eee410edd310e5a6cc0dfb995336dcee9c02ba1a06319007a31cc9a83efcf6"
+      "sha256": "a0c5c9e786bb5470d8c9587d8f89def97c1aeb117f79c2e4b4f3e1c856e76222"
     },
     "benchmark/pentest/triagem.json": {
       "mode": "100644",
@@ -49,7 +49,7 @@
     },
     "scripts/pentest/guards.py": {
       "mode": "100644",
-      "sha256": "64c3e4d4d1fc07c10ee69141e40713ba436e81f67c635eb77aff1fa0194a32ce"
+      "sha256": "a04bb985ffda73dd36bde4403f4c0313016c314ec0c6c6e89c46dd32c4bdf5d1"
     },
     "scripts/pentest/preflight.py": {
       "mode": "100644",
@@ -61,7 +61,7 @@
     },
     "scripts/pentest/run-ci.py": {
       "mode": "100644",
-      "sha256": "005ff08afe167863c93e381ed38bd68282f4cb7ef3f1066725887697240a37ca"
+      "sha256": "cfd8888eb3a4f8cbd85070731e46cb9dd8646bbd4d2bc650d6e7cda25c6e85f2"
     },
     "scripts/pentest/zap-plan.py": {
       "mode": "100644",
