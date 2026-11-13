@@ -20,3 +20,5 @@
 5. Preparar promoção com evidências e gates.
 
 Tasks só são concluídas após integração aprovada conforme contrato.
+
+A preparação isolada v0.1.0 foi admitida em main pelo PR #31, com CI A0 verde e tag confirmada. Esta task integra a base de volta à dev e retira seus controles exclusivos; a promoção das aplicações continua dependente da CI completa e de A1/triagem no candidato pertinente.

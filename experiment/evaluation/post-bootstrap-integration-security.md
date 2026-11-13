@@ -1,0 +1,21 @@
+Ficha: tarefa=benchmark-recovery/post-bootstrap-integration agente=neo modelo=gpt-6.1-sol (adaptador declarado; runtime não inspecionado) esforço=high skill=security-audit,receber-revisao,verificar-antes-de-concluir.
+
+# R1 — integração da base preparatória em dev
+
+**CONCLUSÃO:** nenhum achado substanciado de segurança no delta auditado. A resolução estática preserva CI das aplicações e barreiras de A1, sujeita à CI rápida/dependências no commit efetivo antes de integrar em dev. Não aprova promoção, pentest ou execução das aplicações.
+
+Chamada conferida: tarefa, aceite e escopo presentes; revisão de CI dentro do papel. Bloco novo de lifecycle previsto no desenho Yoda; não reabre a R3 PyPI nem estende sua exceção. Quadro e seção de lifecycle do desenho foram consultados; memória externa indisponível. Escopo: índice da integração em curso, com HEAD/dev `219d50f920ba9fbcd107e202d5661185d11e5676` e MERGE_HEAD/main `98894e1e09585f9b12f07921eb4650fd3ce4f1a8`. Nenhum commit foi produzido por Neo.
+
+## Fronteiras e evidência
+
+- **FATO:** índice sem entradas conflitantes, com nove caminhos diferentes da dev: CHANGELOG, README, parecer histórico do bootstrap, lib, roadmap, rules, verificacao, instruções ao dono e test-review.sh. Os bytes desses arquivos no worktree correspondiam ao índice. Os dois pais conservam a main inicial como ancestral; o estado observado é um merge ordinário em curso, sem reescrita. O futuro commit deverá preservar ambos os pais.
+- **FATO:** os 16 imports comuns têm bytes, objetos e modos idênticos no índice e em ambos os pais. O parecer histórico docs/bootstrap-security.md também é idêntico à main, preservando R1/R2/R3. Em relação à main, somente quatro caminhos estão ausentes: .github/workflows/bootstrap-a0.yml, scripts/ci/bootstrap.py, bootstrap-manifest.json e benchmark/bootstrap/test_bootstrap.py. Não há ampliação de allowlist nem job fictício para substituir o gate retirado.
+- **FATO:** todos os demais objetos/modos da dev foram preservados, incluindo aplicações, protocolo/freeze, avaliador, política de dependências e workflows ci.yml, ci-rapida.yml, auditoria-dependencias.yml e pentest.yml. A prova comparou metadados Git completos; não leu fontes das aplicações nem reavaliou resultados. A1 continua resolvendo a branch padrão e congelando o SHA da base, com candidato separado, environment/aprovação do owner e gates originais. Nada foi redirecionado para a dev ou dispensado.
+- **FATO:** a única mudança executável adiciona discovery das fixtures comuns em test-review.sh. A suíte de infraestrutura e o check condicional das aplicações permanecem nas mesmas posições relativas, com set -euo pipefail. Ambos os workflows de CI continuam chamando esse script. bash -n passou; cinco casos próprios com python3 substituído por um stub temporário provaram interrupção em falha de infraestrutura, guardas ou check das aplicações, além dos controles legítimos com e sem refs. Nenhuma suíte real ou aplicação foi executada nesses casos.
+- **FATO:** a atualização das instruções ao dono registra o bootstrap entregue e exige o novo SHA com seus gates; preserva digests candidatos, bloqueio do hook e ações reservadas. Não declara environment/variáveis/aprovação observados ou aplicados. As 35 fixtures inertes e suas provas anteriores foram reutilizadas por identidade dos imports; os 88 testes de infraestrutura não foram repetidos nesta revisão.
+
+## Identidade e limites
+
+Antes deste novo parecer, o índice tinha 477 entradas; SHA-256 dos bytes de git ls-files --stage -z: `8a4b79d63c467ac8d2325c56fb13d0991a8f5bcfca7c7f1672e6fb0244fc2f21`. Esse binding identifica o conteúdo auditado, não um commit futuro. SHA-256 do test-review.sh no índice: `424c86bc24cdd3e748806b0a0ee8d6a879b371de3bb3aeb2f9ac29228450490d`; parecer histórico: `562bdfb70980f55dc5a49dbb12b9c48c328a8544ae0018e3e1746baf026244eb`. git diff --cached --check retornou zero.
+
+CI desta integração ainda pendente; CI completa, A1 e triagem da futura promoção devem corresponder ao candidato pertinente. A CI A0 da main/tag anterior não aprova este índice. Não observados controles remotos ou proteção de branch; eventual requirement incompatível continua sendo decisão do dono, sem contorno. Sem scans, aplicações, A1, mutação de controles, commit, push ou merge por Neo. Somente este parecer foi escrito; o parecer histórico permaneceu intacto.
