@@ -1,6 +1,12 @@
+FROM maven:3.9.11-eclipse-temurin-21 AS build
+WORKDIR /workspace
+COPY pom.xml .
+COPY src ./src
+RUN mvn -B -DskipTests package
+
 FROM eclipse-temurin:21-jre
 WORKDIR /app
-COPY target/finance-api-0.1.0.jar app.jar
+COPY --from=build /workspace/target/finance-api-0.1.0.jar app.jar
 EXPOSE 8080
 USER 10001:10001
 ENTRYPOINT ["java","-jar","/app/app.jar"]
