@@ -406,18 +406,33 @@ def _scanner_path(path: Path) -> Path:
     return resolved
 
 
-def _package_set(output: Any) -> tuple[set[tuple[str, str, str]], int]:
+def _package_set(
+    output: Any,
+    source_name: str,
+    expected: set[tuple[str, str, str]],
+    expected_source_path: str,
+) -> tuple[set[tuple[str, str, str]], int]:
     results = output.get("results") if isinstance(output, dict) else None
     if not isinstance(results, list) or not results:
         raise BootstrapError("scanner_results_missing")
     observed: set[tuple[str, str, str]] = set()
+    primary: set[tuple[str, str, str]] = set()
     advisory_ids: set[str] = set()
     for result in results:
         if not isinstance(result, dict) or not isinstance(result.get("packages"), list):
             raise BootstrapError("scanner_result_invalid")
         source = result.get("source")
-        if not isinstance(source, dict) or source.get("type") != "lockfile":
+        if not isinstance(source, dict) or source.get("path") != expected_source_path:
+            raise BootstrapError("scanner_source_path_mismatch")
+        source_type = source.get("type")
+        if source_type == "lockfile":
+            is_primary = True
+        elif source_name == "pypi" and source_type == "unknown":
+            is_primary = False
+        else:
             raise BootstrapError("scanner_source_invalid")
+        if not result["packages"]:
+            raise BootstrapError("scanner_result_empty")
         for item in result["packages"]:
             package = item.get("package") if isinstance(item, dict) else None
             if not isinstance(package, dict):
@@ -431,7 +446,14 @@ def _package_set(output: Any) -> tuple[set[tuple[str, str, str]], int]:
                 or not isinstance(ecosystem, str) or not ecosystem
             ):
                 raise BootstrapError("scanner_package_invalid")
-            observed.add((name, version, ecosystem.lower()))
+            normalized_ecosystem = ecosystem.lower()
+            expected_ecosystem = "npm" if source_name == "npm" else "pypi"
+            if normalized_ecosystem != expected_ecosystem:
+                raise BootstrapError("scanner_ecosystem_invalid")
+            package_key = (name, version, normalized_ecosystem)
+            observed.add(package_key)
+            if is_primary:
+                primary.add(package_key)
             vulnerabilities = item.get("vulnerabilities", [])
             if not isinstance(vulnerabilities, list):
                 raise BootstrapError("scanner_vulnerabilities_invalid")
@@ -451,6 +473,8 @@ def _package_set(output: Any) -> tuple[set[tuple[str, str, str]], int]:
                 advisory_ids.update(identifiers)
     if not observed:
         raise BootstrapError("scanner_coverage_empty")
+    if primary != expected:
+        raise BootstrapError("scanner_primary_coverage_mismatch")
     return observed, len(advisory_ids)
 
 
@@ -571,10 +595,13 @@ def run_audit(
             else:
                 try:
                     output = json.loads(stdout)
-                    observed, advisory_count = _package_set(output)
+                    observed, advisory_count = _package_set(
+                        output,
+                        source_name,
+                        expected,
+                        str(lockfile.resolve()),
+                    )
                     observed_count = len(observed)
-                    if observed != expected:
-                        source_failures.append("package_coverage_mismatch")
                 except (UnicodeDecodeError, json.JSONDecodeError, BootstrapError):
                     source_failures.append("scanner_output_invalid")
             if code != 0:

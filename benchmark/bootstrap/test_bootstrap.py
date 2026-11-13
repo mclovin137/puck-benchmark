@@ -344,6 +344,7 @@ class AuditTests(unittest.TestCase):
         body += "items = " + repr(outputs) + "\n"
         body += "codes = " + repr(codes) + "\n"
         body += "index = 0 if lock.endswith('package-lock.json') else 1\n"
+        body += "for result in items[index]['results']:\n source = result['source']\n if source.get('path') == '__LOCKFILE__': source['path'] = lock\n elif source.get('path') == '__OTHER__': source['path'] = lock + '.other'\n"
         body += "print(json.dumps(items[index]))\nsys.exit(codes[index])\n"
         script = "#!/usr/bin/env python3\n" + body
         self.scanner.write_text(script, encoding="utf-8")
@@ -352,15 +353,20 @@ class AuditTests(unittest.TestCase):
         return self.scanner
 
     @staticmethod
-    def clean_result(*packages):
-        return {"results": [{"source": {"type": "lockfile"}, "packages": [
+    def clean_result(*packages, source_type="lockfile", source_path="__LOCKFILE__"):
+        return {"results": [{"source": {"type": source_type, "path": source_path}, "packages": [
             {"package": {"name": name, "version": version, "ecosystem": ecosystem}}
             for name, version, ecosystem in packages
         ]}]}
 
-    def run_audit(self, report: Path, codes: list[int] | None = None, npm_output=None) -> int:
+    def run_audit(self, report: Path, codes: list[int] | None = None, npm_output=None, pypi_output=None) -> int:
         npm = npm_output or self.clean_result(("a", "1.2.3", "npm"), ("optional", "4.5.6", "npm"))
-        pypi = self.clean_result(("pypdf", "6.21.4", "PyPI"))
+        pypi = pypi_output or {
+            "results": (
+                self.clean_result(("pypdf", "6.21.4", "PyPI"))["results"]
+                + self.clean_result(("typing-extensions", "4.9.0", "PyPI"), source_type="unknown")["results"]
+            )
+        }
         self.scanner_with([npm, pypi], codes)
         return bootstrap.run_audit(self.scanner, report, timeout_seconds=2)
 
@@ -400,6 +406,35 @@ class AuditTests(unittest.TestCase):
         incomplete = self.clean_result(("a", "1.2.3", "npm"))
         self.scanner_with([incomplete, self.clean_result(("pypdf", "6.21.4", "PyPI"))])
         self.assertNotEqual(bootstrap.run_audit(self.scanner, report, timeout_seconds=2), 0)
+
+    def test_pypi_unknown_supplement_is_narrow_and_fail_closed(self) -> None:
+        report = self.root / "report.json"
+        unknown_npm = self.clean_result(("typing-extensions", "4.9.0", "npm"), source_type="unknown")
+        self.assertNotEqual(self.run_audit(report, npm_output={"results": unknown_npm["results"]}), 0)
+
+        other_path = self.clean_result(("typing-extensions", "4.9.0", "PyPI"), source_type="unknown", source_path="__OTHER__")
+        self.assertNotEqual(self.run_audit(report, pypi_output={"results": [
+            self.clean_result(("pypdf", "6.21.4", "PyPI"))["results"][0],
+            other_path["results"][0],
+        ]}), 0)
+
+        missing_primary = {"results": self.clean_result(("pypdf", "6.21.4", "PyPI"), source_type="unknown")["results"]}
+        self.assertNotEqual(self.run_audit(report, pypi_output=missing_primary), 0)
+
+        advisory_supplement = self.clean_result(("typing-extensions", "4.9.0", "PyPI"), source_type="unknown")
+        advisory_supplement["results"][0]["packages"][0]["vulnerabilities"] = [{"id": "GHSA-supplement"}]
+        with_advisory = {"results": [
+            self.clean_result(("pypdf", "6.21.4", "PyPI"))["results"][0],
+            advisory_supplement["results"][0],
+        ]}
+        self.assertNotEqual(self.run_audit(report, pypi_output=with_advisory), 0)
+
+        wrong_ecosystem = self.clean_result(("typing-extensions", "4.9.0", "npm"), source_type="unknown")
+        mismatch = {"results": [
+            self.clean_result(("pypdf", "6.21.4", "PyPI"))["results"][0],
+            wrong_ecosystem["results"][0],
+        ]}
+        self.assertNotEqual(self.run_audit(report, pypi_output=mismatch), 0)
 
     def test_scanner_must_be_under_private_tools_and_checksum_pinned(self) -> None:
         outside = self.root / "outside"
