@@ -23,7 +23,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "080d7084fb57bc694a4e473670f52e96ac574c2024aee592c22cbd6f77f7b18d",
+      "source_sha256": "f2e60755e869e7da1716ecef12debcd56b306847e96d9c249473f9e2353d98af",
       "graph_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -50,6 +50,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     },
@@ -66,7 +70,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "080d7084fb57bc694a4e473670f52e96ac574c2024aee592c22cbd6f77f7b18d",
+      "source_sha256": "f2e60755e869e7da1716ecef12debcd56b306847e96d9c249473f9e2353d98af",
       "graph_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -93,6 +97,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     },
@@ -109,7 +117,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "5a0347b8489b970861c437cdd0b925e7fe0471b840a2d42dd38414593a12e858",
+      "source_sha256": "326a2dc059f72667aeb1909902caee865906114aadd4ba7fd87f54b9a9a081e3",
       "graph_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -136,6 +144,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     },
@@ -152,7 +164,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "5a0347b8489b970861c437cdd0b925e7fe0471b840a2d42dd38414593a12e858",
+      "source_sha256": "326a2dc059f72667aeb1909902caee865906114aadd4ba7fd87f54b9a9a081e3",
       "graph_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -179,6 +191,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     },
@@ -195,7 +211,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "6ee8af9775d085caa70888c68ba6204cebb2cd8b1d62bd40978f68d6ae8cd0bb",
+      "source_sha256": "6aad192371cf68ed520acfb3ea4d4919c4a53b53a4846557b807a79d1dee81c9",
       "graph_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -226,6 +242,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     },
@@ -242,7 +262,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "6ee8af9775d085caa70888c68ba6204cebb2cd8b1d62bd40978f68d6ae8cd0bb",
+      "source_sha256": "6aad192371cf68ed520acfb3ea4d4919c4a53b53a4846557b807a79d1dee81c9",
       "graph_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -273,6 +293,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     },
@@ -289,7 +313,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "c8074486ef6a84d68ffe1c88b51d0f96cc46573629230d67c0df0fb8da9aa9b2",
+      "source_sha256": "97969d5622a29fa6e13ced937e2fd55037920e53e062cbc543f293b34ae3e7ee",
       "graph_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -320,6 +344,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     },
@@ -336,7 +364,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "c8074486ef6a84d68ffe1c88b51d0f96cc46573629230d67c0df0fb8da9aa9b2",
+      "source_sha256": "97969d5622a29fa6e13ced937e2fd55037920e53e062cbc543f293b34ae3e7ee",
       "graph_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -367,6 +395,10 @@
         {
           "path": "experiment/evaluation/pentest-runtime-policy-security.md",
           "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
+        },
+        {
+          "path": "experiment/evaluation/pentest-v012-guard-policy-security.md",
+          "sha256": "10168ac1702178a21f585a130621153699390b6b113990a1439815fd25231a76"
         }
       ]
     }
