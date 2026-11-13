@@ -36,6 +36,8 @@ A execução protegida [43424007867](https://github.com/mclovin137/puck-benchmar
 
 A intervenção ocorre depois do corte de telemetria de 13/11/2026 02:19:47 UTC. Seus tokens, custo e tempo ativo não estão medidos no snapshot publicado; não foram estimados nem atribuídos aos cenários. O novo candidato continua dependente dos gates pertinentes e de execução A1 real. Esse retrabalho comum precisa permanecer separado da comparação entre as quatro implementações.
 
+A execução [43443876203](https://github.com/mclovin137/puck-benchmark/actions/runs/43443876203) usou o candidato correto e voltou a falhar na autorização antes do build. Consultas externas não atômicas mostraram run global queued enquanto C1 constava como ativo; a resposta recebida pela guarda e eventual efeito de cache não foram preservados/comprovados. O delta admitido no PR #39 separa o ciclo global da prova obrigatória do job ativo e acrescenta códigos discriminantes. Os testes A0 não substituem o novo A1; essa intervenção comum também ocorre após o corte da telemetria, sem consumo medido ou atribuição aos cenários.
+
 ## Tokens, referência API e duração
 
 Snapshot nativo de 13/11/2026 02:19:47 UTC: 3.917 respostas observadas, 46 sessões e dois erros de parse. A atualização preserva byte a byte os contadores dos 3.143 eventos anteriores e acrescenta 774 eventos, todos no overhead; nenhum contador de cenário foi alterado. A [prova de continuidade](../experiment/evaluation/telemetry-continuity-20261113.json) registra cobertura e hashes sem IDs nativos. Os históricos com NUL foram preservados privadamente; não se conhece o consumo perdido. Os totais abaixo são observados, com essa incompletude. Entrada inclui cache; saída inclui raciocínio.
