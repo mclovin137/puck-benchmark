@@ -29,7 +29,6 @@ PINNED_INITIAL_MAIN = bootstrap.INITIAL_MAIN
 
 PATCHED_IMPORTS = (
     "scripts/pentest/guards.py",
-    "scripts/pentest/run-ci.py",
     "benchmark/pentest/tests/test_guards.py",
 )
 PATCHED_CONTROL_FILES = (
@@ -161,17 +160,17 @@ class VerifyTests(unittest.TestCase):
         return result.stdout.decode("ascii").strip()
 
     def test_constants_pin_the_new_admitted_source_and_main(self) -> None:
-        self.assertEqual(PINNED_SOURCE_COMMIT, "b5d680d8f158d4edd60495cda9333acca1919b71")
-        self.assertEqual(PINNED_INITIAL_MAIN, "98894e1e09585f9b12f07921eb4650fd3ce4f1a8")
+        self.assertEqual(PINNED_SOURCE_COMMIT, "450d1b250e707eed682c2e0bf4f9bd8699b7a3b9")
+        self.assertEqual(PINNED_INITIAL_MAIN, "86275581c5d3b9c28654a6a10c36844984175ea0")
 
-    def test_accepts_three_import_patch_over_nonempty_main_and_preserves_other_imports(self) -> None:
+    def test_accepts_two_import_patch_over_nonempty_main_and_preserves_other_imports(self) -> None:
         self.verify()
         self.assertEqual(len(bootstrap.ALLOWLIST), 30)
         self.assertEqual(len(_tree_paths(self.repo, self.initial)), 30)
         changed = set(git(self.repo, "diff", "--name-only", self.initial, self.head).splitlines())
         changed_imports = changed.intersection(bootstrap.IMPORT_PATHS)
         self.assertEqual(changed_imports, set(PATCHED_IMPORTS))
-        self.assertEqual(len(changed), 11)
+        self.assertEqual(len(changed), 10)
         for relative in set(bootstrap.IMPORT_PATHS) - set(PATCHED_IMPORTS):
             before = git_entry(self.repo, self.initial, relative)
             after = git_entry(self.repo, self.head, relative)
@@ -302,7 +301,7 @@ class VerifyTests(unittest.TestCase):
             "pull_request": {
                 "base": {"ref": "integration/pentest-bootstrap", "sha": self.initial,
                          "repo": {"full_name": "owner/project"}},
-                "head": {"ref": "feat/pentest-runtime-fix", "sha": self.head,
+                "head": {"ref": "feat/pentest-runtime-v012", "sha": self.head,
                          "repo": {"full_name": "owner/project"}},
             }
         }
@@ -320,7 +319,7 @@ class VerifyTests(unittest.TestCase):
             "pull_request": {
                 "base": {"ref": "integration/pentest-bootstrap", "sha": self.initial,
                          "repo": {"full_name": "owner/project"}},
-                "head": {"ref": "feat/pentest-runtime-fix", "sha": self.head,
+                "head": {"ref": "feat/pentest-runtime-v012", "sha": self.head,
                          "repo": {"full_name": "fork/project"}},
             }
         }
@@ -364,7 +363,7 @@ class VerifyTests(unittest.TestCase):
             "pull_request": {
                 "base": {"ref": "integration/pentest-bootstrap", "sha": self.initial,
                          "repo": {"full_name": "owner/project"}},
-                "head": {"ref": "feat/pentest-runtime-fix", "sha": self.head,
+                "head": {"ref": "feat/pentest-runtime-v012", "sha": self.head,
                          "repo": {"full_name": "owner/project"}},
             }
         }
