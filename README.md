@@ -14,3 +14,5 @@ Resultados individuais em [runs.json](experiment/results/runs.json), [comparaç�
 O [resumo de métricas do C1](reports/c1-resumo-metricas.md) reúne consumo, modelos, agentes, fases, testes e pendências do cenário em um único arquivo.
 
 O [detalhamento de tokens](reports/token-usage.md) separa fases declaradas e atividade observada, com [CSV](reports/token-breakdown.csv), [JSON](reports/token-breakdown.json) e [referência de custo API](reports/cost-estimates.json). Cobrança real e tempo ativo são desconhecidos. A execução usa a assinatura existente, sem compras autorizadas.
+
+A base confiável de pentest foi admitida na versão [v0.1.0](https://github.com/mclovin137/puck-benchmark/tree/v0.1.0), somente com infraestrutura A0. Sua admissão não aprova as aplicações ou o pentest real. A integração atual preserva os gates de promoção e aguarda a configuração/execução protegida pelo dono.
