@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "source_commit": "219d50f920ba9fbcd107e202d5661185d11e5676",
+  "initial_main": "c5d985cbb5adff2983325bc3feeb4c90856d2b3a",
+  "imports": {
+    ".github/workflows/pentest.yml": {
+      "mode": "100644",
+      "sha256": "6aad1b334dcd0b1e375b0131548662c362c35485968e1fb870f4f63bfc92b04e"
+    },
+    "benchmark/pentest/README.md": {
+      "mode": "100644",
+      "sha256": "5b787c632017b402ba305a6dfb74af62cedd5f4d577b428f08fc57268bad432f"
+    },
+    "benchmark/pentest/gateway.py": {
+      "mode": "100644",
+      "sha256": "e858088985faeb5807d94739798e59c6c503a73740e3ac3c0571fb538db3aacb"
+    },
+    "benchmark/pentest/package-lock.json": {
+      "mode": "100644",
+      "sha256": "98ef8b70c490f4c2702a9f5ccf3c70db30ff6c9a96528f749803c845de8824f6"
+    },
+    "benchmark/pentest/package.json": {
+      "mode": "100644",
+      "sha256": "5d1ef8a36c6118e3bfa377089b31fbdf94fcb8e1f5a94c748ff55ede23695131"
+    },
+    "benchmark/pentest/policy.json": {
+      "mode": "100644",
+      "sha256": "70e90e84e8d092e446fb6591939757c8b62d6897410da91425d1805b56b72184"
+    },
+    "benchmark/pentest/runner.Dockerfile": {
+      "mode": "100644",
+      "sha256": "829990045307abfe8e8ed5c329251c5aa594a7ee4d477ae7d4cf2eb319d789b9"
+    },
+    "benchmark/pentest/tests/test_guards.py": {
+      "mode": "100644",
+      "sha256": "d9eee410edd310e5a6cc0dfb995336dcee9c02ba1a06319007a31cc9a83efcf6"
+    },
+    "benchmark/pentest/triagem.json": {
+      "mode": "100644",
+      "sha256": "2426cbed4e6f94a508d74a3900981b9ca4553ef0dfd3182619283c41278d26d3"
+    },
+    "benchmark/pentest/ui-security.cjs": {
+      "mode": "100644",
+      "sha256": "c44b5ea760fedf810614e359d2f3bf2bae69d565d6ccffbd91104b7b095576d6"
+    },
+    "benchmark/scripts/install_tools.py": {
+      "mode": "100644",
+      "sha256": "f417b21e0b77b21fdf2332747b3da8a812c02513a2919e011773d879184dbbb0"
+    },
+    "scripts/pentest/guards.py": {
+      "mode": "100644",
+      "sha256": "64c3e4d4d1fc07c10ee69141e40713ba436e81f67c635eb77aff1fa0194a32ce"
+    },
+    "scripts/pentest/preflight.py": {
+      "mode": "100644",
+      "sha256": "db995def832674b1fb0097f094f10fdb7e893fa4dd123387235cdb2eafb3e0c5"
+    },
+    "scripts/pentest/report.py": {
+      "mode": "100644",
+      "sha256": "9f315ff7dbd703961e3f56dbcfc23f52b46d1ff85a8daeb6c5ad37d1861a3faf"
+    },
+    "scripts/pentest/run-ci.py": {
+      "mode": "100644",
+      "sha256": "005ff08afe167863c93e381ed38bd68282f4cb7ef3f1066725887697240a37ca"
+    },
+    "scripts/pentest/zap-plan.py": {
+      "mode": "100644",
+      "sha256": "e85c94fec96c079042669b1cf351fcf1161f88a846ff002554c32b6ffe77a271"
+    }
+  }
+}
