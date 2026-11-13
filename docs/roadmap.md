@@ -1,6 +1,6 @@
 # Roadmap da preparação
 
-## v0.1.2 — ciclo global e atividade do job — em revisão
+## v0.1.2 — ciclo global e atividade do job — lançado no conteúdo da promoção
 
 1. Admitir o delta da guarda e os vínculos exatos da política, com revisão Neo e gates próprios.
 2. Transportar somente os dois imports alterados para a base confiável, preservando os outros 14 e a árvore de 30 arquivos.
@@ -21,3 +21,5 @@
 O escopo funcional do experimento não mudou. A1, environment, imagens e aprovação do dono continuam pendentes; esta versão não os dá como concluídos.
 
 O marcador v0.1.1 descreve o conteúdo preparado para a promoção. A entrega só se efetiva após merge, CI verde na main e tag; nenhuma anotação substitui esses gates ou aprova A1.
+
+O marcador v0.1.2 descreve o conteúdo preparado para a promoção. A entrega depende do merge e da CI verde na main, seguida da tag; nenhum marcador substitui gates ou execução A1.
