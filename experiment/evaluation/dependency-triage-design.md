@@ -14,7 +14,7 @@ Fontes adicionais: [protocolo](../protocol.md), [configurações](../configs.yam
 
 ## Contrato mínimo
 
-O scanner mede as fontes candidatas. Registros, política e avaliador vêm de **um SHA exato revisado de dev**, previamente admitido pelo fluxo existente de PR crítico, Neo e owner/Oráculo. O workflow fixa esse SHA e o informa no resultado; o candidato não escolhe a base nem fornece sua própria autorização. A confiança nas alterações do workflow continua nesses controles existentes, sem novo sistema de checks externos.
+O scanner mede as fontes candidatas. Registros, política e avaliador vêm de **um SHA exato revisado no PR crítico para dev**, conforme a emenda de execução abaixo, previamente admitido pelo fluxo existente de PR crítico, Neo e owner/Oráculo. O workflow fixa esse SHA e o informa no resultado; o candidato não escolhe a base nem fornece sua própria autorização. A confiança nas alterações do workflow continua nesses controles existentes, sem novo sistema de checks externos.
 
 Um registro cobre exatamente um advisory em um cenário. Não aceitar wildcard, versão por faixa, duplicata ambígua ou aplicação da decisão de um cenário aos demais. Para oito achados, são necessárias oito correspondências válidas, caso as provas existam.
 
@@ -57,3 +57,13 @@ Outro caso é aceitar o digest informado pelo próprio JSON candidato: o candida
 - Revisão Neo do delta e CI no SHA exato. Testes e revisão da implementação deste desenho: **não executados**; esta revisão foi documental.
 
 Custo adicional: snapshots e oito decisões individuais, extensão restrita do avaliador, sequência de PRs e nova execução comum. Registrar como intervenção de recuperação, sem atribuição arbitrária a cenários. Alternativa vigente: manter o gate bloqueado. Não há aceite de risco inventado, dispensa global ou mudança do protocolo, configurações congeladas, resultados ou controles externos.
+
+## Emenda de execução — correção de cenário após o snapshot
+
+A proposta inicial situava a admissão do SHA em dev antes da ativação. Uma correção de aplicação muda a árvore do cenário: o avaliador preservado exige igualdade entre a árvore real no checkout confiável, a declaração do manifest e o candidato. Uma policy isolada contendo a árvore nova, mas código antigo, seria inconsistente; integrar código com gate antigo reprovado também é recusado.
+
+Para essa correção, o snapshot P3 conterá código/teste, política, manifest e prova do próprio PR crítico para dev, em SHA completo imutável. Neo e Oráculo precisam admitir expressamente esse SHA e seus vínculos antes da ativação; não basta o candidato declarar aprovação. O filho K3 altera apenas os dois pins do workflow para P3, com avaliador/helper/instalador idênticos à base anterior e checkouts separados/limpos. Merge em dev continua condicionado à CI real verde no head K3 e à revisão independente do delta. Não usar branch flutuante, pular gate ou alterar o avaliador para dispensar árvores divergentes.
+
+Somente C4 muda: dois digests de fonte e o binding de sua árvore, com nova evidência nos dois registros C4; os seis registros C1–C3 permanecem íntegros. Os quatro grafos/POMs e advisories são preservados; observed_at do manifest mantém a coleta original dos grafos, enquanto source_reference_commit registra a fonte atual cujas árvores coincidem com os bindings. A resolução corrente será novamente verificada pelo consumidor real antes de integrar. O componente continua afetado, com oito CRITICAL e prazo original preservados.
+
+Essa admissão ocorre antes da integração do snapshot em dev, por revisão explícita do commit do PR, sem reduzir as provas de código/fonte/grafo/advisory. Não é garantia de proteção remota ou autorização concedida por auto-hash. Os 16 imports de A1 continuam os da main v0.1.2; a correção não modifica os controles do dono, o protocolo funcional, a configuração congelada ou os critérios do experimento.

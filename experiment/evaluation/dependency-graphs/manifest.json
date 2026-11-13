@@ -1,6 +1,6 @@
 {
   "observed_at": "2026-11-12T12:45:08.314366+00:00",
-  "source_reference_commit": "6d02c266006149faeb031a9e31c0344354a0436d",
+  "source_reference_commit": "ac779ed9c86e63c90fb8245f24b43388e8b9b218",
   "tool": "org.apache.maven.plugins:maven-dependency-plugin:3.8.1:tree",
   "format": "json",
   "canonicalization": "Recursively sort child nodes by canonical JSON; preserve string fields; JSON sort_keys=true, separators comma/colon, UTF-8. Optional children omitted when empty.",
@@ -48,7 +48,7 @@
     {
       "scenario": "C4",
       "source_directory": "scenarios/c4-manager-advanced/backend",
-      "scenario_git_tree": "68c3baf09a9a10352cfc88dae4d4b4968a117547",
+      "scenario_git_tree": "48c2ab5611978f80b0538b8f4b90e3004dfdbc73",
       "source_pom_sha256": "56ea913d8f59f8a42d35b793af9e2c84d8157d6f4fa1e6ba0ae26fe1b903fe65",
       "tree_file": "experiment/evaluation/dependency-graphs/c4.json",
       "canonical_tree_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
