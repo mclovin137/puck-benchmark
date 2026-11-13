@@ -13,8 +13,8 @@
 4. C4: aplicação e testes integrados em dev (PRs #12, #13); correção de contrato no #20. Gates de versão pendentes.
 
 ## v0.3 — Avaliação
-1. Aceite externo comum: C1–C3 aprovados em 11/11; C4 aprovado em 12/11 após correção (#20), 16+4 casos por cenário. Evidência nova aguardando integração.
-2. Arquitetura independente publicada; auditorias de suficiência de segurança/QA em consolidação. Pentest A1 e triagem final pendentes. Auditoria comum de dependências integrada no PR #26, com nove fontes aprovadas no head `da1130a` sob decisões restritas ao snapshot; CI completa e A1 permanecem pendentes.
+1. Aceite externo comum: C1–C3 aprovados em 11/11; C4 aprovado em 12/11 após correção (#20), 16+4 casos por cenário. CI completa `43350462043` aprovou builds/testes e novo aceite 16+4 de C1–C4 em `b100f94`/merge de teste `881270e`; prova nova em preparação para integração.
+2. Arquitetura independente publicada; auditorias de suficiência de segurança/QA em consolidação. Pentest A1 e triagem final pendentes. Auditoria comum de dependências integrada no PR #26, com nove fontes aprovadas no head `da1130a` sob decisões restritas ao snapshot; CI completa da candidatura `b100f94` aprovada; A1 e conferência do candidato final permanecem pendentes.
 3. Validar operação, interface e demonstrações.
 4. Consolidar métricas, desvios e comparação — snapshot de continuidade em preparação; perdas de telemetria e cobrança desconhecida preservadas.
 5. Preparar promoção com evidências e gates.

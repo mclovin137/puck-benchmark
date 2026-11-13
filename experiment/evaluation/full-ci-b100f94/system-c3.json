@@ -1,0 +1,15 @@
+{
+  "scenario": "C3",
+  "started_at": "2026-11-13T02:12:53.879075+00:00",
+  "project": "benchmark-eval-c3-41b16cff",
+  "scope": "fresh Compose startup and shared HTTP acceptance; UI and other gates separate",
+  "stage": "complete",
+  "success": true,
+  "api": "http://127.0.0.1:18083/api",
+  "web": "http://127.0.0.1:18213",
+  "suite_cooldown_seconds": 65,
+  "commit": "881270edf11c31490b4d712288c65bad2e6e5285",
+  "source_clean": true,
+  "cleanup_success": true,
+  "finished_at": "2026-11-13T02:15:05.371494+00:00"
+}

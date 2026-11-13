@@ -1,0 +1,74 @@
+{
+  "scenario": "C1",
+  "tests_run": 16,
+  "successful": true,
+  "failures": 0,
+  "errors": 0,
+  "cases": [
+    {
+      "case": "__main__.Acceptance.test_01_private_routes_deny_anonymous",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_02_registration_and_login_validation",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_03_logout_revokes_token_and_me_hides_secrets",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_04_crud_and_decimal_contract",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_05_resource_isolation_read_write_delete",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_06_financial_exactness_and_single_balance",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_07_invalid_transaction_inputs",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_08_combined_filters_summary_and_order",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_09_pagination_and_stable_sort",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_10_filter_validation",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_11_description_search_is_literal",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_12_pdf_filters_totals_and_user_isolation",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_13_xlsx_filters_totals_and_formula_injection",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_14_exports_ignore_pagination",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_15_exports_apply_combined_filters",
+      "status": "aprovado"
+    },
+    {
+      "case": "__main__.Acceptance.test_16_anonymous_cannot_mutate_and_invalid_token_rejected",
+      "status": "aprovado"
+    }
+  ],
+  "scope": "HTTP API only; UI, static security and CI are separate gates"
+}
