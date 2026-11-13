@@ -12,7 +12,7 @@
 3. C3: aplicação e testes integrados em dev (PRs #5, #8); documentação recuperada no #19. Gates de versão pendentes.
 4. C4: aplicação e testes integrados em dev (PRs #12, #13); correção de contrato no #20. Gates de versão pendentes.
 
-## v0.3 — Avaliação
+## v0.3.0 — Avaliação — lançado no conteúdo da promoção
 1. Aceite externo comum: C1–C3 aprovados em 11/11; C4 aprovado em 12/11 após correção (#20), 16+4 casos por cenário. CI completa `43350462043` aprovou builds/testes e novo aceite 16+4 de C1–C4 em `b100f94`/merge de teste `881270e`; prova nova em preparação para integração.
 2. Arquitetura independente publicada; auditorias de suficiência de segurança/QA em consolidação. Pentest A1 e triagem final pendentes. Auditoria comum de dependências integrada no PR #26, com nove fontes aprovadas no head `da1130a` sob decisões restritas ao snapshot; CI completa da candidatura `b100f94` aprovada; A1 e conferência do candidato final permanecem pendentes.
 3. Validar operação, interface e demonstrações.
@@ -22,3 +22,5 @@
 Tasks só são concluídas após integração aprovada conforme contrato.
 
 A preparação isolada v0.1.0 foi admitida em main pelo PR #31, com CI A0 verde e tag confirmada. Esta task integra a base de volta à dev e retira seus controles exclusivos; a promoção das aplicações continua dependente da CI completa e de A1/triagem no candidato pertinente.
+
+O marcador de v0.3.0 descreve o conteúdo pós-promoção preparado no PR #28, conforme fechamento de versão. Enquanto não houver CI completa, A1/triagem, merge e tag verificáveis, a entrega continua em revisão; nenhum gate pendente é aprovado por esta anotação. A data efetiva da entrega deve ser conferida no merge/tag.
