@@ -1,0 +1,9 @@
+{
+  "tool": "ffmpeg",
+  "distribution": "Playwright ffmpeg revision1013",
+  "source": "https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1013/ffmpeg-linux.zip",
+  "binary_sha256": "e829f7f8c497178109f4a388247b778a86637bf075d7bba5834c797a9d61a269",
+  "archive_sha256": "ee986434d158f74fb5d9c5ff1092026ceedb63f324fe90b5be89460926b7b679",
+  "verification": "cached binary equals official HTTPS archive; no independent codec audit",
+  "scope": "encoding self-generated browser frames only; no untrusted media input"
+}

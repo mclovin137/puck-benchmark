@@ -1,0 +1,11 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"><modelVersion>4.0.0</modelVersion><parent><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-parent</artifactId><version>3.5.16</version></parent><groupId>benchmark</groupId><artifactId>baseline</artifactId><version>1</version><properties><java.version>21</java.version><jackson-bom.version>2.21.7</jackson-bom.version><commons-lang3.version>3.18.0</commons-lang3.version><log4j2.version>2.25.5</log4j2.version><tomcat.version>10.1.61</tomcat.version><postgresql.version>42.7.14</postgresql.version></properties><dependencies>
+<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-web</artifactId></dependency>
+<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-security</artifactId></dependency>
+<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-data-jpa</artifactId></dependency>
+<dependency><groupId>org.springframework.boot</groupId><artifactId>spring-boot-starter-validation</artifactId></dependency>
+<dependency><groupId>org.postgresql</groupId><artifactId>postgresql</artifactId></dependency>
+<dependency><groupId>org.flywaydb</groupId><artifactId>flyway-core</artifactId></dependency>
+<dependency><groupId>org.flywaydb</groupId><artifactId>flyway-database-postgresql</artifactId></dependency>
+<dependency><groupId>org.apache.pdfbox</groupId><artifactId>pdfbox</artifactId><version>3.0.6</version></dependency>
+<dependency><groupId>org.apache.poi</groupId><artifactId>poi-ooxml</artifactId><version>5.4.1</version></dependency>
+</dependencies></project>

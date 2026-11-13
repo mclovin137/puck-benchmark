@@ -1,0 +1,13 @@
+{
+  "checked_on": "2026-11-06",
+  "currency": "USD",
+  "unit": "per_million_tokens",
+  "assumption": "Standard API, no regional premium or tool fees; hypothetical reference, not subscription billing",
+  "long_context": {"threshold_exclusive": 272000, "input_and_cache_multiplier": "2", "output_multiplier": "1.5"},
+  "models": {
+    "gpt-6-luna": {"input": "0.10", "cached_input": "0.01", "output": "0.50", "source": "https://developers.openai.com/api/docs/models/gpt-6-luna"},
+    "gpt-6.1-sol": {"input": "2.00", "cached_input": "0.10", "output": "10.00", "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol"},
+    "gpt-6.1-terra": {"input": "1.00", "cached_input": "0.05", "output": "5.00", "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra"}
+  },
+  "cache_write_policy": "Positive cache writes remain unpriced without observed retention; zero observed writes require no retention assumption."
+}

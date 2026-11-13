@@ -1,0 +1,14 @@
+{
+  "pdf_pages": 1,
+  "parser": "pypdf 6.21.4",
+  "contains": [
+    "Salário C2",
+    "Mercado editado",
+    "100.10",
+    "15.50",
+    "84.60"
+  ],
+  "xlsx": "OOXML ZIP/XML analisado, todos os valores esperados presentes",
+  "source": "Downloads reais pelos botões autenticados da interface",
+  "result": "passed"
+}

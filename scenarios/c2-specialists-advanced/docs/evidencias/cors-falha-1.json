@@ -1,0 +1,22 @@
+{
+  "scenario": "C2",
+  "status": "failed",
+  "browser_action": "cadastro real pela interface127.0.0.1:18202",
+  "observations": [
+    {
+      "origin": "http://127.0.0.1:18202",
+      "status": 403
+    },
+    {
+      "origin": "http://localhost:18202",
+      "status": 400
+    }
+  ],
+  "cause": "Origem canonical127.0.0.1 difere de defaultlocalhost em app.cors-origin; Compose não configurava CORS_ORIGIN",
+  "action": "Configurar origem canonical explicitamente no Compose e validar por cadastro real",
+  "revalidation": {
+    "origin": "http://127.0.0.1:18202",
+    "invalid_registration_status": 400,
+    "meaning": "Origem agora aceita e payload chega à validação; cadastro válido na UI ainda em execução"
+  }
+}

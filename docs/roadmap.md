@@ -1,25 +1,34 @@
-# Roadmap da preparação
+# Roadmap
 
-## v0.1.2 — ciclo global e atividade do job — lançado no conteúdo da promoção
+## v0.1 — Preparação
+1. Auditar e fixar Puck e especificação — integrado pelo PR #1.
+2. Congelar configurações, contratos e protocolo — integrado pelo PR #1.
+3. Instrumentar e validar coleta e avaliador externo — integrado pelos PRs #1 e #2; alcances local/CI distintos e documentados.
+4. Aplicar governança equivalente aos quatro cenários.
 
-1. Admitir o delta da guarda e os vínculos exatos da política, com revisão Neo e gates próprios.
-2. Transportar somente os dois imports alterados para a base confiável, preservando os outros 14 e a árvore de 30 arquivos.
-3. Promover a versão com CI A0 e tag após CI verde na main; integrar de volta à dev e renovar os gates do candidato antes de novo A1 pelo dono.
+## v0.2 — Implementações independentes
+1. C1: aplicação e testes integrados em dev (PRs #6, #10); correção de UI no candidato integrado. Gates de versão pendentes.
+2. C2: aplicação e testes integrados em dev (PRs #7, #9); documentação recuperada no #17. Gates de versão pendentes.
+3. C3: aplicação e testes integrados em dev (PRs #5, #8); documentação recuperada no #19. Gates de versão pendentes.
+4. C4: aplicação e testes integrados em dev (PRs #12, #13); correção de contrato no #20. Gates de versão pendentes.
 
-## v0.1.1 — autorização por job ativo — lançado no conteúdo da promoção
+## v0.3.0 — Avaliação — lançado no conteúdo da promoção
+1. Aceite externo comum: C1–C3 aprovados em 11/11; C4 aprovado em 12/11 após correção (#20), 16+4 casos por cenário. CI completa `43350462043` aprovou builds/testes e novo aceite 16+4 de C1–C4 em `b100f94`/merge de teste `881270e`; prova nova em preparação para integração.
+2. Arquitetura independente publicada; auditorias de suficiência de segurança/QA em consolidação. Pentest A1 e triagem final pendentes. Auditoria comum de dependências integrada no PR #26, com nove fontes aprovadas no head `da1130a` sob decisões restritas ao snapshot; CI completa da candidatura `b100f94` aprovada; A1 e conferência do candidato final permanecem pendentes.
+3. Validar operação, interface e demonstrações.
+4. Consolidar métricas, desvios e comparação — snapshot de continuidade em preparação; perdas de telemetria e cobrança desconhecida preservadas.
+5. Preparar promoção com evidências e gates.
 
-1. Admitir na dev a correção e os testes da autorização por cenário.
-2. Importar somente o delta revisado, com origem e baseline fixados, revisão Neo e gates A0 no patch.
-3. Promover a infraestrutura para main; tag após merge e CI verde. A integração posterior na dev renova os gates do candidato; A1 depende de novo acionamento/aprovação do dono.
+Tasks só são concluídas após integração aprovada conforme contrato.
 
-## v0.1.0 — base confiável de pentest — lançado
+A preparação isolada v0.1.0 foi admitida em main pelo PR #31, com CI A0 verde e tag confirmada. Esta task integra a base de volta à dev e retira seus controles exclusivos; a promoção das aplicações continua dependente da CI completa e de A1/triagem no candidato pertinente.
 
-1. Infraestrutura e integridade integradas pelo PR #30: 16 imports preservados, árvore sem aplicações e contrato de bootstrap.
-2. Gates A0 e revisão Neo concluídos no PR #30, incluindo revisão extra focada autorizada pelo dono. CI `43416095428` aprovada no candidato integrado.
-3. Esta versão preparatória é o conteúdo da promoção para main. A tag só é criada após merge e CI verde na main; a integração posterior das aplicações preserva A1 e triagem.
+O marcador de v0.3.0 descreve o conteúdo pós-promoção preparado no PR #28, conforme fechamento de versão. Enquanto não houver CI completa, A1/triagem, merge e tag verificáveis, a entrega continua em revisão; nenhum gate pendente é aprovado por esta anotação. A data efetiva da entrega deve ser conferida no merge/tag.
 
-O escopo funcional do experimento não mudou. A1, environment, imagens e aprovação do dono continuam pendentes; esta versão não os dá como concluídos.
+## Patch comum v0.1.1 — integração da base corrigida
 
-O marcador v0.1.1 descreve o conteúdo preparado para a promoção. A entrega só se efetiva após merge, CI verde na main e tag; nenhuma anotação substitui esses gates ou aprova A1.
+A main `86275581c5d3b9c28654a6a10c36844984175ea0` foi admitida pelo PR #36, com CI `43437630894` aprovada e tag anotada v0.1.1 remota confirmada. Esta task integra a base corrigida preservando aplicações, política e CI; os controles exclusivos do bootstrap continuam retirados. A promoção v0.3.0 permanece condicionada aos gates do candidato e a novo A1/triagem pelo dono.
 
-O marcador v0.1.2 descreve o conteúdo preparado para a promoção. A entrega depende do merge e da CI verde na main, seguida da tag; nenhum marcador substitui gates ou execução A1.
+## Patch comum v0.1.2 — integração da base de ciclo e atividade
+
+A main `4c5ff7eb01c439a4d42ee2dbeb6127f6263fedb4` foi admitida pelo PR #41, com CI `43450216946` aprovada e tag anotada v0.1.2 remota confirmada. Esta task preserva os 16 imports e a retirada dos controles exclusivos do bootstrap, sem alterar aplicações ou critérios. A promoção v0.3.0 continua exigindo os gates do novo candidato e novo A1/triagem pelo dono.

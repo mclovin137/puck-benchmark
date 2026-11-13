@@ -1,0 +1,14 @@
+{
+  "timestamp": "2026-11-06T08:25:13.878753+00:00",
+  "scenario": "C2",
+  "postgresql": "17.11",
+  "dump_restore": "passed",
+  "table_row_counts": {
+    "app_user": 5,
+    "auth_session": 7,
+    "financial_transaction": 14,
+    "flyway_schema_history": 1
+  },
+  "secret_handling": "Backup em arquivo temporário não publicado, removido ao encerrar",
+  "limit": "Comparação de contagens e sucesso do pg_restore; não equivale a plano de recuperação de produção."
+}

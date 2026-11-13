@@ -1,0 +1,34 @@
+{
+  "checked_at": "2026-11-11T19:10:03.223886+00:00",
+  "tool_binary_sha256": "e829f7f8c497178109f4a388247b778a86637bf075d7bba5834c797a9d61a269",
+  "prior_attempt": "Formato de saída null indisponível nesta distribuição reduzida; três tentativas terminaram sem validar o vídeo. Remux em WebM é a prova disponível.",
+  "records": [
+    {
+      "scenario": "C2",
+      "source": "scenarios/c2-specialists-advanced/docs/evidencias/demo.webm",
+      "bytes": 7574177,
+      "sha256": "01c65042639a5efec6688d3468d530c35c18954abfc3c762efa78dc4b8edfd7d",
+      "remux_exit": 0,
+      "duration": "00:07:13.00",
+      "scope": "Leitura e remux do container WebM; não verifica visualmente a jornada nem decodifica cada frame"
+    },
+    {
+      "scenario": "C3",
+      "source": "scenarios/c3-manager-economy/docs/evidences/demonstracao.webm",
+      "bytes": 1039156,
+      "sha256": "db38b005c691e55a4e4c201628e78ed97bef7d72ff502cef22bd25f6dbdfefbc",
+      "remux_exit": 0,
+      "duration": "00:00:11.68",
+      "scope": "Leitura e remux do container WebM; não verifica visualmente a jornada nem decodifica cada frame"
+    },
+    {
+      "scenario": "C4",
+      "source": "scenarios/c4-manager-advanced/evidence/jornada-final.webm",
+      "bytes": 826544,
+      "sha256": "154e0b1ed8e62f3460383c6042183660e4c642f4e1f253146b47eaa00ceee6a2",
+      "remux_exit": 0,
+      "duration": "00:00:05.88",
+      "scope": "Leitura e remux do container WebM; não verifica visualmente a jornada nem decodifica cada frame"
+    }
+  ]
+}

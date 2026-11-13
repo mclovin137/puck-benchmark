@@ -1,0 +1,32 @@
+name: puck-c3
+services:
+  db:
+    image: postgres:17.11
+    environment:
+      POSTGRES_DB: finance
+      POSTGRES_USER: finance
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?defina DATABASE_PASSWORD no .env}
+    ports: ["127.0.0.1:15433:5432"]
+    volumes: ["c3-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U finance -d finance"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  backend:
+    build: ./backend
+    environment:
+      DATABASE_URL: jdbc:postgresql://db:5432/finance
+      DATABASE_USER: finance
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:?defina DATABASE_PASSWORD no .env}
+    ports: ["127.0.0.1:18083:8080"]
+    depends_on:
+      db: {condition: service_healthy}
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports: ["127.0.0.1:18213:5173"]
+    depends_on: [backend]
+volumes:
+  c3-data:

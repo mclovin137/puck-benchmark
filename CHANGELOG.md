@@ -1,5 +1,15 @@
 # Changelog
 
+## v0.3.0 — 2026-11-13
+
+Entrega das quatro implementações independentes do controle financeiro e da avaliação comum de cadastro/sessão, movimentações, filtros/resumo e exportações PDF/XLSX. Os mesmos 16 casos HTTP originais e quatro complementares foram observados em cada cenário; os gates do candidato final continuam exigidos para a promoção.
+
+Inclui evidências de CI, arquitetura, QA, operação, segurança e consumo por cenário/modelo/agente/fase. Referência API é estimativa datada, separada de cobrança; cache/raciocínio não são somados novamente. Modelos mistos, uma execução por cenário, intervenções, perdas históricas de telemetria e medidas ausentes impedem declarar superioridade causal. Vídeos ausentes/parciais e provas alternativas permanecem explicitados.
+
+O conteúdo desta entrada é preparado para a promoção #28; não declara que A1, merge, tag, release ou deploy já ocorreram. A admissão das aplicações requer CI completa, pentest protegido e triagem no candidato pertinente. Componentes afetados admitidos por decisões restritas ao snapshot e lacunas de desempenho/cobertura não se tornam ausência global de risco. As versões preparatórias v0.1.0, v0.1.1 e v0.1.2 mantêm seu histórico abaixo.
+
+Migrações e reprodução estão nos READMEs dos cenários; restores sintéticos têm alcance próprio e não medem RPO/RTO. Nenhuma migração ou operação em produção foi executada por esta preparação de release. A confirmação de entrega e sua data efetiva vêm do merge, CI e tag, não da data de preparação desta entrada.
+
 ## v0.1.2 — 2026-11-13
 
 Separa o ciclo global da execução e a atividade do job protegido. A guarda reconhece os estados globais não terminais documentados e continua exigindo prova do job ativo do próprio cenário, run/tentativa/runner exatos e aprovação do dono. Estados terminais ou desconhecidos continuam bloqueados, sem retry ou fallback.

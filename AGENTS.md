@@ -1,5 +1,5 @@
-# Puck Benchmark — versão preparatória
+# Puck Benchmark
 
-Leia docs/rules.md, docs/lib.md e docs/verificacao.md. Responda em pt-BR. Esta árvore contém somente a infraestrutura comum A0 de pentest; aplicações, protocolo, avaliador funcional e resultados permanecem na linha dev do experimento.
+Leia docs/rules.md, experiment/protocol.md e experiment/configs.yaml. Responda em pt-BR. Implementadores leem somente a especificação, contratos comuns, governança fixada e seu próprio cenário. Nunca leiam outros cenários, testes privados ou resultados comparativos. Não compartilhem soluções. Não alterem o protocolo, avaliador ou resultados. Não façam commit, push, merge ou release sem coordenação do Oráculo.
 
-Não alterar os 16 imports identificados em bootstrap-manifest.json, ampliar o escopo da política ou dispensar A1 das aplicações. A coordenação Git cabe ao Oráculo; CI e fronteiras de autorização exigem revisão Neo. Não alterar branch padrão, variáveis, secrets, environment, labels ou acionar/aprovar pentest: essas ações continuam reservadas ao dono.
+Emendas comuns ficam em experiment/amendments/. Aplicar A-001, A-002 e A-003 conforme o escopo de cada emenda; preservar configurações/freeze originais e registrar o custo da intervenção. Nenhum requisito funcional ou critério de sucesso mudou.

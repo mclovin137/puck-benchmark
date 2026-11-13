@@ -1,0 +1,25 @@
+{
+  "observed_at": "2026-11-12T12:25:14.182743+00:00",
+  "scope": "Metadados primários OSV; preservam componente e severidade, não são dispensa. Webreader não conseguiu abrir o endpoint JSON; GET HTTPS público via urllib confirmou os objetos.",
+  "canonicalization": "JSON UTF-8 sort_keys=true, compact comma/colon; keys id,modified,affected,severity,database_specific; missing -> null",
+  "records": [
+    {
+      "advisory": "GHSA-j9f9-w8pj-32f8",
+      "source": "https://api.osv.dev/v1/vulns/GHSA-j9f9-w8pj-32f8",
+      "modified": "2026-10-07T13:30:04.802772884Z",
+      "security_fields_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
+      "aliases": [
+        "CVE-2026-47890"
+      ]
+    },
+    {
+      "advisory": "GHSA-pc63-qcmh-9cmg",
+      "source": "https://api.osv.dev/v1/vulns/GHSA-pc63-qcmh-9cmg",
+      "modified": "2026-10-05T23:30:04.884745277Z",
+      "security_fields_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
+      "aliases": [
+        "CVE-2026-47884"
+      ]
+    }
+  ]
+}

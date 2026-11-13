@@ -1,0 +1,41 @@
+{
+  "axeVersion": "4.12.1",
+  "counts": {
+    "inapplicable": 49,
+    "incomplete": 1,
+    "passes": 11,
+    "violations": 0
+  },
+  "incomplete": [
+    {
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "helpUrl": "https://dequeuniversity.com/rules/axe/4.12/color-contrast?application=axeAPI",
+      "id": "color-contrast",
+      "impact": "serious",
+      "nodeCount": 1,
+      "nodes": [
+        {
+          "failureSummary": "Fix any of the following:\n  Element's background color could not be determined because it partially overlaps other elements",
+          "html": "<p>A movimentação “Mercado editado”, no valor de R$ 15,50, será excluída. Esta ação não pode ser desfeita.</p>",
+          "target": [
+            "dialog > p"
+          ]
+        }
+      ],
+      "tags": [
+        "cat.color",
+        "wcag2aa",
+        "wcag143",
+        "TTv5",
+        "TT13.c",
+        "EN-301-549",
+        "EN-9.1.4.3",
+        "ACT",
+        "RGAAv4",
+        "RGAA-3.2.1"
+      ]
+    }
+  ],
+  "url": "http://127.0.0.1:18202/",
+  "violations": []
+}

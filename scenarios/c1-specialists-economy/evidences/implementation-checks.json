@@ -1,0 +1,140 @@
+{
+  "scenario": "C1",
+  "observed_at": "2026-11-06T03:05:35Z",
+  "effective_stack": {
+    "java_target": 21,
+    "spring_boot": "3.5.16",
+    "postgresql": "17.11",
+    "react": "19.2.0",
+    "typescript": "5.9.3",
+    "vite": "7.3.7",
+    "vitest": "4.1.12",
+    "pdfbox": "3.0.6",
+    "poi_ooxml": "5.4.1",
+    "jackson_bom": "2.21.7",
+    "commons_lang3": "3.18.0",
+    "log4j2_bom": "2.25.5",
+    "tomcat": "10.1.61",
+    "postgresql_jdbc": "42.7.14"
+  },
+  "build_and_tests": [
+    {
+      "command": "scripts/ci/test-review.sh",
+      "result": "passed",
+      "backend_tests": 5,
+      "backend_failures": 0,
+      "frontend_tests": 4,
+      "frontend_failures": 0,
+      "node": "24.16.0",
+      "vitest": "4.1.12"
+    },
+    {
+      "command": "cd frontend && npm run build",
+      "result": "passed",
+      "typescript": "5.9.3",
+      "vite": "7.3.7"
+    },
+    {
+      "command": "cd frontend && npm audit --audit-level=high",
+      "result": "passed",
+      "vulnerabilities": 0
+    },
+    {
+      "command": "scripts/ci/code-review.sh",
+      "result": "passed"
+    },
+    {
+      "command": "scripts/ci/architecture-review.sh",
+      "result": "passed"
+    },
+    {
+      "command": "python3 design/contraste.py",
+      "result": "passed",
+      "pairs_checked": 330,
+      "failures": 0
+    },
+    {
+      "command": "env -u DEPCHECK_VERSION -u NVD_API_KEY scripts/ci/security-review.sh",
+      "result": "blocked_not_passed",
+      "detail": "npm audit 0; Java Dependency-Check bloqueou fail-closed por configuração ausente; OSV pós-A-002 encontrou 2 findings pendentes"
+    },
+    {
+      "command": "python3 scripts/smoke-api.py",
+      "result": "passed",
+      "cases": 54,
+      "details": [
+        "UI servida no localhost",
+        "cadastro/login/me/logout",
+        "dados inválidos em auth 400",
+        "limites de login e cadastro retornam 429 após tráfego abusivo",
+        "CRUD, filtros e ownership negativo",
+        "startDate/endDate testados separadamente em listagem, resumo e PDF/XLSX",
+        "XLSX aberto como ZIP e sem registro de outro usuário",
+        "logout revoga bearer já emitido"
+      ]
+    }
+  ],
+  "compose": {
+    "result": "passed",
+    "database": "PostgreSQL 17.11 (healthcheck saudável)",
+    "runtime_java": "Temurin 21.0.13+9; JAR release 21",
+    "flyway_current_version": 2,
+    "jpa_schema_validation": "passed",
+    "web_api_smoke": "passed; dist real servido via Nginx/container",
+    "binds": [
+      "127.0.0.1:8080",
+      "127.0.0.1:5173"
+    ],
+    "integration_records": "sintéticos; volume removido após captura",
+    "resource_cleanup": "somente projeto c1-specialists-economy, volume/network/containers próprios e .env temporário removidos"
+  },
+  "limitations": [
+    "Não houve execução de GitHub Actions/CI remota, pentest nem segunda rodada independente Patrick/Neo nesta fase.",
+    "A correção visual .sr foi validada por CSS build/contraste; medição DOM a 360 px aguarda QA browser independente.",
+    "Dependency-Check Java não executado por ausência de DEPCHECK_VERSION e NVD_API_KEY. OSV Scanner pós-A-002 reportou dois advisories Spring WebMVC 6.2.19, mantidos como críticos/abertos até triagem Neo; 7 pacotes foram filtrados como locais/não escaneáveis.",
+    "Smoke usa dados sintéticos; não é teste de carga nem auditoria completa de acessibilidade."
+  ],
+  "artifact_sha256": [
+    {
+      "path": "backend/pom.xml",
+      "sha256": "f45801907a8ef501fbe4f79a567a9727550d4b044aac48b3c90c8f431db5ea81"
+    },
+    {
+      "path": "backend/target/finance-api-0.1.0.jar",
+      "sha256": "ee373488ca7f2fcaf0914890be21d72a673180f1f8911f8a14f15590355fc58b"
+    },
+    {
+      "path": "frontend/dist/index.html",
+      "sha256": "e0ebf433742a866ceb9556bef8f89dbe68c424f34baa68f32e70897702e53c6f"
+    },
+    {
+      "path": "frontend/dist/assets/index-DvTYccAL.css",
+      "sha256": "a5f2f2e960379c59f4cc92632260937e5660b24c85e23723c39df30095cc6058"
+    },
+    {
+      "path": "frontend/dist/assets/index-DIVtuvVF.js",
+      "sha256": "d5832126a507443dff7e44bdfef2402abcc487e0f5d8cf5468269cd7443b591b"
+    },
+    {
+      "path": "frontend/package-lock.json",
+      "sha256": "a2da5f9a4458a8840619e97ea0116f136ea243d165d936eafd51f6339e1c9fa2"
+    },
+    {
+      "path": "compose.yaml",
+      "sha256": "ad55bfc3492e590e53ba6700981299a385d933b4de307ae214d694d48dbe9532"
+    }
+  ],
+  "attempt_history": [
+    "Initial Docker Maven build failed because repo.maven.apache.org DNS was unavailable inside build containers; no services started on that attempt.",
+    "Initial API startup found V1 CHAR(64) vs JPA VARCHAR(64); kept V1 immutable and added V2 forward migration.",
+    "Next startup found nested entity JPQL name; added explicit entity names.",
+    "Smoke found null description bound as bytea; fixed by binding an empty string and preserving literal LIKE escaping.",
+    "Immediate smoke launch once raced API startup; final smoke includes a bounded readiness poll and passed all 23 cases.",
+    "Remediação: primeira smoke interrompida por assertion de bytes PDF contendo texto sem descompressão; teste Java PDFTextStripper passou 501 registros paginados e escopo owner.",
+    "Primeira repetição da smoke atingiu limite após requests anteriores da mesma janela TTL; reinício apenas do projeto Compose isolou cenário; repetição final validou 54 casos e 429 por abuso.",
+    "Build final validado pelo test-review após SXSSF dispose, 5 testes Maven e 4 Vitest; execução runtime Java21 + Postgres17.11/Flyway V2 passou.",
+    "A-002 scanner OSV C1 extraiu 10 pacotes, filtrou 7 locais/não escaneáveis e reportou 2 advisories de Spring WebMVC; saída bruta sanitizada removida da evidência versionável."
+  ],
+  "paid_cost": 0,
+  "note": "Local evidence only; no approval or overall acceptance is claimed."
+}

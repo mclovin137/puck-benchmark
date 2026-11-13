@@ -1,0 +1,27 @@
+Ficha: tarefa=benchmark-recovery/c1-clean-build agente=neo modelo=gpt-6.1-sol (adaptador declarado) esforço=high skill=security-audit,receber-revisao,verificar-antes-de-concluir.
+# R1 — packaging C1 e continuidade dos oito bindings
+CONCLUSÃO: favorável ao conteúdo G6 `f3477038c2c2e87a966c87f2fe21863b268d7cac` e ao rebind exato descrito; nenhum achado substanciado remanescente neste delta. Não é admissão antecipada de SHA P5 nem aprovação de A1/promoção.
+FATO: chamada/aceite/escopo conferidos, papel adequado; cinco arquivos desde F3: dois Dockerfiles, compose e .dockerignore C1, e apenas C1.frontend_context='.' na policy pentest comum. Sem mudança funcional, API, dependências, guards, avaliador, protocolo ou critérios.
+FATO: backend compila pom/src em estágio Maven3.9.11/Java21 e copia somente JAR para runtime original; frontend Node24 compila frontend/design originais dentro Docker e copia dist/config para nginx original. npm lifecycle/Maven plugins executam no build, não no host candidato.
+FATO: contexto frontend é raiz do próprio C1; .dockerignore nega por padrão e abre frontend/design, excluindo env/node_modules/dist/tsbuildinfo. COPY não alcança outros cenários; checkout A1 rejeita symlinks. Sem binds, socket, segredos/build args novos ou fetch de fonte CSS.
+FATO: G5 falhou COPY nginx.conf com contexto alterado; G6 usa frontend/nginx.conf e build real final passou. Não se reaproveita o frontend falho nem se atribui causalidade completa ao log incompleto do run remoto original.
+FATO: pid e cinco temporários nginx movidos em build-time para /tmp; sem chmod777/relaxar rootfs, capacidades, usuário, proxy ou porta. A1 preserva user1000/read-only/cap-dropALL/no-new-privileges/tmpfs/limites/rede. Compose local mantém publicação em127.0.0.1.
+EVIDÊNCIA recebida do Oráculo e consultada: build frontend de archive limpo G6 PASS; backend PASS reutilizado por árvore `597246e3aa0c31c7d8690faa2c069a8f4734f926` idêntica. Logs finais de ambos confirmam imagens produzidas; nenhum build foi executado por Neo.
+EVIDÊNCIA: smoke da imagem final com restrições user1000/read-only/cap-drop/nnp/tmpfs passou HTML+JS/pid+cinco temporários; cleanup de dois containers/rede registrado. Alias API era fixture, não valida API/A1. Prova SHA-256 `1db98b5bbedf8ff695b5a292a71baa82c9d8113d708664420d29f906cd807200`.
+EVIDÊNCIA: HTTP comum20/20 (16+4), source_clean/cleanup true em G6; hashes dos três JSON e contagens/sucesso conferidos por Neo. Manifest SHA-256 `198ecd95508f33fcc2ab9644865511353f5e36a22bbc162443ab239a5ba84445`. Log offline41 guardas OK consultado; não reexecutadas suítes por Neo.
+VERIFICAÇÃO própria: helper trusted P3 byteidêntico ao candidato, medição independente dos QUATRO hashes abaixo, projeções estruturais da policy/manifest, identidades Git e hashes HTTP passaram (exit0); diff check sem erro.
+
+| Cenário | source_sha256 G6 |
+|---|---|
+| C1 | `2e62c1d6c7689a4d2de0c2593335b6857f4830b5415cd29608c7709dbb622dc7` |
+| C2 | `1280b437e9bee9e800e23c9d8375292be8580c51e16c26a9e1bfe954c19f5850` |
+| C3 | `29eeed46358a5ab15351b66231e4f2c2be41444bab5f4c1c3835d39783e62385` |
+| C4 | `06baf914b7a310dcd7d127d14ce6906b39b8737aa55c8e7a40e98a4c5553265c` |
+
+FATO: os oito registros mudam somente source_sha256, pois policy pentest pertence a COMMON; os 62 refs anteriores permanecem intactos. Manifest muda somente reference_commit=G6 e C1tree=`0fd6223f0e6f958d62eed0204ffd14339cf855a6`; observed_at/grafos/POM/advisories/scanner/identidades/decisões/riscos e demais campos preservados.
+CONCLUSÃO DE CONTINUIDADE: admite-se o rebind dos oito registros a esses hashes. Fonte/configuração/grafos das apps C2–C4 são idênticos; em C1 o delta de build não introduz controllers, templates/XSLT ou rotas ao sink WebMVC. A alteração comum seleciona contexto C1, sem ampliar autorização/tráfego. Revisões de alcance anteriores são reutilizadas, sem auditoria global nova.
+LIMITE: permanecem oito CRITICAL Spring WebMVC6.2.19 afetados e decisões not_reachable_in_reviewed_snapshot condicionais; issued_at2026-11-12T17:53:31Z/expiry2026-12-12T17:53:31Z intactos, sem renovação nem correção da biblioteca. Tags de bases e execução de lifecycle scripts continuam riscos de supply chain; não há alegação de imagem imutável ou sistema seguro.
+HASHES de código: backend Dockerfile `1d37d384d8baad91f5f4ca02956e3a7b92c3a8d3d08ce605e689bb9aa6704f05`; frontend Dockerfile `9a9adf27e974c4785a15c4dd7d69e807dd94bdfaef3db33829502f2e0d2facd1`; policy pentest `52a553ce88823a0a122d86c3b4b519a816efb31e38781fcb66843fcddbbb2f54`.
+ROTA obrigatória: acrescentar este parecer/hash aos oito registros preservando refs; publicar P5 congelado e obter admissão explícita do SHA por Neo/Oráculo nesta mesma R1 antes do filho K5 trocar ambos pins literais. R2 final exige delta/pins/identidades e CI real no candidato; gate antigo reprovado não libera merge.
+TRANSPORTE: main v0.1.3 deve importar somente a policy pentest alterada entre16 arquivos, outros15 byteidênticos, allowlist/história/modos/gates intactos; depois back-integration e freeze/gates completos pertinentes. Nenhuma quarta variante de guarda, controle do dono ou ação A1 por agente.
+LIMITES: provas locais não comprovam cleanup do run remoto43503520863 nem novo A1. Intervenção informada pós-avaliação, custo/tempo ativo não medidos; sem alegação de cegamento. Parecer restrito ao delta, sem reauditar apps/parser ou executar scanner. Memória indisponível; Git/quadro/plano consultados.

@@ -1,9 +1,18 @@
-# Puck Benchmark — base preparatória de pentest
+# Puck Benchmark
 
-Esta versão instala em `main` somente a infraestrutura comum de validação A0. Não contém aplicações e não representa pentest executado ou promoção dos quatro cenários.
+Experimento exploratório de quatro implementações independentes de controle financeiro pessoal. [Especificação congelada](experiment/specification.md), [protocolo](experiment/protocol.md), [configurações](experiment/configs.yaml) e [emendas](experiment/amendments).
 
-O [contrato](docs/rules.md) delimita a versão, os [comandos de verificação](docs/verificacao.md) explicam o alcance e o [manifesto](bootstrap-manifest.json) identifica os imports preservados. A suíte comum e as barreiras de autorização estão em [benchmark/pentest](benchmark/pentest/README.md). Os relatos históricos desse README foram preservados byte a byte; não são resultados novos desta versão.
+| Cenário | Orquestração | Modelo efetivo | Estado verificado |
+| --- | --- | --- | --- |
+| [C1](scenarios/c1-specialists-economy/README.md) | Especialistas | Luna; correções/gates com Terra (A-003) | 20/20 casos HTTP; gates finais pendentes |
+| [C2](scenarios/c2-specialists-advanced/README.md) | Especialistas | Sol | 20/20 casos HTTP; gates finais pendentes |
+| [C3](scenarios/c3-manager-economy/README.md) | Gerenciador | Terra (A-003) | 20/20 casos HTTP; gates finais pendentes |
+| [C4](scenarios/c4-manager-advanced/README.md) | Gerenciador | Sol | 20/20 casos HTTP após correção; gates finais pendentes |
 
-As aplicações e os resultados consolidados continuam em [dev](https://github.com/mclovin137/puck-benchmark/tree/dev). O gate `gate-bootstrap-a0` valida somente esta preparação e não substitui CI funcional, auditoria de dependências das aplicações, pentest A1 ou triagem.
+Resultados individuais em [runs.json](experiment/results/runs.json), [comparação e limites](reports/comparison.md) e [revisão de arquitetura](experiment/evaluation/architecture-final.md). O aceite HTTP não aprova a interface, a segurança ou a promoção de versão. A comparação permanece aberta até concluir os gates ou documentar os impedimentos externos.
 
-Depois da admissão desta base, ainda são necessários o environment protegido e as imagens por digest mantidos pelo dono, os gates do SHA candidato e o acionamento/aprovação do pentest pelo dono. Não há autorização de compra, release ou deploy.
+O [resumo de métricas do C1](reports/c1-resumo-metricas.md) reúne consumo, modelos, agentes, fases, testes e pendências do cenário em um único arquivo.
+
+O [detalhamento de tokens](reports/token-usage.md) separa fases declaradas e atividade observada, com [CSV](reports/token-breakdown.csv), [JSON](reports/token-breakdown.json) e [referência de custo API](reports/cost-estimates.json). Cobrança real e tempo ativo são desconhecidos. A execução usa a assinatura existente, sem compras autorizadas.
+
+A base confiável de pentest foi admitida na versão [v0.1.0](https://github.com/mclovin137/puck-benchmark/tree/v0.1.0), somente com infraestrutura A0. Sua admissão não aprova as aplicações ou o pentest real. A integração atual preserva os gates de promoção e aguarda a configuração/execução protegida pelo dono.

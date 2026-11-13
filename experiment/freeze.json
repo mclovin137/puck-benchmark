@@ -1,0 +1,17 @@
+{
+  "frozen_at": "2026-11-06T01:46:55.615216+00:00",
+  "puck_commit": "c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a",
+  "files": {
+    "experiment/specification.md": "7c3ef4bd7e0fc4f6167e726c0ed7e09b3dd15318438e744920e9e7611a8b287d",
+    "experiment/protocol.md": "e759d878b2989d480eaa9e699faf5c5f32af690a6fef084fe5b8f8b02b645325",
+    "experiment/configs.yaml": "7d6e5cddf605774ee0dcc19818ed7e1c8484854809bf587feea51082b3e1b1c1",
+    "experiment/evaluation/rubric.md": "fc6ae3a00ea18c4a586c8298e63c6d744a2f892d737be0e1171a41d9e363850d"
+  },
+  "execution_order": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "replicates": 1
+}

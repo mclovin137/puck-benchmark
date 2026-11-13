@@ -1,0 +1,31 @@
+{
+  "scenario": "C2",
+  "project": "benchmark-eval-c2-81b05fa9",
+  "started_at": "2026-11-11T19:04:41.253844+00:00",
+  "success": true,
+  "scope": "snapshot de dados públicos do banco sintético, pg_dump/pg_restore em banco novo; não mede recuperação de desastre ou tempo de produção",
+  "stage": "complete",
+  "tables": {
+    "app_user": {
+      "rows": 2,
+      "rows_sha256": "d2407ededb4d34ecfd024e054b361a63355f4ba067461a6d1cb7dbc82c06594b"
+    },
+    "auth_session": {
+      "rows": 3,
+      "rows_sha256": "932b8b5453ec4bb61dd66c73e758c353d10d4bc7e091185011053be2eaa0baea"
+    },
+    "financial_transaction": {
+      "rows": 29,
+      "rows_sha256": "116076380addc02c816dfb0173f92ba7d0f3f163bc14d9981b74616f0b48dc73"
+    },
+    "flyway_schema_history": {
+      "rows": 1,
+      "rows_sha256": "ddb7c668058fe35f6c1da6148ad68e0b4c686bf71432b5f85c278fbf2ff48d60"
+    }
+  },
+  "source_unchanged": true,
+  "restored_matches": true,
+  "backup_sha256": "efb434885b431e20f5988e8a42c1ef60826539ef932ee2770c5c9066953f234d",
+  "cleanup_success": true,
+  "finished_at": "2026-11-11T19:04:43.329176+00:00"
+}

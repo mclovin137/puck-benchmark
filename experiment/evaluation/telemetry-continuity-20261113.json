@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-13T02:21:02.122707+00:00",
+  "puck_commit": "c22ce3bc9160f6fa503b59c6b2ce4c740a2dde7a",
+  "collector_source_commit": "b100f94ebddaf7e3ae0f1d70ec1bb6c45e67328e",
+  "prior_snapshot_commit": "b100f94ebddaf7e3ae0f1d70ec1bb6c45e67328e",
+  "snapshot_generated_at": "2026-11-13T02:19:47.330840+00:00",
+  "scope": "União das três raízes explícitas do registro privado anterior e da raiz atual, com descendentes nativos. IDs nativos e caminhos locais não publicados. Nenhuma sessão de outro projeto foi adicionada por inferência.",
+  "selected_roots": 4,
+  "observed_sessions": 46,
+  "prior_events": 3143,
+  "current_events": 3917,
+  "new_events": 774,
+  "missing_prior_events": 0,
+  "changed_prior_events": 0,
+  "duplicate_correlations": 0,
+  "new_events_scenarios": [
+    "overhead"
+  ],
+  "parse_errors": 2,
+  "limitations": [
+    "Duas falhas de parse persistem; perdas históricas desconhecidas não foram reconstruídas.",
+    "Cobrança real e tempo ativo desconhecidos; uma resposta sem referência API mantém total financeiro incompleto null.",
+    "Snapshot termina no corte indicado, não inclui eventos posteriores nem representa encerramento do objetivo.",
+    "Registros de fase foram preservados sem backfill; raízes de continuidade não herdam fase anterior ao seu início."
+  ],
+  "files": [
+    {
+      "path": "reports/metrics.json",
+      "previous_sha256": "f3060f9e931072aec2c582c35fa90e8147ac86b79baa2493efd7e70d7ca653c6",
+      "current_sha256": "27f3927a3aab5c3d8470836d822c82f6d428a93458059cd752d574487d6dac3f"
+    },
+    {
+      "path": "reports/metrics.csv",
+      "previous_sha256": "6e9fd16cc5bc854fe5eb73b2cd63e1bda909a1769136aa6f013f7f60ee209385",
+      "current_sha256": "e0b7f5ce7d77f619b8d1377c2465081c83b16c7ddd98701b758d5df87abb338a"
+    },
+    {
+      "path": "reports/token-breakdown.json",
+      "previous_sha256": "90aa2fc342b40d389ac13f46f594721d990478d38901d31ab2d0724fef4239d0",
+      "current_sha256": "3284cfd66192faa80eb149203aa25ac0873c7b6df519a5c7c5df60221a3f5272"
+    },
+    {
+      "path": "reports/token-breakdown.csv",
+      "previous_sha256": "53521a27c6386e542191a11fe3e7b9c7335c4ba4722d07d648988f05e06d6922",
+      "current_sha256": "d2ddd2c58db026be77f138d9cb7e846267c3668f68675587b3c5819c063d612b"
+    },
+    {
+      "path": "reports/token-events.jsonl",
+      "previous_sha256": "8d59ab634c191d691bcec29fc315acf337ca4ffd045371d78955a931defd9c2f",
+      "current_sha256": "482887b017e6a8bacf56ff70122a16170a03cf0a627fa99bfd768faa96768255"
+    },
+    {
+      "path": "reports/token-usage.md",
+      "previous_sha256": "0f2cf4255afcb8599a709dd1eee255e96fcc48b4559ad5a759fa14a713f727e7",
+      "current_sha256": "88fa80872c6906643a2f2455975a2aac8cb9d7fda7a8da47fcba56a64437f5c4"
+    },
+    {
+      "path": "reports/cost-estimates.json",
+      "previous_sha256": "c34ebb170d059e7fa484326a2bb9edd7baf3298ee433cc38527b7b0ddc48140a",
+      "current_sha256": "b0199738ff817e15dd04274c037a9b2888d11084f6967c8ed12dbf177eeb5d3a"
+    }
+  ]
+}

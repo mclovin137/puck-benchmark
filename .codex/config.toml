@@ -1,0 +1,3 @@
+# Configuração de projeto do Codex (só vale com o projeto marcado como confiável em ~/.codex/config.toml).
+# A configuração global (modelos, agentes, hooks, MCPs) vem do Puck; aqui só ajustes locais.
+model_reasoning_effort = "medium"

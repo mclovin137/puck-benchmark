@@ -1,0 +1,29 @@
+{
+  "frozen_at": "2026-11-06T01:51:54.378226+00:00",
+  "file": "benchmark/scripts/acceptance.py",
+  "sha256": "c952e3756c8e811471385e0a6c1cfc2ac3ed10c37f41399b9408b9ec8f557cc5",
+  "tests": 16,
+  "shared_for": [
+    "C1",
+    "C2",
+    "C3",
+    "C4"
+  ],
+  "author": "external-evaluator",
+  "status": "defined-before-observing-application-results",
+  "scope": "HTTP acceptance; browser, dependency scans, architecture and process scored separately",
+  "revisions": [
+    {
+      "at": "2026-11-06T02:00:58.345799+00:00",
+      "previous_sha256": "a716622842f22a5f240e80b60c3261d920209407f8677ca594af69cb78805e3b",
+      "reason": "Sanitizar motivos publicados de asserção: conteúdo HTTP bruto fica somente nos logs privados. Nenhum teste, dado ou critério alterado; nenhum aceite de aplicação observado."
+    }
+  ],
+  "previous_sha256": "2b291d277ecfbda0a02d2a499abc5be14eaf661ab6eab31ad0892351166db484",
+  "execution_repair": {
+    "registered_at": "2026-11-06T14:03:20.749835+00:00",
+    "reason": "Primeira execução real falhou TypeError antes de qualquer caso: cls.run sobrescrevia unittest.TestCase.run. Renomeada somente variável de prefixo de fixture para fixture_prefix; métodos de teste, asserções e critérios intactos. Regressão unitária reproduziu antes e passou depois. Aplicável igualmente C1–C4.",
+    "previous_runs_produced_no_acceptance_results": false,
+    "pdf_text_normalization": "Texto extraído recebe Unicode NFKC: ligatura ﬁ é equivalente a fi. Primeira execução relatou falsos negativos nessa representação; asserções e dados esperados preservados, normalização comum C1–C4. Resultados anteriores preservados."
+  }
+}

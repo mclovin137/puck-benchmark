@@ -1,0 +1,14 @@
+{
+  "observed_at": "2026-11-06T02:14:27.404966+00:00",
+  "system": "Linux",
+  "kernel": "6.6.114.1-microsoft-standard-WSL2",
+  "architecture": "x86_64",
+  "logical_cpus": 12,
+  "memory": {
+    "MemTotal": "8103004 kB",
+    "SwapTotal": "2097152 kB"
+  },
+  "execution_host": "shared WSL/Linux, sequential scenario implementation intended",
+  "resource_limits_per_agent": "shared runtime slots: four including orchestrator; no per-scenario CPU/RAM quotas guaranteed",
+  "caches": "Maven/npm/Docker caches on shared host, initial cache equivalence not guaranteed; timing interpretation must disclose this"
+}

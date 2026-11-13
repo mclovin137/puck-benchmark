@@ -1,0 +1,57 @@
+{
+  "scenario": "C2",
+  "date": "2026-11-06",
+  "origin": "http://127.0.0.1:18202",
+  "browser": "Chrome real via agent-browser0.41.1",
+  "account": "Conta sintética, senha não publicada",
+  "passed": [
+    "cadastro e login pela interface",
+    "criação de entrada 100.10 e saída 20.03",
+    "edição saída 15.50 e visualização dos detalhes",
+    "resumo 100.10/15.50/84.60",
+    "filtro Casa seleciona só saída e saldo −15.50",
+    "filtros combinados sem resultados e limpeza",
+    "ordem amount,asc inicia por saída 15.50",
+    "paginação 11 registros: 10 na primeira, 1 na segunda, retorno por Anterior",
+    "downloads PDF e XLSX autenticados e conteúdo analisado",
+    "cancelar exclusão preserva registro; confirmar exclui",
+    "logout retorna login",
+    "modal fecha por Escape",
+    "armazenamentos local/session vazios, sem cookie"
+  ],
+  "mobile": {
+    "viewport": 390,
+    "document_scroll_width": 390,
+    "body_scroll_width": 390
+  },
+  "pagination_seed": "11 registros sintéticos pela API real, mesma conta, sessão de seed revogada; não fixtures de resposta",
+  "video": {
+    "file": "demo.webm",
+    "duration": "00:07:13.00",
+    "bytes": 7574177,
+    "sha256": "01c65042639a5efec6688d3468d530c35c18954abfc3c762efa78dc4b8edfd7d",
+    "decode": "ffmpeg decodificou vídeo inteiro sem erro"
+  },
+  "limits": [
+    "Auditoria automática e prova de teclado pontual não comprovam toda WCAG",
+    "Pentest ofensivo não executado; depende de CI efêmera autorizada",
+    "Automação teve erros de refs obsoletas, selector e preenchimento nativo de data; corrigidos no roteiro sem alterar domínio"
+  ],
+  "keyboard_dialog": {
+    "action": "focus no botão Excluir Página 11 C2; Enter abre; Escape fecha",
+    "returned_focus": "Mesmo botão Excluir Página 11 C2",
+    "open_dialogs_after_escape": 0,
+    "result": "passed"
+  },
+  "manual_contrast": {
+    "automatic_incomplete": "color-contrast, dialog > p, fundo parcialmente sobreposto não determinado pelo axe",
+    "foreground": "rgb(26,25,18)",
+    "background": "rgb(255,255,255)",
+    "font_size": "16px",
+    "opacity": 1,
+    "ratio": 17.62,
+    "wcag_aa_minimum": 4.5,
+    "visual_check": "Captura delete-dialog.png conferida; texto no fundo sólido do dialog",
+    "result": "passed for this paragraph"
+  }
+}

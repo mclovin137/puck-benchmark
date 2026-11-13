@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-13T02:17:14.560051+00:00",
+  "run_id": 43350462043,
+  "run_url": "https://github.com/mclovin137/puck-benchmark/actions/runs/43350462043",
+  "status": "success",
+  "head_sha": "b100f94ebddaf7e3ae0f1d70ec1bb6c45e67328e",
+  "tested_merge_sha": "881270edf11c31490b4d712288c65bad2e6e5285",
+  "head_tree": "388eb296af053481297cceb23574d827ce901730",
+  "tested_merge_tree": "388eb296af053481297cceb23574d827ce901730",
+  "head_and_tested_tree_identical": true,
+  "jobs": {
+    "code-review": "success",
+    "security-review": "success",
+    "test-review": "success",
+    "architecture-review": "success",
+    "application-C1": "success",
+    "application-C2": "success",
+    "application-C3": "success",
+    "application-C4": "success",
+    "gate": "success"
+  },
+  "artifacts": [
+    {
+      "scenario": "C1",
+      "job": "application-C1",
+      "artifact_id": 14002894895,
+      "artifact_name": "acceptance-C1",
+      "files": [
+        {
+          "path": "system-c1.json",
+          "sha256": "c10f1bab96f89a277d055abf8ff95c647b378cf011ddd486f76f0117f18bb2eb"
+        },
+        {
+          "path": "c1-acceptance.json",
+          "sha256": "db6373c53b36957c06982d310f1bc2a0d04029840646afb3318e15063fcd6495"
+        },
+        {
+          "path": "c1-boundaries.json",
+          "sha256": "409c7e494b92346156c4e9241ac672851882c5984f7433d9513d0a5a80b31af7"
+        }
+      ]
+    },
+    {
+      "scenario": "C2",
+      "job": "application-C2",
+      "artifact_id": 14002979664,
+      "artifact_name": "acceptance-C2",
+      "files": [
+        {
+          "path": "system-c2.json",
+          "sha256": "0651e654956cecbf5feb5506f4554aec23ba283ebf599e88102192c5ad01945a"
+        },
+        {
+          "path": "c2-acceptance.json",
+          "sha256": "9c8b3d6327a3fdbe1328ed1f365d975ea8396ad7834a5d52401c22db648ebaa6"
+        },
+        {
+          "path": "c2-boundaries.json",
+          "sha256": "ef68cd1dc0666474288c90b30ef4f1f8bdfe2c93aed503f1e2ca2f402c4131f2"
+        }
+      ]
+    },
+    {
+      "scenario": "C3",
+      "job": "application-C3",
+      "artifact_id": 14004440059,
+      "artifact_name": "acceptance-C3",
+      "files": [
+        {
+          "path": "system-c3.json",
+          "sha256": "1ba4e323b099d1ce7f856b0f6d3a1822878464a80f2d69cc674f8a29471e4022"
+        },
+        {
+          "path": "c3-acceptance.json",
+          "sha256": "29ca15cbc82f5fd4418c1126b3046ca044e59a19320ae961d1cb6476ab92cae9"
+        },
+        {
+          "path": "c3-boundaries.json",
+          "sha256": "2816347ee8ec10686540c610977dd520acebec39d5dee9a927ee89c5a347abe0"
+        }
+      ]
+    },
+    {
+      "scenario": "C4",
+      "job": "application-C4",
+      "artifact_id": 14004031588,
+      "artifact_name": "acceptance-C4",
+      "files": [
+        {
+          "path": "system-c4.json",
+          "sha256": "e936fed326ac34b0e56a5fa0dcf384e7d3ca6fd91888cdd0825a924e2426802d"
+        },
+        {
+          "path": "c4-acceptance.json",
+          "sha256": "ffe150b0c10565d79070184b9d183cb104e26eb1b8ea3f7de901b4407e53c47e"
+        },
+        {
+          "path": "c4-boundaries.json",
+          "sha256": "9287f05b0a42a5ec2b2bfa2557472d85175b1b85b454e1a91c96d74bb8c5b7eb"
+        }
+      ]
+    }
+  ],
+  "selection": "Cada artefato contém também resultados históricos de outros cenários. Foram selecionados exclusivamente system/acceptance/boundaries do cenário do respectivo job. Os arquivos foram preservados byte a byte.",
+  "scope": "Builds/testes e aceite HTTP comum 16+4 por cenário, com fonte limpa e cleanup. Não prova pentest A1, nova jornada UI, restore novo ou aprovação global; head do PR e merge de teste são identidades distintas."
+}
