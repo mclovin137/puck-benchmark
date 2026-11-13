@@ -2,6 +2,8 @@ package br.com.puck.finance.transaction;
 import org.springframework.stereotype.Service;
 import org.apache.pdfbox.pdmodel.*;
 import org.apache.pdfbox.pdmodel.font.*;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
+import org.apache.fontbox.ttf.TTFParser;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import java.io.*;
@@ -26,11 +28,15 @@ public class ExportService {
   }result.add(line.toString());return result;
  }
  public byte[] pdf(List<TransactionDTO.Row> rows)throws IOException{
-  try(var doc=new PDDocument();var out=new ByteArrayOutputStream()){
+  try(var input=Objects.requireNonNull(getClass().getResourceAsStream("/fonts/DejaVuSans.ttf"));
+      var data=new RandomAccessReadBuffer(input);var ttf=new TTFParser().parse(data);
+      var doc=new PDDocument();var out=new ByteArrayOutputStream()){
+   // Preserva o texto literal, sem substituir ff/ffi por glifos de ligatura.
+   ttf.setEnableGsub(false);
    List<String> lines=new ArrayList<>();lines.add("Movimentações financeiras");lines.add("Data | Tipo | Descrição | Categoria | Valor");
    for(var r:rows){String line=r.date()+" | "+r.type()+" | "+r.description()+" | "+r.category()+" | "+r.amount();lines.add(line);}
    var total=TransactionActor.total(rows);lines.add("Entradas: "+total.income());lines.add("Saídas: "+total.expense());lines.add("Saldo: "+total.balance());lines.add("Registros: "+total.count());
-   var font=PDType0Font.load(doc,Objects.requireNonNull(getClass().getResourceAsStream("/fonts/DejaVuSans.ttf")));
+   var font=PDType0Font.load(doc,ttf,true);
    List<String> wrappedLines=new ArrayList<>();for(String line:lines)wrappedLines.addAll(wrapped(line,font));lines=wrappedLines;
    for(int first=0;first<lines.size();first+=48){var page=new PDPage();doc.addPage(page);try(var stream=new PDPageContentStream(doc,page)){stream.beginText();stream.setFont(font,10);stream.setLeading(15);stream.newLineAtOffset(32,750);for(int i=first;i<Math.min(first+48,lines.size());i++){stream.showText(lines.get(i));stream.newLine();}stream.endText();}}
    doc.save(out);return out.toByteArray();
