@@ -24,6 +24,23 @@ assert SPEC and SPEC.loader
 bootstrap = importlib.util.module_from_spec(SPEC)
 sys.modules[SPEC.name] = bootstrap
 SPEC.loader.exec_module(bootstrap)
+PINNED_SOURCE_COMMIT = bootstrap.SOURCE_COMMIT
+PINNED_INITIAL_MAIN = bootstrap.INITIAL_MAIN
+
+PATCHED_IMPORTS = (
+    "scripts/pentest/guards.py",
+    "scripts/pentest/run-ci.py",
+    "benchmark/pentest/tests/test_guards.py",
+)
+PATCHED_CONTROL_FILES = (
+    "scripts/ci/bootstrap.py",
+    "benchmark/bootstrap/test_bootstrap.py",
+    "docs/rules.md",
+    "docs/verificacao.md",
+    "docs/roadmap.md",
+    "CHANGELOG.md",
+    "docs/bootstrap-security.md",
+)
 
 
 def git(repo: Path, *args: str, env: dict[str, str] | None = None) -> str:
@@ -36,6 +53,20 @@ def git(repo: Path, *args: str, env: dict[str, str] | None = None) -> str:
         env=env,
     )
     return result.stdout.strip()
+
+
+def git_entry(repo: Path, commit: str, relative: str) -> tuple[str, str, str]:
+    record = git(repo, "ls-tree", commit, "--", relative)
+    mode, kind, oid, _path = record.split(None, 3)
+    return mode, kind, oid
+
+
+def blob(repo: Path, oid: str) -> bytes:
+    return subprocess.check_output(["git", "-C", str(repo), "cat-file", "blob", oid])
+
+
+def _tree_paths(repo: Path, commit: str) -> set[str]:
+    return set(git(repo, "ls-tree", "-r", "--name-only", commit).splitlines())
 
 
 def write_manifest(repo: Path, source: str, initial_main: str) -> None:
@@ -68,33 +99,37 @@ class VerifyTests(unittest.TestCase):
         git(self.repo, "init", "-q")
         git(self.repo, "config", "user.name", "Test")
         git(self.repo, "config", "user.email", "test@example.invalid")
-        (self.repo / "README.md").write_text("base\n", encoding="utf-8")
-        git(self.repo, "add", "README.md")
-        git(self.repo, "commit", "-qm", "initial main")
+
+        # A v0.1.0-like main is a populated, closed 30-file tree.
+        for relative in bootstrap.ALLOWLIST:
+            path = self.repo / relative
+            path.parent.mkdir(parents=True, exist_ok=True)
+            if relative in bootstrap.IMPORT_PATHS:
+                path.write_bytes(("baseline:" + relative + "\n").encode())
+            else:
+                path.write_text("baseline fixture\n", encoding="utf-8")
+        git(self.repo, "add", "-A")
+        git(self.repo, "commit", "-qm", "nonempty main baseline")
         self.initial = git(self.repo, "rev-parse", "HEAD")
         bootstrap.INITIAL_MAIN = self.initial
 
-        # A source object exists in this synthetic repository, but is not an
-        # ancestor of the candidate; imports are compared against its blobs.
+        # The source commit changes only the three runtime imports.
         git(self.repo, "switch", "-qc", "source")
-        for relative in bootstrap.IMPORT_PATHS:
+        for relative in PATCHED_IMPORTS:
             path = self.repo / relative
-            path.parent.mkdir(parents=True, exist_ok=True)
-            path.write_bytes(("source:" + relative + "\n").encode())
-        git(self.repo, "add", *bootstrap.IMPORT_PATHS)
+            path.write_bytes(("runtime-fix:" + relative + "\n").encode())
+        git(self.repo, "add", *PATCHED_IMPORTS)
         git(self.repo, "commit", "-qm", "trusted source")
         self.source = git(self.repo, "rev-parse", "HEAD")
         bootstrap.SOURCE_COMMIT = self.source
 
         git(self.repo, "switch", "-q", "--detach", self.initial)
-        for relative in bootstrap.ALLOWLIST:
+        for relative in PATCHED_IMPORTS:
             path = self.repo / relative
-            if relative in bootstrap.IMPORT_PATHS:
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_bytes(("source:" + relative + "\n").encode())
-            elif relative != "bootstrap-manifest.json":
-                path.parent.mkdir(parents=True, exist_ok=True)
-                path.write_text("fixture\n", encoding="utf-8")
+            path.write_bytes(("runtime-fix:" + relative + "\n").encode())
+        for relative in PATCHED_CONTROL_FILES:
+            path = self.repo / relative
+            path.write_text("patch fixture\n", encoding="utf-8")
         write_manifest(self.repo, self.source, self.initial)
         git(self.repo, "add", "-A")
         git(self.repo, "commit", "-qm", "candidate")
@@ -103,10 +138,10 @@ class VerifyTests(unittest.TestCase):
     def tearDown(self) -> None:
         self.temp.cleanup()
 
-    def verify(self, head: str | None = None, event=None) -> None:
+    def verify(self, head: str | None = None, event=None, base: str | None = None) -> None:
         bootstrap.verify_repository(
             self.repo,
-            self.initial,
+            base or self.initial,
             head or self.head,
             event=event,
             environment={},
@@ -125,8 +160,23 @@ class VerifyTests(unittest.TestCase):
         )
         return result.stdout.decode("ascii").strip()
 
-    def test_accepts_closed_tree_with_source_verified_imports(self) -> None:
+    def test_constants_pin_the_new_admitted_source_and_main(self) -> None:
+        self.assertEqual(PINNED_SOURCE_COMMIT, "b5d680d8f158d4edd60495cda9333acca1919b71")
+        self.assertEqual(PINNED_INITIAL_MAIN, "98894e1e09585f9b12f07921eb4650fd3ce4f1a8")
+
+    def test_accepts_three_import_patch_over_nonempty_main_and_preserves_other_imports(self) -> None:
         self.verify()
+        self.assertEqual(len(bootstrap.ALLOWLIST), 30)
+        self.assertEqual(len(_tree_paths(self.repo, self.initial)), 30)
+        changed = set(git(self.repo, "diff", "--name-only", self.initial, self.head).splitlines())
+        changed_imports = changed.intersection(bootstrap.IMPORT_PATHS)
+        self.assertEqual(changed_imports, set(PATCHED_IMPORTS))
+        self.assertEqual(len(changed), 11)
+        for relative in set(bootstrap.IMPORT_PATHS) - set(PATCHED_IMPORTS):
+            before = git_entry(self.repo, self.initial, relative)
+            after = git_entry(self.repo, self.head, relative)
+            self.assertEqual(before[:2], after[:2])
+            self.assertEqual(blob(self.repo, before[2]), blob(self.repo, after[2]))
 
     def test_rejects_source_side_parent_with_forbidden_ancestor(self) -> None:
         git(self.repo, "switch", "-q", "--detach", self.initial)
@@ -218,12 +268,59 @@ class VerifyTests(unittest.TestCase):
         with self.assertRaises(bootstrap.BootstrapError):
             self.verify(git(self.repo, "rev-parse", "HEAD"))
 
+    def test_rejects_old_source_wrong_manifest_baseline_and_wrong_git_base(self) -> None:
+        manifest = json.loads((self.repo / "bootstrap-manifest.json").read_text())
+        manifest["source_commit"] = "219d50f920ba9fbcd107e202d5661185d11e5676"
+        (self.repo / "bootstrap-manifest.json").write_text(json.dumps(manifest))
+        git(self.repo, "add", "bootstrap-manifest.json")
+        git(self.repo, "commit", "-qm", "use old source pin")
+        with self.assertRaises(bootstrap.BootstrapError):
+            self.verify(git(self.repo, "rev-parse", "HEAD"))
+
+        manifest = json.loads((self.repo / "bootstrap-manifest.json").read_text())
+        manifest["source_commit"] = self.source
+        manifest["initial_main"] = "c5d985cbb5adff2983325bc3feeb4c90856d2b3a"
+        (self.repo / "bootstrap-manifest.json").write_text(json.dumps(manifest))
+        git(self.repo, "add", "bootstrap-manifest.json")
+        git(self.repo, "commit", "-qm", "use old base pin")
+        bad_head = git(self.repo, "rev-parse", "HEAD")
+        with self.assertRaises(bootstrap.BootstrapError):
+            self.verify(bad_head)
+
+        with self.assertRaises(bootstrap.BootstrapError):
+            self.verify(bad_head, base=self.source)
+
+    def test_rejects_test_merge_with_extra_path(self) -> None:
+        extra = self.repo / "scenarios" / "unexpected" / "app.py"
+        extra.parent.mkdir(parents=True)
+        extra.write_text("not allowed in test merge\n", encoding="utf-8")
+        git(self.repo, "add", "scenarios/unexpected/app.py")
+        merge_tree = git(self.repo, "write-tree")
+        bad_merge = self.commit_tree(merge_tree, self.initial, self.head)
+        git(self.repo, "switch", "-q", "--detach", bad_merge)
+        event = {
+            "pull_request": {
+                "base": {"ref": "integration/pentest-bootstrap", "sha": self.initial,
+                         "repo": {"full_name": "owner/project"}},
+                "head": {"ref": "feat/pentest-runtime-fix", "sha": self.head,
+                         "repo": {"full_name": "owner/project"}},
+            }
+        }
+        env = {
+            "GITHUB_ACTIONS": "true", "GITHUB_EVENT_NAME": "pull_request",
+            "GITHUB_REPOSITORY": "owner/project", "GITHUB_SHA": bad_merge,
+        }
+        with self.assertRaises(bootstrap.BootstrapError):
+            bootstrap.verify_repository(
+                self.repo, self.initial, self.head, event=event, environment=env
+            )
+
     def test_rejects_pull_request_from_fork_and_wrong_refs(self) -> None:
         event = {
             "pull_request": {
                 "base": {"ref": "integration/pentest-bootstrap", "sha": self.initial,
                          "repo": {"full_name": "owner/project"}},
-                "head": {"ref": "feat/pentest-bootstrap", "sha": self.head,
+                "head": {"ref": "feat/pentest-runtime-fix", "sha": self.head,
                          "repo": {"full_name": "fork/project"}},
             }
         }
@@ -267,7 +364,7 @@ class VerifyTests(unittest.TestCase):
             "pull_request": {
                 "base": {"ref": "integration/pentest-bootstrap", "sha": self.initial,
                          "repo": {"full_name": "owner/project"}},
-                "head": {"ref": "feat/pentest-bootstrap", "sha": self.head,
+                "head": {"ref": "feat/pentest-runtime-fix", "sha": self.head,
                          "repo": {"full_name": "owner/project"}},
             }
         }
