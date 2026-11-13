@@ -23,7 +23,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "329c4ecf7f262c5c9c7218a2bfddf54cb637e63409a27a6acb6e7c78046583d7",
+      "source_sha256": "080d7084fb57bc694a4e473670f52e96ac574c2024aee592c22cbd6f77f7b18d",
       "graph_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -46,6 +46,10 @@
         {
           "path": "scenarios/c1-specialists-economy/evidences/neo-security-r2.md",
           "sha256": "cd6917d6b5db828469c338791cfc0db345ac34c1328f600e235ab3498ea05a01"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     },
@@ -62,7 +66,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "329c4ecf7f262c5c9c7218a2bfddf54cb637e63409a27a6acb6e7c78046583d7",
+      "source_sha256": "080d7084fb57bc694a4e473670f52e96ac574c2024aee592c22cbd6f77f7b18d",
       "graph_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -85,6 +89,10 @@
         {
           "path": "scenarios/c1-specialists-economy/evidences/neo-security-r2.md",
           "sha256": "cd6917d6b5db828469c338791cfc0db345ac34c1328f600e235ab3498ea05a01"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     },
@@ -101,7 +109,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "6933fead525fbffb318b4121a8eb5738f9bee04cb5a11f5d48e11b9911e8cbfe",
+      "source_sha256": "5a0347b8489b970861c437cdd0b925e7fe0471b840a2d42dd38414593a12e858",
       "graph_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -124,6 +132,10 @@
         {
           "path": "scenarios/c2-specialists-advanced/docs/evidencias/seguranca.md",
           "sha256": "8be5f5b88352561c5b454cda1bd0ad3a027dbde4cbe3e279ae8672829ad25446"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     },
@@ -140,7 +152,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "6933fead525fbffb318b4121a8eb5738f9bee04cb5a11f5d48e11b9911e8cbfe",
+      "source_sha256": "5a0347b8489b970861c437cdd0b925e7fe0471b840a2d42dd38414593a12e858",
       "graph_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -163,6 +175,10 @@
         {
           "path": "scenarios/c2-specialists-advanced/docs/evidencias/seguranca.md",
           "sha256": "8be5f5b88352561c5b454cda1bd0ad3a027dbde4cbe3e279ae8672829ad25446"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     },
@@ -179,7 +195,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "cdfebf756bea0238a2bc8525710f408e6b3207c9a5409fe76f8992201cf6ea13",
+      "source_sha256": "6ee8af9775d085caa70888c68ba6204cebb2cd8b1d62bd40978f68d6ae8cd0bb",
       "graph_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -206,6 +222,10 @@
         {
           "path": "experiment/evaluation/a002-c3-context.json",
           "sha256": "8330604edc1335ae72ad8f81a08668e8919fd43ac642ec61ee30841ad53f4948"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     },
@@ -222,7 +242,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "cdfebf756bea0238a2bc8525710f408e6b3207c9a5409fe76f8992201cf6ea13",
+      "source_sha256": "6ee8af9775d085caa70888c68ba6204cebb2cd8b1d62bd40978f68d6ae8cd0bb",
       "graph_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -249,6 +269,10 @@
         {
           "path": "experiment/evaluation/a002-c3-context.json",
           "sha256": "8330604edc1335ae72ad8f81a08668e8919fd43ac642ec61ee30841ad53f4948"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     },
@@ -265,7 +289,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "0cb71dbe587e8c52242abb4933819091f118074d792fafdef34580c6cb7f339a",
+      "source_sha256": "c8074486ef6a84d68ffe1c88b51d0f96cc46573629230d67c0df0fb8da9aa9b2",
       "graph_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
       "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
       "evidence": [
@@ -292,6 +316,10 @@
         {
           "path": "scenarios/c4-manager-advanced/evidence/contract-repair-security.md",
           "sha256": "ed5b49a52e89cb0e5cd811f85b7fe20d3c49bf6f2c37f91fa4f8b0daa1249a46"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     },
@@ -308,7 +336,7 @@
       "status": "active",
       "issued_at": "2026-11-12T17:53:31Z",
       "expires_at": "2026-12-12T17:53:31Z",
-      "source_sha256": "0cb71dbe587e8c52242abb4933819091f118074d792fafdef34580c6cb7f339a",
+      "source_sha256": "c8074486ef6a84d68ffe1c88b51d0f96cc46573629230d67c0df0fb8da9aa9b2",
       "graph_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787",
       "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
       "evidence": [
@@ -335,6 +363,10 @@
         {
           "path": "scenarios/c4-manager-advanced/evidence/contract-repair-security.md",
           "sha256": "ed5b49a52e89cb0e5cd811f85b7fe20d3c49bf6f2c37f91fa4f8b0daa1249a46"
+        },
+        {
+          "path": "experiment/evaluation/pentest-runtime-policy-security.md",
+          "sha256": "f18b9508f547f23c9bf14d17e3b2616d0697b152f1875f8251de9563dc4c79ec"
         }
       ]
     }
