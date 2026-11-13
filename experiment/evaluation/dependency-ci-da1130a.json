@@ -1,0 +1,403 @@
+{
+  "schema_version": 1,
+  "observed_at": "2026-11-13T02:08:40.328651+00:00",
+  "source_commit": "da1130af207413f01cec6930b52bf9b3fa59eed4",
+  "merge_commit": "a5e37061510e728cb858ea033da5135e5f87d8db",
+  "audit_run_id": 43349371614,
+  "quick_ci_run_id": 43349371555,
+  "artifact_id": 14003476702,
+  "artifact_name": "auditoria-dependencias-5d1815f3fdd2dadd9f9602640625683b3f018658",
+  "artifact_report_sha256": "56cb2e7793b2c5b9a851da714cc6bfb33fd961ffeca09dc4028b5d192a771079",
+  "scope": "Gate de dependências no head do PR26; nome do artefato contém merge de teste GitHub, não SHA candidato. Não comprova A1, promoção ou ausência global de vulnerabilidades.",
+  "report": {
+    "schema_version": 1,
+    "scanner": "OSV-Scanner 2.7.0",
+    "sources": [
+      {
+        "scenario": "C1",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c1-specialists-economy/backend",
+        "package_count": 119,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c1-specialists-economy/evidences/neo-security-r2.md",
+                "sha256": "cd6917d6b5db828469c338791cfc0db345ac34c1328f600e235ab3498ea05a01"
+              }
+            ]
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c1-specialists-economy/evidences/neo-security-r2.md",
+                "sha256": "cd6917d6b5db828469c338791cfc0db345ac34c1328f600e235ab3498ea05a01"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scenario": "C1",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c1-specialists-economy/frontend",
+        "package_count": 145,
+        "findings": []
+      },
+      {
+        "scenario": "C2",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c2-specialists-advanced/backend",
+        "package_count": 140,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c2-specialists-advanced/docs/evidencias/seguranca.md",
+                "sha256": "8be5f5b88352561c5b454cda1bd0ad3a027dbde4cbe3e279ae8672829ad25446"
+              }
+            ]
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c2-specialists-advanced/docs/evidencias/seguranca.md",
+                "sha256": "8be5f5b88352561c5b454cda1bd0ad3a027dbde4cbe3e279ae8672829ad25446"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scenario": "C2",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c2-specialists-advanced/frontend",
+        "package_count": 71,
+        "findings": []
+      },
+      {
+        "scenario": "C3",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c3-manager-economy/backend",
+        "package_count": 121,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c3-manager-economy/docs/evidences/neo.md",
+                "sha256": "fe6e619f5fc301b6fd103281a6a8cebf83cc8f43387a59851b68ca610f1964a9"
+              },
+              {
+                "path": "experiment/evaluation/a002-c3-context.json",
+                "sha256": "8330604edc1335ae72ad8f81a08668e8919fd43ac642ec61ee30841ad53f4948"
+              }
+            ]
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c3-manager-economy/docs/evidences/neo.md",
+                "sha256": "fe6e619f5fc301b6fd103281a6a8cebf83cc8f43387a59851b68ca610f1964a9"
+              },
+              {
+                "path": "experiment/evaluation/a002-c3-context.json",
+                "sha256": "8330604edc1335ae72ad8f81a08668e8919fd43ac642ec61ee30841ad53f4948"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scenario": "C3",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c3-manager-economy/frontend",
+        "package_count": 176,
+        "findings": []
+      },
+      {
+        "scenario": "C4",
+        "ecosystem": "Maven",
+        "manifest": "scenarios/c4-manager-advanced/backend",
+        "package_count": 140,
+        "findings": [
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-j9f9-w8pj-32f8",
+            "advisory_sha256": "9ce056d8bc6297dd2d8d3500e8750b152958f22f8e9622f274bc9416a6455f53",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c4-manager-advanced/evidence/security-review.md",
+                "sha256": "56696352956e0356dda49fdb40725d6aa8b03a2b7c441b1b7e3bfd67e21e1f0a"
+              },
+              {
+                "path": "scenarios/c4-manager-advanced/evidence/contract-repair-security.md",
+                "sha256": "ed5b49a52e89cb0e5cd811f85b7fe20d3c49bf6f2c37f91fa4f8b0daa1249a46"
+              }
+            ]
+          },
+          {
+            "package": "org.springframework:spring-webmvc",
+            "version": "6.2.19",
+            "advisory": "GHSA-pc63-qcmh-9cmg",
+            "advisory_sha256": "83d7a84aa6ec2996584950dc6163ec6a42f7cb002d92bafb95587f6880df57d6",
+            "severity": "CRITICAL",
+            "triage": "aplicada",
+            "decision": "not_reachable_in_reviewed_snapshot",
+            "decision_status": "active",
+            "reviewer": "neo",
+            "risk_residual": "Spring WebMVC 6.2.19 permanece afetado. A decisão proposta depende da ausência das pré-condições no snapshot revisado, não corrige a biblioteca e não aprova segurança global. Mudança de código, configuração, grafo ou advisory e expiração reabrem o bloqueio; a severidade OSV CRITICAL é preservada.",
+            "evidence": [
+              {
+                "path": "experiment/evaluation/a002-current-reachability.md",
+                "sha256": "4dda1217cacd63150e3c4380547d21d84f9f9e7327eeda0714fa61e3fc55d61f"
+              },
+              {
+                "path": "experiment/evaluation/security-completion-audit.md",
+                "sha256": "fee4cf8bf0f008698aa2f0ef8b7eaee07f376be59fd74779b01ae34862564b01"
+              },
+              {
+                "path": "experiment/amendments/002-transitive-baseline.json",
+                "sha256": "e477300a9991a4a5241212bb47ed3bb05229fce2015071b318bc5f78efabaebc"
+              },
+              {
+                "path": "experiment/evaluation/dependency-advisories/manifest.json",
+                "sha256": "ad76a5cf5b33399a1b46cfd26e485cac0ec5f8b6455c988819e07adbc3659f96"
+              },
+              {
+                "path": "scenarios/c4-manager-advanced/evidence/security-review.md",
+                "sha256": "56696352956e0356dda49fdb40725d6aa8b03a2b7c441b1b7e3bfd67e21e1f0a"
+              },
+              {
+                "path": "scenarios/c4-manager-advanced/evidence/contract-repair-security.md",
+                "sha256": "ed5b49a52e89cb0e5cd811f85b7fe20d3c49bf6f2c37f91fa4f8b0daa1249a46"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "scenario": "C4",
+        "ecosystem": "npm",
+        "manifest": "scenarios/c4-manager-advanced/frontend",
+        "package_count": 106,
+        "findings": []
+      },
+      {
+        "scenario": "avaliador Python",
+        "ecosystem": "PyPI",
+        "manifest": "benchmark/requirements.txt",
+        "package_count": 2,
+        "findings": []
+      }
+    ],
+    "status": "passed",
+    "snapshot_authorization": {
+      "status": "active",
+      "trusted_sha": "4735d70d4e55535fca7335b6e4807d7c756b7451",
+      "policy_sha256": "8530c564ed3c0823575515173ee1525c09bb026af4f42338e609a9965d3d4ea5",
+      "scanner_sha256": "160c6253e2922e9e0a6a9771c5c4c40a4b3c6090b34a3cdd5e80c96cc2e4218b",
+      "sources": [
+        {
+          "scenario": "C1",
+          "source_sha256": "329c4ecf7f262c5c9c7218a2bfddf54cb637e63409a27a6acb6e7c78046583d7",
+          "graph_sha256": "37741ac746080dfa8b26ef37732299da4914ecda5fe447df533400c2fd53844d"
+        },
+        {
+          "scenario": "C2",
+          "source_sha256": "6933fead525fbffb318b4121a8eb5738f9bee04cb5a11f5d48e11b9911e8cbfe",
+          "graph_sha256": "632766885f2b7783f2db1ecd6b82b632c08a2e4ef8d0700d9209bc6030c0f701"
+        },
+        {
+          "scenario": "C3",
+          "source_sha256": "cdfebf756bea0238a2bc8525710f408e6b3207c9a5409fe76f8992201cf6ea13",
+          "graph_sha256": "d0cb4939c44d6a9c74a166d78c9ce5c49b82aff91ff1a3db8f8314c833c3b294"
+        },
+        {
+          "scenario": "C4",
+          "source_sha256": "0cb71dbe587e8c52242abb4933819091f118074d792fafdef34580c6cb7f339a",
+          "graph_sha256": "174580aed141a89a2c2a28bf2b20ca78b19e72be0fcdc075ffbecc80937c4787"
+        }
+      ]
+    },
+    "untriaged_high_critical": []
+  }
+}

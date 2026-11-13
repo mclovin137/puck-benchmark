@@ -14,7 +14,7 @@
 
 ## v0.3 — Avaliação
 1. Aceite externo comum: C1–C3 aprovados em 11/11; C4 aprovado em 12/11 após correção (#20), 16+4 casos por cenário. Evidência nova aguardando integração.
-2. Arquitetura independente publicada; auditorias de suficiência de segurança/QA em consolidação. Pentest A1 e triagem final pendentes.
+2. Arquitetura independente publicada; auditorias de suficiência de segurança/QA em consolidação. Pentest A1 e triagem final pendentes. Auditoria comum de dependências integrada no PR #26, com nove fontes aprovadas no head `da1130a` sob decisões restritas ao snapshot; CI completa e A1 permanecem pendentes.
 3. Validar operação, interface e demonstrações.
 4. Consolidar métricas, desvios e comparação — snapshot de continuidade em preparação; perdas de telemetria e cobrança desconhecida preservadas.
 5. Preparar promoção com evidências e gates.
