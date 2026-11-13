@@ -1,5 +1,11 @@
 # Roadmap da preparação
 
+## v0.1.1 — autorização por job ativo — lançado no conteúdo da promoção
+
+1. Admitir na dev a correção e os testes da autorização por cenário.
+2. Importar somente o delta revisado, com origem e baseline fixados, revisão Neo e gates A0 no patch.
+3. Promover a infraestrutura para main; tag após merge e CI verde. A integração posterior na dev renova os gates do candidato; A1 depende de novo acionamento/aprovação do dono.
+
 ## v0.1.0 — base confiável de pentest — lançado
 
 1. Infraestrutura e integridade integradas pelo PR #30: 16 imports preservados, árvore sem aplicações e contrato de bootstrap.
@@ -7,3 +13,5 @@
 3. Esta versão preparatória é o conteúdo da promoção para main. A tag só é criada após merge e CI verde na main; a integração posterior das aplicações preserva A1 e triagem.
 
 O escopo funcional do experimento não mudou. A1, environment, imagens e aprovação do dono continuam pendentes; esta versão não os dá como concluídos.
+
+O marcador v0.1.1 descreve o conteúdo preparado para a promoção. A entrega só se efetiva após merge, CI verde na main e tag; nenhuma anotação substitui esses gates ou aprova A1.
